@@ -4,50 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f02af7fc-d832-4b00-ba3a-5069978ed4d0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/easycode.ignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/base/BaseAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/base/BaseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/constants/StatusCodes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/payloads/LoginPayload.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/payloads/ProductPayload.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/routes/Routes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/services/AuthService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/services/CartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/services/ProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/utils/ConfigReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/main/java/api/utils/TokenManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/test/java/apitests/CartAPITest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/test/java/apitests/LoginAPITest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend-restassured-java/src/test/java/apitests/ProductAPITest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/constants/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/flows/AuthFlow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/flows/CheckoutFlow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/flows/ProductFlow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/managers/DriverManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/managers/PageManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/pages/CartPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/pages/CheckoutPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/pages/LoginPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/pages/ProductPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/utils/ConfigReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/utils/FakerUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/utils/ScreenshotUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/main/java/utils/WaitUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/test/java/base/BasePage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/test/java/base/BaseTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/test/java/uitests/Auth/LoginTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/test/java/uitests/Auth/RegisterTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/test/java/uitests/Auth/logoutTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/test/java/uitests/CartTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/test/java/uitests/CheckoutTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-playwright-java/src/test/java/uitests/ProductTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-    </list>
+    <list default="true" id="f02af7fc-d832-4b00-ba3a-5069978ed4d0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
