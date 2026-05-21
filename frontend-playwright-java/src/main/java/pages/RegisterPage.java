@@ -12,6 +12,7 @@ public class RegisterPage {
     public final Locator passwordFld;
     public final Locator registerBtn;
 
+
     public RegisterPage(Page page){
         this.page = page;
         this.firstNameFld = page.locator("input[placeholder='John']");
@@ -30,5 +31,27 @@ public class RegisterPage {
         registerBtn.click();
         page.waitForURL("**/home");
         return new HomePage(page);
+    }
+
+    public void registerWithEmptyFld(){
+        firstNameFld.fill("");
+        secondNameFld.fill(Data.LastName);
+        emailFld.fill(Data.EMAIL);
+        passwordFld.fill(Data.PASSWORD);
+        registerBtn.click();
+        page.waitForTimeout(500);
+    }
+
+    public void registerWithInvEml(){
+        firstNameFld.fill(Data.FirstName);
+        secondNameFld.fill(Data.LastName);
+        emailFld.fill(Data.invEmail);
+        passwordFld.fill(Data.PASSWORD);
+        registerBtn.click();
+        page.waitForTimeout(500);
+    }
+
+    public String getErrorMsg(){
+        return firstNameFld.evaluate("el => el.validationMessage").toString();
     }
 }

@@ -11,4 +11,6 @@ public class Data {
     public static final String PASSWORD = "John" + System.currentTimeMillis();
     public static final String loginEmail = "admi@thinkandgetit.com";
     public static final String loginPassword = "Admin@12345";
+    public static final String invEmail = "admi@thinkandgetit";
+    public static final String emptyFldErrMsg = "Please fill out this field.";
 }
