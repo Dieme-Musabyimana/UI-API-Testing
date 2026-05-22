@@ -1,6 +1,7 @@
 package uitests.Auth;
 
 import base.BaseTest;
+import constants.Assertions;
 import constants.Data;
 import flows.AuthFlow;
 import org.testng.Assert;
@@ -23,12 +24,14 @@ public class RegisterTest extends BaseTest {
     @Test
     public void registerWithEmptyFldTest(){
         pages.getMainPage().goToRegisterPage().registerWithEmptyFld();
-        Assert.assertEquals(pages.getRegisterPage().getErrorMsg(), Data.emptyFldErrMsg);
-        System.out.println(pages.getRegisterPage().getErrorMsg());
+        Assert.assertEquals(pages.getRegisterPage().getErrorMsg(), Assertions.emptyFldErrMsg);
     }
     @Test
     public void registerWithInvEmail(){
         pages.getMainPage().goToRegisterPage().registerWithInvEml();
+        Assert.assertTrue(page.url().contains("register"));
+        Assert.assertEquals(page.url(), Data.URL, "The User was supposed to remain at register page as he used invalid email(email without .com)");
+
     }
 
 }

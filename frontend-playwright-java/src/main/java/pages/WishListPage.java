@@ -1,13 +1,20 @@
 package pages;
 
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import managers.PageManager;
 
 public class WishListPage {
-    private PageManager pages;
+    private Page page;
+    private final Locator wishListPageHeading;
 
     public WishListPage(Page page){
-        this.pages = new PageManager(page);
+        this.page = page;
+        this.wishListPageHeading = page.locator(".font-display.font-bold.text-3xl.text-white");
+    }
+
+    public String getWishListHeading(){
+        return wishListPageHeading.textContent();
+
     }
 
 

@@ -6,7 +6,9 @@ import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
+import constants.Assertions;
 import constants.Data;
+import constants.Locators;
 import managers.PageManager;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,6 +20,8 @@ public class BaseTest {
     protected BrowserContext context;
     protected Page page;
     protected PageManager pages;
+    protected Locators locators;
+    protected Assertions assertions;
 
     @BeforeMethod
     public void setUp(){
@@ -27,6 +31,8 @@ public class BaseTest {
         page = context.newPage();
         page.navigate(Data.URL);
         this.pages = new PageManager(page);
+        this.locators = new Locators(page);
+        this.assertions = new Assertions(this.locators);
     }
 
     @AfterMethod

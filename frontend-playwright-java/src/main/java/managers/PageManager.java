@@ -9,10 +9,11 @@ public class PageManager {
     private LoginPage loginPage;
     private HomePage homePage;
     private RegisterPage registerPage;
-    private ProductPage productPage;
+    private ShopPage shopPage;
     private FlashPage flashPage;
     private FeaturePage featurePage;
     private WishListPage wishListPage;
+    private ProductPage productPage;
 
     public PageManager(Page page) {
         this.page = page;
@@ -46,11 +47,11 @@ public class PageManager {
         return registerPage;
     }
 
-    public ProductPage getProductPage() {
-        if (productPage == null){
-            productPage = new ProductPage(page);
+    public ShopPage getShopPage() {
+        if (shopPage == null){
+            shopPage = new ShopPage(page);
         }
-        return productPage;
+        return shopPage;
     }
     public FlashPage getFlashPage(){
         if (flashPage == null){
@@ -71,5 +72,11 @@ public class PageManager {
             wishListPage = new WishListPage(page);
         }
         return wishListPage;
+    }
+    public ProductPage getProductPage(){
+        if (productPage == null){
+            productPage = new ProductPage();
+        }
+        return productPage;
     }
 }
