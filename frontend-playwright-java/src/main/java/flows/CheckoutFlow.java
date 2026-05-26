@@ -14,15 +14,20 @@ public class CheckoutFlow {
 
     public CheckoutPage goToCheckout(){
 
-        return addToCartFlow.addToCartFromProductPage().goToCheckout().clickContinueToPayment().selectMobileMoney().clickReviewOrder();
+        return addToCartFlow.addToCartFromProductPage().goToCheckout();
     }
 
     public CheckoutPage placeOderWithNoAddress(){
-        return goToCheckout().clickPlaceOrder();
+        return goToCheckout().clickContinueToPayment().selectMobileMoney().clickReviewOrder()
+                .clickPlaceOrder();
     }
 
     public CheckoutPage placeOrderWithAddress(){
-
+    return goToCheckout()
+            .addNewAddress()
+            .clickContinueToPayment()
+            .enterOrderNotes().clickReviewOrder()
+            .clickPlaceOrder();
     }
 
 }

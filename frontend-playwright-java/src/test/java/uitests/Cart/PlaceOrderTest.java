@@ -24,4 +24,9 @@ public class PlaceOrderTest extends BaseTest {
         Assert.assertTrue(page.locator(Assertions.ORDER_SUCCESS_MESSAGE).first().isVisible(), "Order success message should be visible");
 
     }
+
+    @Test
+    public void placeOrderWithAddress(){
+        checkoutFlow.placeOrderWithAddress();
+    }
 }

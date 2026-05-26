@@ -117,8 +117,21 @@ public class CheckoutPage {
         return new CheckoutPage(page);
     }
 
-
-    public CheckoutPage enterOrderNotes(String notes) {
+    public CheckoutPage addNewAddress(){
+        addNewAddressField.click();
+        firstNameInput.fill(Data.ADDRESS_FIRST_NAME);
+        lastNameInput.fill(Data.ADDRESS_LAST_NAME);
+        phoneNumberInput.fill(Data.PHONE_NUMBER);
+        streetAddressInput.fill(Data.STREET_ADDRESS);
+        cityInput.fill(Data.CITY);
+        stateRegionInput.fill(Data.STATE_REGION);
+        countryInput.fill(Data.COUNTRY);
+        postalCodeInput.fill(Data.POSTAL_CODE);
+        setAsDefaultCheckbox.click();
+        saveAddressBtn.click();
+        return new CheckoutPage(page);
+    }
+    public CheckoutPage enterOrderNotes() {
         this.orderNotesTextArea.fill(Data.ORDER_NOTES);
         return this;
     }
