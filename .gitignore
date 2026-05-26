@@ -2,7 +2,7 @@
 # TEMPORARY EXCLUSIONS
 # ==========================================
 # Remove this line whenever you are ready to start pushing your API test suite
-backend-restassured-java/
+frontend-playwright-java/
 
 # ==========================================
 # BUILD OUTPUTS & BINARIES
