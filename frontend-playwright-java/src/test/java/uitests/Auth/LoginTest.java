@@ -1,7 +1,6 @@
 package uitests.Auth;
 
 import base.BaseTest;
-import constants.Data;
 import flows.AuthFlow;
 import org.testng.Assert;
 import org.testng.annotations.Test;

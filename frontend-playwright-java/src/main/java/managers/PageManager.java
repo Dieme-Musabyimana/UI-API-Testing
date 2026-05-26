@@ -1,7 +1,6 @@
 package managers;
 
 import com.microsoft.playwright.Page;
-import constants.Locators;
 import pages.*;
 
 public class PageManager {
