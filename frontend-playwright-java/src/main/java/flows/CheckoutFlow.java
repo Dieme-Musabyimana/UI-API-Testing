@@ -4,30 +4,31 @@ import managers.PageManager;
 import pages.CheckoutPage;
 
 public class CheckoutFlow {
-    AddToCartFlow addToCartFlow;
+    private final AddToCartFlow addToCartFlow;
 
-
-    public CheckoutFlow(PageManager pages){
+    public CheckoutFlow(PageManager pages) {
         this.addToCartFlow = new AddToCartFlow(pages);
-
     }
 
-    public CheckoutPage goToCheckout(){
-
+    public CheckoutPage goToCheckout() {
         return addToCartFlow.addToCartFromProductPage().goToCheckout();
     }
 
-    public CheckoutPage placeOderWithNoAddress(){
-        return goToCheckout().clickContinueToPayment().selectMobileMoney().clickReviewOrder()
+    public CheckoutPage placeOderWithNoNewAddress() {
+        return goToCheckout()
+                .clickContinueToPayment()
+                .selectMobileMoney()
+                .clickReviewOrder()
                 .clickPlaceOrder();
     }
 
-    public CheckoutPage placeOrderWithAddress(){
-    return goToCheckout()
-            .addNewAddress()
-            .clickContinueToPayment()
-            .enterOrderNotes().clickReviewOrder()
-            .clickPlaceOrder();
+    public CheckoutPage placeOrderWithNewAddress() {
+        return goToCheckout()
+                .addNewAddress()
+                .clickContinueToPayment()
+                .selectMobileMoney()
+                .clickReviewOrder()
+                .clickPlaceOrder();
     }
 
 }

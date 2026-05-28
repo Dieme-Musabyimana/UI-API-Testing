@@ -42,4 +42,10 @@ public class BaseTest {
         if(browser != null){ browser.close(); }
         if(playwright != null){ playwright.close(); }
     }
+
+    public Page getPage() {
+        return this.page;
+    }
+
+
 }

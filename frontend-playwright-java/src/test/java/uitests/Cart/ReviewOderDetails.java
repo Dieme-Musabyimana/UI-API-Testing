@@ -1,6 +1,5 @@
 package uitests.Cart;
 
-import api.base.BaseAPI;
 import base.BaseTest;
 import constants.Data;
 import flows.CheckoutFlow;

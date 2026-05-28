@@ -6,27 +6,30 @@ import flows.CheckoutFlow;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.CheckoutPage;
 
 public class PlaceOrderTest extends BaseTest {
     CheckoutFlow checkoutFlow;
+    CheckoutPage checkoutPage;
 
     @BeforeMethod
     public void setCheckoutFlow(){
         this.checkoutFlow = new CheckoutFlow(pages);
+        this.checkoutPage = new CheckoutPage(page);
     }
 
     @Test
 
-    public void placeOrderWithNoAddress(){
-        checkoutFlow.placeOderWithNoAddress();
-        System.out.println("<<<<<<<<<<<" + (page.locator(Assertions.ORDER_SUCCESS_MESSAGE).textContent()));
-
-        Assert.assertTrue(page.locator(Assertions.ORDER_SUCCESS_MESSAGE).first().isVisible(), "Order success message should be visible");
+    public void placeOrderWithExistingAddress(){
+        checkoutFlow.placeOderWithNoNewAddress();
+        Assert.assertTrue(checkoutPage.getOrderSuccessMesage().contains(Assertions.ORDER_SUCCESS_MESSAGE));
 
     }
 
     @Test
-    public void placeOrderWithAddress(){
-        checkoutFlow.placeOrderWithAddress();
+    public void placeOrderWithNewAddress(){
+        checkoutFlow.placeOrderWithNewAddress();
+        Assert.assertTrue(checkoutPage.getOrderSuccessMesage().contains(Assertions.ORDER_SUCCESS_MESSAGE));
+
     }
 }
