@@ -142,6 +142,25 @@ public class CheckoutPage {
 
         return this;
     }
+    public CheckoutPage addNewAddressWithEmptyFields() {
+        addNewAddressField.click();
+        firstNameInput.fill(" ");
+        lastNameInput.fill(" ");
+        phoneNumberInput.fill(Data.PHONE_NUMBER);
+        streetAddressInput.fill(Data.STREET_ADDRESS);
+        cityInput.fill(Data.CITY);
+        stateRegionInput.fill(Data.STATE_REGION);
+        countryInput.fill(Data.COUNTRY);
+        postalCodeInput.fill(Data.POSTAL_CODE);
+        saveAddressBtn.click();
+
+        String combinedNameText = Data.ADDRESS_FIRST_NAME + " " + Data.ADDRESS_LAST_NAME;
+        page.locator("text=" + combinedNameText).first().waitFor();
+
+        return this;
+    }
+
+
 
     public CheckoutPage fillOrderNotes(String notes) {
         // Ensure textarea has completely mounted and displayed post radio option click

@@ -31,4 +31,14 @@ public class CheckoutFlow {
                 .clickPlaceOrder();
     }
 
+
+    public CheckoutPage placeOderWithSomeEmpyOderDetailsField(){
+      return goToCheckout().addNewAddressWithEmptyFields()
+                .clickContinueToPayment()
+                .selectMobileMoney()
+                .clickReviewOrder()
+                .clickPlaceOrder();
+
+    }
+
 }

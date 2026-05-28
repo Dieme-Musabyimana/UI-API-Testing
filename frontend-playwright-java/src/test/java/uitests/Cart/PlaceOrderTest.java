@@ -32,4 +32,12 @@ public class PlaceOrderTest extends BaseTest {
         Assert.assertTrue(checkoutPage.getOrderSuccessMesage().contains(Assertions.ORDER_SUCCESS_MESSAGE));
 
     }
+
+    @Test
+    public void placeOderWithSomeEmptyFields(){
+    checkoutFlow.placeOderWithSomeEmpyOderDetailsField();
+        Assert.assertFalse(checkoutPage.getOrderSuccessMesage().contains(Assertions.ORDER_SUCCESS_MESSAGE));
+
+
+    }
 }
