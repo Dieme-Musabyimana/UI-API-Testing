@@ -23,7 +23,7 @@ public class UpdateUserProfileAPITest extends BaseAPI {
         UserService userService = new UserService();
         Response response = userService.loginAndUpdateProfile();
 
-        Assert.assertFalse(response.jsonPath().getBoolean("success"));
+        Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expectations.PROFILE_UPDATED);
 
 

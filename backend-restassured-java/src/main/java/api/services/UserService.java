@@ -24,6 +24,6 @@ public class UserService extends BaseService {
         registerReqPOJO.setFirstName(FakerUtils.getFirstName());
         registerReqPOJO.setLastName(FakerUtils.getLastName());
         registerReqPOJO.setPhone(FakerUtils.getPhone());
-        sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, token);
+        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, token);
     }
 }
