@@ -73,4 +73,16 @@ public class BaseService {
                 .extract()
                 .response();
     }
+    protected Response sendPutWithAuth(String endpoint, Object body, String token) {
+        return given()
+                .spec(getRequestSpec())
+                .header("Authorization", "Bearer " + token)
+                .body(body)
+                .when()
+                .put(endpoint)
+                .then().log().all()
+                .extract()
+                .response();
+}
+
 }

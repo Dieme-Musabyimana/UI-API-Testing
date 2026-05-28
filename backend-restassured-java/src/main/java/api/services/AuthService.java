@@ -2,13 +2,11 @@ package api.services;
 
 import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
-import api.POJOs.responsePOJO.registerResPOJO.LoginResPOJO;
 import api.POJOs.responsePOJO.registerResPOJO.RegisterResPOJO;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.ConfigReader;
-import com.beust.ah.A;
 import io.restassured.response.Response;
 
 import java.util.Map;

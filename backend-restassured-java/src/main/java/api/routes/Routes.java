@@ -10,5 +10,7 @@ public class Routes {
     public static final String FORGOT_PASSWORD = "/auth/forgot-password";
     public static final String VERIFY_EMAIL = "/auth/verify-email/";
     public static final String RESET_PASSWORD = "/auth/reset-password/{token}";
+
+    public static final String UPDATE_PROFILE = "/users/profile";
 }
 
