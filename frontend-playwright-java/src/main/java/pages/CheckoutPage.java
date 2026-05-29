@@ -8,7 +8,6 @@ import constants.Data;
 public class CheckoutPage {
     private final Page page;
 
-    // --- Summary & Universal Controls ---
     private final Locator continueToCheckoutBtn;
     private final Locator grandTotalPrice;
     private final Locator shippingPrice;
@@ -16,7 +15,6 @@ public class CheckoutPage {
     private final Locator orderSummaryContainer;
     private final Locator addNewAddressField;
 
-    // --- Address Form Inputs ---
     private final Locator firstNameInput;
     private final Locator lastNameInput;
     private final Locator phoneNumberInput;
@@ -29,7 +27,6 @@ public class CheckoutPage {
     private final Locator saveAddressBtn;
     private final Locator cancelAddressBtn;
 
-    // --- Payment Step Component Locators ---
     private final Locator bankTransferRadioOption;
     private final Locator mobileMoneyRadioOption;
     private final Locator orderNotesTextArea;
@@ -43,7 +40,6 @@ public class CheckoutPage {
     public CheckoutPage(Page page) {
         this.page = page;
 
-        // --- Summary & Universal Initialization ---
         this.continueToCheckoutBtn = page.locator("button.btn-primary:has-text('Payment')");
         this.addNewAddressField = page.locator("button.border-dashed");
         this.orderSummaryContainer = page.locator("div.lg\\:col-span-1");
@@ -51,7 +47,6 @@ public class CheckoutPage {
         this.shippingPrice = page.locator("div:has-text('Shipping') > span.text-brand-green");
         this.grandTotalPrice = page.locator("div:has-text('Total') > span.text-xl");
 
-        // --- Address Form Initialization ---
         this.firstNameInput = page.getByPlaceholder("First name");
         this.lastNameInput = page.getByPlaceholder("Last name");
         this.phoneNumberInput = page.getByPlaceholder("Phone number");
@@ -64,7 +59,6 @@ public class CheckoutPage {
         this.saveAddressBtn = page.locator("button:has-text('Save Address')");
         this.cancelAddressBtn = page.locator("form.card button:has-text('Cancel')");
 
-        // --- Payment Step Component Initialization ---
         this.bankTransferRadioOption = page.locator("label.card:has-text('Bank Transfer')");
         this.mobileMoneyRadioOption = page.locator("label.card:has-text('Mobile Money')");
         this.orderNotesTextArea = page.getByPlaceholder("Any special instructions...");
@@ -85,7 +79,6 @@ public class CheckoutPage {
     }
 
     public CheckoutPage selectMobileMoney() {
-        // Force explicit wait for element to settle in UI before clicking
         this.mobileMoneyRadioOption.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
         this.mobileMoneyRadioOption.click();
         return this;
@@ -163,7 +156,6 @@ public class CheckoutPage {
 
 
     public CheckoutPage fillOrderNotes(String notes) {
-        // Ensure textarea has completely mounted and displayed post radio option click
         this.orderNotesTextArea.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
         this.orderNotesTextArea.fill(notes);
         return this;

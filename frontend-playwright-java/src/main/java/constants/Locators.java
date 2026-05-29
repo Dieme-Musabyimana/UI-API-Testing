@@ -24,6 +24,7 @@ public class Locators {
     public final Locator checkoutBtn;
     public final Locator addToCartPopUP;
 
+
     public Locators(Page page) {
         this.page = page;
         this.loginBtn = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Sign in"));
@@ -45,6 +46,5 @@ public class Locators {
         this.addToCartPopUP = page.locator("div[class*='max-w-md']");
     }
 
-
-    }
+}
 
