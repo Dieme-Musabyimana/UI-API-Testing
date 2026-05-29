@@ -43,7 +43,7 @@ public class HomePage {
         this.shopNow = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Shop Now"));
         this.successMessage = page.locator(".go2072408551");
     }
-    public MainPage signOut(){
+    public pages.MainPage signOut(){
 
         usertIcn.click();
         logoutBtn.click();
@@ -55,17 +55,17 @@ public class HomePage {
         return pages.getHomePage();
     }
 
-    public ShopPage navigateShopPage(){
+    public pages.ShopPage navigateShopPage(){
         shopLink.click();
         return pages.getShopPage();
     }
 
-    public FlashPage navigatToFlashPage(){
+    public pages.FlashPage navigatToFlashPage(){
         flashLink.click();
         return pages.getFlashPage();
     }
 
-    public FeaturePage navigateToFeature(){
+    public pages.FeaturePage navigateToFeature(){
         featureLink.click();
         return pages.getFeaturePage();
     }
@@ -83,7 +83,7 @@ public class HomePage {
         return homePageHeader.textContent();
     }
 
-public ProductPage goToSingleProductPage(){
+public pages.ProductPage goToSingleProductPage(){
         locators.product.first().click();
         return pages.getProductPage();
 }

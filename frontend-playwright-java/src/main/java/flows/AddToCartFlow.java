@@ -7,12 +7,12 @@ import pages.ProductPage;
 
 public class AddToCartFlow {
     private final PageManager pages;
-    ProductDetailsFlow flow;
+    flows.ProductDetailsFlow flow;
 //    Page page = this.pages.getPage();
 
     public AddToCartFlow(PageManager pages){
         this.pages = pages;
-        flow = new ProductDetailsFlow(pages);
+        flow = new flows.ProductDetailsFlow(pages);
     }
 
     public ProductPage addToCartFromProductPage(){
