@@ -36,4 +36,7 @@ public class UserService extends BaseService {
         String token = authService.login().jsonPath().getString("data.token");
         return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar", token);
     }
+    public Response uploadWithoutLogin(File image){
+        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar", " "  );
+    }
 }
