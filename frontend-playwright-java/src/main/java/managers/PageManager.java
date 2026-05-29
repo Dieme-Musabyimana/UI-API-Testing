@@ -57,7 +57,7 @@ public class PageManager {
         if (flashPage == null){
             flashPage = new FlashPage(page);
         }
-        return new FlashPage(page);
+        return flashPage;
     }
 
     public FeaturePage getFeaturePage(){
@@ -75,7 +75,7 @@ public class PageManager {
     }
     public ProductPage getProductPage(){
         if (productPage == null){
-            productPage = new ProductPage();
+            productPage = new ProductPage(page);
         }
         return productPage;
     }

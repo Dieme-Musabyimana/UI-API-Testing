@@ -18,6 +18,12 @@ public class Locators {
     public final Locator productTitle;
     public final Locator productDescr;
     public final Locator addToCartBtn;
+    public final Locator color;
+    public final Locator size;
+    public final Locator vewCartBtn;
+    public final Locator checkoutBtn;
+    public final Locator addToCartPopUP;
+
 
     public Locators(Page page) {
         this.page = page;
@@ -33,8 +39,12 @@ public class Locators {
         this.product = page.locator("a:has-text('" + Data.productName + "')");
         this.productDescr = page.locator(".text-brand-text.text-sm.pb-4.leading-relaxed");
         this.addToCartBtn = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Add to Cart"));
+        this.color = page.locator("button[title]");
+        this.size = page.locator(".size-selector button, [class*='size'] button, [data-testid*='size']");
+        this.vewCartBtn = page.locator("a:has-text('View Cart')");
+        this.checkoutBtn = page.locator(".btn-primary.text-center.text-sm.py-3");
+        this.addToCartPopUP = page.locator("div[class*='max-w-md']");
     }
 
-
-    }
+}
 
