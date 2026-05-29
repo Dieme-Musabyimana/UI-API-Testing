@@ -12,9 +12,9 @@ public class UpdateUserProfileAPITest extends BaseAPI {
     @Test
     public void updateProfileWithoutToken(){
         UserService userService = new UserService();
-       Response response =  userService.fillUpdateInf();
+        Response response =  userService.fillUpdateInf();
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.NO_AUTHENTICATION);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.NO_AUTHENTICATION_ERROR);
 
     }
 
@@ -25,8 +25,6 @@ public class UpdateUserProfileAPITest extends BaseAPI {
 
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expectations.PROFILE_UPDATED);
-
-
 
     }
 

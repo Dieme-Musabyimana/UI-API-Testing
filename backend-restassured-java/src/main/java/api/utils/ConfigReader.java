@@ -32,4 +32,9 @@ public class ConfigReader {private static Properties properties;
     public static String getLoginEmail(){return getProperty("loginEmail");}
     public static String getLoginpsswd(){ return getProperty("loginPssd");}
     public static String getFilePath(){ return getProperty("filePath"); }
+    public static String getTempFilePath(){ return getProperty("tempFilePath"); }
+    public static String getTempFileName(){ return getProperty("tempFileName"); }
+    public static String getFormat(){ return getProperty("format"); }
+    public static String getTokenPath(){ return getProperty("tokenPath"); }
+
 }

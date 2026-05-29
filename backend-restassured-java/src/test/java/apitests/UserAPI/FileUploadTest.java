@@ -1,5 +1,6 @@
 package apitests.UserAPI;
 
+import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.AuthService;
 import api.services.UserService;
@@ -7,18 +8,28 @@ import api.utils.ConfigReader;
 import api.utils.Expectations;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-public class FileUploadTest {
+public class FileUploadTest extends BaseAPI {
+    AuthService authService;
+    UserService userService;
+    String token;
+    @BeforeMethod
+    public void setUp(){
+       this.authService = new AuthService();
+       this.userService = new UserService();
+       this.token = authService.login().jsonPath().getString(ConfigReader.getTokenPath());
+
+
+    }
 
     @Test
     public void uploadTest(){
-        UserService userService = new UserService();
         File testImage = new File(ConfigReader.getFilePath());
-        String token = new AuthService().login().jsonPath().getString("data.token");
 
         Response response = userService.uploadAvatar(testImage, token);
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
@@ -28,26 +39,26 @@ public class FileUploadTest {
 
     @Test
     public void uploadWithoutLoginTest(){
-        UserService userService = new UserService();
         File testImage = new File(ConfigReader.getFilePath());
         Response response = userService.uploadAvatar(testImage, " ");
         Assert.assertEquals(response.statusCode(), StatusCodes.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.NO_AUTHENTICATION);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.NO_AUTHENTICATION_ERROR);
 
 
     }
 
     @Test
-    public void uploadWithNoFileTest() throws IOException{
-        File tempEmptyFile = File.createTempFile("empty_avatar", ".png");
+    public void uploadWithEmptyFileTest() throws IOException{
+        File dir = new File(ConfigReader.getTempFilePath());
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File tempEmptyFile = File.createTempFile(ConfigReader.getTempFileName() ,ConfigReader.getFormat(),dir);
         tempEmptyFile.deleteOnExit();
-        String token = new AuthService().login().jsonPath().getString("data.token");
         Response response = new UserService().uploadAvatar(tempEmptyFile, token);
-        System.out.println("Response: " + response.asString());
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
-        Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        Assert.assertNull(response.jsonPath().getString("data.avatar"));
+        Assert.assertEquals(response.getStatusCode(), StatusCodes.BAD_REQUEST);
+        Assert.assertFalse(response.jsonPath().getBoolean("success"));
 
     }
 }
