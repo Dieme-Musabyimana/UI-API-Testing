@@ -35,8 +35,4 @@ public class ProductPage {
         locators.checkoutBtn.click();
         return new CheckoutPage(page);
     }
-
-//    public CheckoutPage clickAddTocart(){
-//
-//    }
 }
