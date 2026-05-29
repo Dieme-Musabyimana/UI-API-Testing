@@ -4,7 +4,7 @@ import api.services.UserService;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class changePasswordTest {
+public class ChangePasswordTest {
     UserService userService;
 
     @BeforeMethod
