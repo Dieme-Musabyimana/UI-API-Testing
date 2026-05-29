@@ -16,8 +16,7 @@ import java.util.Map;
 public class UserService extends BaseService {
     AuthService authService;
 
-    @BeforeMethod
-    public void setUp(){
+    public UserService(){
        this.authService = new AuthService();
     }
 
@@ -47,21 +46,42 @@ public class UserService extends BaseService {
     public String login2(){
         Map<String, String> loginBody = new HashMap<>();
         loginBody.put("email", ConfigReader.getLoginEmail2());
-        loginBody.put("password", ConfigReader.getLoginEmail2());
+        loginBody.put("password", ConfigReader.getLoginPassd2());
       Response response =  sendPost(Routes.LOGIN, loginBody);
       return response.jsonPath().getString(ConfigReader.getTokenPath());
 
     }
 
-    public Response changePassword(){
-        String token = login2();
+    public Response changePassword(String token){
         Map<String, String> updatedLoginBody = new HashMap<>();
-        updatedLoginBody.put("currentPassword", ConfigReader.getLoginpsswd());
+        updatedLoginBody.put("currentPassword", ConfigReader.getLoginPassd2());
         updatedLoginBody.put("newPassword", FakerUtils.getPassword());
-
         return sendPutWithAuth(Routes.CHANGE_PASSWORD, updatedLoginBody, token);
+    }
 
+    public Response getUserAddress(String token){
+        return sendGetWithAuth(Routes.ADDRESS, token);
+    }
 
+    public static Map<String, Object> getAddressPayload() {
+        Map<String, Object> addressBody = new HashMap<>();
+        addressBody.put("label", "Home");
+        addressBody.put("firstName", FakerUtils.getFirstName());
+        addressBody.put("lastName", FakerUtils.getLastName());
+        addressBody.put("phone", FakerUtils.getPhone());
+        addressBody.put("street", "KG 541 St");
+        addressBody.put("city", "Kigali");
+        addressBody.put("state", "Kigali City");
+        addressBody.put("country", "Rwanda");
+        addressBody.put("postalCode", "00000");
+        addressBody.put("isDefault", true);
+
+        return addressBody;
+    }
+
+    public Response addAddress(){
+        String token = authService.login().jsonPath().getString(ConfigReader.getTokenPath());
+        return sendPostWithAuth(Routes.ADDRESS,getAddressPayload(),token);
     }
 
 

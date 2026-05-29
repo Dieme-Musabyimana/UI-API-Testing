@@ -43,7 +43,7 @@ public class FileUploadTest extends BaseAPI {
         Response response = userService.uploadAvatar(testImage, " ");
         Assert.assertEquals(response.statusCode(), StatusCodes.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.NO_AUTHENTICATION_ERROR);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AUTHENTICATION_ERROR);
 
 
     }

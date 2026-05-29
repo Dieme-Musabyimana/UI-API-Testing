@@ -28,7 +28,6 @@ public class ConfigReader {private static Properties properties;
         return getProperty("baseUri");
     }
     public static String getTestEmail(){ return getProperty("email"); }
-    public static String getSuccessMessage(){return getProperty("passedEmailVerificationMessage");}
     public static String getLoginEmail(){return getProperty("loginEmail");}
     public static String getLoginpsswd(){ return getProperty("loginPssd");}
     public static String getFilePath(){ return getProperty("filePath"); }

@@ -42,6 +42,7 @@ public class BaseService {
                 .extract()
                 .response();
     }
+
     protected Response sendPatch(String endpoint, Object body) {
         return given()
                 .spec(getRequestSpec())
@@ -74,6 +75,7 @@ public class BaseService {
                 .extract()
                 .response();
     }
+
     protected Response sendPutWithAuth(String endpoint, Object body, String token) {
         return given()
                 .spec(getRequestSpec())
@@ -84,8 +86,9 @@ public class BaseService {
                 .then().log().all()
                 .extract()
                 .response();
-}
-    protected Response sendPostMultipartWithAuth(String endpoint, File file,  String controlName, String token) {
+    }
+
+    protected Response sendPostMultipartWithAuth(String endpoint, File file, String controlName, String token) {
         RequestSpecification request = given()
                 .spec(BaseAPI.getMultipartRequestSpec());
 
@@ -102,4 +105,17 @@ public class BaseService {
                 .response();
     }
 
+    protected Response sendPostWithAuth(String endpoint, Object body, String token) {
+        return given()
+                .spec(getRequestSpec())
+                .header("Authorization", "Bearer " + token)
+                .body(body)
+                .when()
+                .post(endpoint)
+                .then().log().all()
+                .extract()
+                .response();
+
+
+    }
 }
