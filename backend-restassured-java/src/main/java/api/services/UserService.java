@@ -7,6 +7,8 @@ import api.routes.Routes;
 import api.utils.FakerUtils;
 import io.restassured.response.Response;
 
+import java.io.File;
+
 public class UserService extends BaseService {
 
     public Response fillUpdateInf(){
@@ -25,5 +27,13 @@ public class UserService extends BaseService {
         registerReqPOJO.setLastName(FakerUtils.getLastName());
         registerReqPOJO.setPhone(FakerUtils.getPhone());
         return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, token);
+
+
+    }
+
+    public Response uploadAvatar(File image){
+        AuthService authService = new AuthService();
+        String token = authService.login().jsonPath().getString("data.token");
+        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar", token);
     }
 }

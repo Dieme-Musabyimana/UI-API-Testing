@@ -7,6 +7,7 @@ public class Expectations {
     public static final String Lastname = "Ntjvtwe";
     public static final String PROFILE_NOT_UPDATED = "Not authenticated. Please log in.";
     public static final String PROFILE_UPDATED = "Profile updated";
+    public static final String AVATAR_UPLOADED = "Avatar updated";
 
 
 }
