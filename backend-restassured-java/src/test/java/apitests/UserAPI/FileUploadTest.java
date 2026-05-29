@@ -28,7 +28,8 @@ public class FileUploadTest {
         File testImage = new File(ConfigReader.getFilePath());
         Response response = userService.uploadWithoutLogin(testImage);
         Assert.assertEquals(response.statusCode(), StatusCodes.UNAUTHORIZED);
-        Assert.assertEquals(response.jsonPath().getString("success"), Expectations.NO_AUTHENTICATION);
+        Assert.assertFalse(response.jsonPath().getBoolean("success"));
+        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.NO_AUTHENTICATION);
 
 
     }
