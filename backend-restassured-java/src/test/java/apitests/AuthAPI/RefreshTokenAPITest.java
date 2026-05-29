@@ -1,0 +1,19 @@
+package apitests.AuthAPI;
+
+import api.base.BaseAPI;
+import api.constants.StatusCodes;
+import api.services.AuthService;
+import io.restassured.response.Response;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class RefreshTokenAPITest extends BaseAPI {
+
+    @Test
+    public void getRefreshToken(){
+        AuthService authService = new AuthService();
+       Response response = authService.loginAndGetRefreshToken();
+       Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+
+    }
+}
