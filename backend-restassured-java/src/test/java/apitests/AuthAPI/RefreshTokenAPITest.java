@@ -15,5 +15,6 @@ public class RefreshTokenAPITest extends BaseAPI {
        Response response = authService.loginAndGetRefreshToken();
        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
 
+
     }
 }

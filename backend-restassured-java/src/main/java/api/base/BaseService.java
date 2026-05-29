@@ -2,6 +2,8 @@ package api.base;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.response.Response;
 
+import java.io.File;
+
 import static io.restassured.RestAssured.given;
 
 public class BaseService {
@@ -61,7 +63,6 @@ public class BaseService {
                 .response();
     }
 
-    // Inside api.base.BaseService.java
 
     protected Response sendGetWithAuth(String endpoint, String token) {
         return given()
@@ -73,4 +74,32 @@ public class BaseService {
                 .extract()
                 .response();
     }
+    protected Response sendPutWithAuth(String endpoint, Object body, String token) {
+        return given()
+                .spec(getRequestSpec())
+                .header("Authorization", "Bearer " + token)
+                .body(body)
+                .when()
+                .put(endpoint)
+                .then().log().all()
+                .extract()
+                .response();
+}
+    protected Response sendPostMultipartWithAuth(String endpoint, File file,  String controlName, String token) {
+        RequestSpecification request = given()
+                .spec(BaseAPI.getMultipartRequestSpec());
+
+        if (token != null && !token.trim().isEmpty()) {
+            request.header("Authorization", "Bearer " + token);
+        }
+
+        return request
+                .multiPart(controlName, file)
+                .when()
+                .post(endpoint)
+                .then().log().all()
+                .extract()
+                .response();
+    }
+
 }

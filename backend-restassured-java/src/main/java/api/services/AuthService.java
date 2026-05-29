@@ -2,13 +2,11 @@ package api.services;
 
 import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
-import api.POJOs.responsePOJO.registerResPOJO.LoginResPOJO;
 import api.POJOs.responsePOJO.registerResPOJO.RegisterResPOJO;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.ConfigReader;
-import com.beust.ah.A;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -51,5 +49,12 @@ public class AuthService extends BaseService {
     public Response loginAndGetRefreshToken(){
         String refreshToken = login().jsonPath().get("data.refreshToken");
         return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", refreshToken));
+    }
+
+
+    public Response loginAndResetPassword(){
+        String token = login().jsonPath().getString("data.token");
+         String path = Routes.RESET_PASSWORD + token;
+        return sendPost(path, Map.of("password", ConfigReader.getLoginpsswd() ));
     }
 }

@@ -13,13 +13,12 @@ public class VerifyemailTest extends BaseAPI {
 
 
     @Test
-    public void verifyEmailTest (){
+    public void verifyEmailTest () {
         AuthService authService = new AuthService();
         RegisterReqPOJO signUpPayload = RequestPayloads.createReqBody();
         Response verificationResponse = authService.registerAndVerifyEmail(signUpPayload);
-        Assert.assertEquals(verificationResponse.getStatusCode(), StatusCodes.OK,
-                "Backend bug: Endpoint still rejects registration tokens with 400 Bad Request");
-    }
+        Assert.assertEquals(verificationResponse.getStatusCode(), StatusCodes.OK);
 
+    }
 
 }
