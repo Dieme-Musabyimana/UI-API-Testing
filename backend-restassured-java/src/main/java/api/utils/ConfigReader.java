@@ -31,4 +31,5 @@ public class ConfigReader {private static Properties properties;
     public static String getSuccessMessage(){return getProperty("passedEmailVerificationMessage");}
     public static String getLoginEmail(){return getProperty("loginEmail");}
     public static String getLoginpsswd(){ return getProperty("loginPssd");}
+    public static String getFilePath(){ return getProperty("filePath"); }
 }
