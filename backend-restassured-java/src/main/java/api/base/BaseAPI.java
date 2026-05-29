@@ -13,6 +13,7 @@ public class BaseAPI {
 
     protected static RequestSpecification requestSpec;
     protected static ResponseSpecification responseSpec;
+    protected static RequestSpecification multipartRequestSpec;
 
     @BeforeSuite
     public void beforeSuite() {
@@ -28,10 +29,33 @@ public class BaseAPI {
     }
 
     public static RequestSpecification getRequestSpec() {
+        if (requestSpec == null) {
+            requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(ConfigReader.getBaseUri())
+                    .setContentType(ContentType.JSON)
+                    .log(LogDetail.ALL)
+                    .build();
+        }
         return requestSpec;
     }
 
+    public static RequestSpecification getMultipartRequestSpec() {
+        if (multipartRequestSpec == null) {
+            multipartRequestSpec = new RequestSpecBuilder()
+                    .setBaseUri(ConfigReader.getBaseUri())
+                    .setContentType(ContentType.MULTIPART)
+                    .log(LogDetail.ALL)
+                    .build();
+        }
+        return multipartRequestSpec;
+    }
+
     public static ResponseSpecification getResponseSpec() {
+        if (responseSpec == null) {
+            responseSpec = new ResponseSpecBuilder()
+                    .log(LogDetail.ALL)
+                    .build();
+        }
         return responseSpec;
     }
 }
