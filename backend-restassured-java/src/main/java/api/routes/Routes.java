@@ -12,6 +12,7 @@ public class Routes {
 
     public static final String UPDATE_PROFILE = "/users/profile";
     public static final String UPLOAD_AVATAR = "/users/avatar";
+    public static final String CHANGE_PASSWORD = "/users/change-password";
 
 }
 

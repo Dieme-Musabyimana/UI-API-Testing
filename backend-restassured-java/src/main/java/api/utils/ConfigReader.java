@@ -36,5 +36,7 @@ public class ConfigReader {private static Properties properties;
     public static String getTempFileName(){ return getProperty("tempFileName"); }
     public static String getFormat(){ return getProperty("format"); }
     public static String getTokenPath(){ return getProperty("tokenPath"); }
+    public static String getLoginEmail2(){ return getProperty("loginEmail2"); }
+    public static String getLoginPassd2(){ return getProperty("loginPassd2"); }
 
 }
