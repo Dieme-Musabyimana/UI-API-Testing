@@ -69,7 +69,7 @@ public class UserService extends BaseService {
     public static Map<String, Object> getAddressPayload() {
 
         Map<String, Object> addressBody = new HashMap<>();
-        addressBody.put("label", "Home");
+        addressBody.put("label", Config.getLabel());
         addressBody.put("firstName", firstName);
         addressBody.put("lastName", secondName);
         addressBody.put("phone", FakerUtils.getPhone());
