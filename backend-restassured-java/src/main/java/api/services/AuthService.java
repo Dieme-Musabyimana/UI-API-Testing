@@ -6,7 +6,7 @@ import api.POJOs.responsePOJO.registerResPOJO.RegisterResPOJO;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
-import api.utils.ConfigReader;
+import api.utils.Config;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -35,7 +35,7 @@ public class AuthService extends BaseService {
     }
 
     public Response requestForgotPasswordEmail(){
-        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", ConfigReader.getTestEmail()));
+        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getTestEmail()));
     }
     public Response getCurrentUser(){
         return sendGet(Routes.GET_ME);
@@ -55,6 +55,6 @@ public class AuthService extends BaseService {
     public Response loginAndResetPassword(){
         String token = login().jsonPath().getString("data.token");
          String path = Routes.RESET_PASSWORD + token;
-        return sendPost(path, Map.of("password", ConfigReader.getLoginpsswd() ));
+        return sendPost(path, Map.of("password", Config.getLoginpsswd() ));
     }
 }

@@ -4,7 +4,7 @@ import api.POJOs.responsePOJO.registerResPOJO.LoginResPOJO;
 import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.AuthService;
-import api.utils.ConfigReader;
+import api.utils.Config;
 import api.utils.Expectations;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -28,7 +28,7 @@ public class LoginAPITest extends BaseAPI {
         Assert.assertEquals(loginResBody.getData().getUser().getFirstName(), Expectations.Firstname);
         Assert.assertEquals(loginResBody.getData().getUser().getLastName(), Expectations.Lastname);
         Assert.assertEquals(loginResBody.getData().getUser().getRole(), "CUSTOMER");
-        Assert.assertEquals(loginResBody.getData().getUser().getEmail(), ConfigReader.getLoginEmail());
+        Assert.assertEquals(loginResBody.getData().getUser().getEmail(), Config.getLoginEmail());
         Assert.assertNotNull(loginResBody.getData().getUser().getPhone());
         Assert.assertFalse(loginResBody.getData().getUser().isVerified());
         Assert.assertNotNull(loginResBody.getData().getUser().getId());

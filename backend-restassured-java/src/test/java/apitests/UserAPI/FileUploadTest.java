@@ -4,7 +4,7 @@ import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.AuthService;
 import api.services.UserService;
-import api.utils.ConfigReader;
+import api.utils.Config;
 import api.utils.Expectations;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -22,14 +22,14 @@ public class FileUploadTest extends BaseAPI {
     public void setUp(){
        this.authService = new AuthService();
        this.userService = new UserService();
-       this.token = authService.login().jsonPath().getString(ConfigReader.getTokenPath());
+       this.token = authService.login().jsonPath().getString(Config.getTokenPath());
 
 
     }
 
     @Test
     public void uploadTest(){
-        File testImage = new File(ConfigReader.getFilePath());
+        File testImage = new File(Config.getFilePath());
 
         Response response = userService.uploadAvatar(testImage, token);
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
@@ -39,7 +39,7 @@ public class FileUploadTest extends BaseAPI {
 
     @Test
     public void uploadWithoutLoginTest(){
-        File testImage = new File(ConfigReader.getFilePath());
+        File testImage = new File(Config.getFilePath());
         Response response = userService.uploadAvatar(testImage, " ");
         Assert.assertEquals(response.statusCode(), StatusCodes.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
@@ -50,11 +50,11 @@ public class FileUploadTest extends BaseAPI {
 
     @Test
     public void uploadWithEmptyFileTest() throws IOException{
-        File dir = new File(ConfigReader.getTempFilePath());
+        File dir = new File(Config.getTempFilePath());
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File tempEmptyFile = File.createTempFile(ConfigReader.getTempFileName() ,ConfigReader.getFormat(),dir);
+        File tempEmptyFile = File.createTempFile(Config.getTempFileName() , Config.getFormat(),dir);
         tempEmptyFile.deleteOnExit();
         Response response = new UserService().uploadAvatar(tempEmptyFile, token);
         Assert.assertEquals(response.getStatusCode(), StatusCodes.BAD_REQUEST);

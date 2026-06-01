@@ -4,7 +4,7 @@ import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.AuthService;
 import api.services.UserService;
-import api.utils.ConfigReader;
+import api.utils.Config;
 import api.utils.Expectations;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -23,7 +23,7 @@ public void setUp(){
 }
     @Test
     public void getUserAddressTest(){
-        String token = authService.login().jsonPath().getString(ConfigReader.getTokenPath());
+        String token = authService.login().jsonPath().getString(Config.getTokenPath());
         Response response = userService.getUserAddress(token);
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));

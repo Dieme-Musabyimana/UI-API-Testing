@@ -2,7 +2,7 @@ package api.payloads;
 
 import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
-import api.utils.ConfigReader;
+import api.utils.Config;
 import api.utils.FakerUtils;
 
 public class RequestPayloads {
@@ -20,8 +20,8 @@ public class RequestPayloads {
 
     public static LoginPOJO createLoginBody(){
         LoginPOJO loginData = new LoginPOJO();
-        loginData.setEmail(ConfigReader.getLoginEmail());
-        loginData.setPassword(ConfigReader.getLoginpsswd());
+        loginData.setEmail(Config.getLoginEmail());
+        loginData.setPassword(Config.getLoginpsswd());
 
         return loginData;
     }

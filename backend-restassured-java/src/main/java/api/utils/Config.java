@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ConfigReader {private static Properties properties;
+public class Config {private static Properties properties;
     private static final String CONFIG_FILE_PATH = "backend-restassured-java\\src\\main\\resources\\config.properties";
 
     static {
@@ -37,5 +37,11 @@ public class ConfigReader {private static Properties properties;
     public static String getTokenPath(){ return getProperty("tokenPath"); }
     public static String getLoginEmail2(){ return getProperty("loginEmail2"); }
     public static String getLoginPassd2(){ return getProperty("loginPassd2"); }
+    public static String getLabel(){ return getProperty("label"); }
+    public static String getStreet(){ return getProperty("street"); }
+    public static String getCity(){ return getProperty("city"); }
+    public static String getCountry(){ return getProperty("country"); }
+    public static String getState(){ return getProperty("state"); }
+    public static String getPostalCode(){ return getProperty("postalCode"); }
 
 }

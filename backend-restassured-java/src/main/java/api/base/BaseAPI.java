@@ -1,6 +1,6 @@
 package api.base;
 
-import api.utils.ConfigReader;
+import api.utils.Config;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -18,7 +18,7 @@ public class BaseAPI {
     @BeforeSuite
     public void beforeSuite() {
         requestSpec = new RequestSpecBuilder()
-                .setBaseUri(ConfigReader.getBaseUri())
+                .setBaseUri(Config.getBaseUri())
                 .setContentType(ContentType.JSON)
                 .log(LogDetail.ALL)
                 .build();
@@ -31,7 +31,7 @@ public class BaseAPI {
     public static RequestSpecification getRequestSpec() {
         if (requestSpec == null) {
             requestSpec = new RequestSpecBuilder()
-                    .setBaseUri(ConfigReader.getBaseUri())
+                    .setBaseUri(Config.getBaseUri())
                     .setContentType(ContentType.JSON)
                     .log(LogDetail.ALL)
                     .build();
@@ -42,7 +42,7 @@ public class BaseAPI {
     public static RequestSpecification getMultipartRequestSpec() {
         if (multipartRequestSpec == null) {
             multipartRequestSpec = new RequestSpecBuilder()
-                    .setBaseUri(ConfigReader.getBaseUri())
+                    .setBaseUri(Config.getBaseUri())
                     .setContentType(ContentType.MULTIPART)
                     .log(LogDetail.ALL)
                     .build();

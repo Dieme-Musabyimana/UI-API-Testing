@@ -3,7 +3,7 @@ package apitests.AuthAPI;
 import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.AuthService;
-import api.utils.ConfigReader;
+import api.utils.Config;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -29,6 +29,6 @@ public class GetCurrentUser extends BaseAPI {
     public void getCurrentLoggedInUserTest(){
         Response response = authService.loginAndGetCurrentUser();
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
-        Assert.assertEquals(response.jsonPath().get("data.user.email"), ConfigReader.getLoginEmail());
+        Assert.assertEquals(response.jsonPath().get("data.user.email"), Config.getLoginEmail());
     }
 }
