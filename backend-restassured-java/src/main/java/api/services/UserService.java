@@ -87,6 +87,12 @@ public class UserService extends BaseService {
         String token = authService.login().jsonPath().getString(Config.getTokenPath());
         return sendPostWithAuth(Routes.ADDRESS,getAddressPayload(),token);
     }
-
+public Response addAddressWithEmptyFields(){
+    String token = authService.login().jsonPath().getString(Config.getTokenPath());
+    Map<String, Object> unCompleteBody = getAddressPayload();
+    unCompleteBody.put("firstName", "");
+    unCompleteBody.put("lastName", "");
+    return sendPostWithAuth(Routes.ADDRESS, unCompleteBody, token);
+}
 
 }
