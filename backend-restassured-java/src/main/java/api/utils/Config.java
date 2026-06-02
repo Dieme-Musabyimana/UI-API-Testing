@@ -43,5 +43,6 @@ public class Config {private static Properties properties;
     public static String getCountry(){ return getProperty("country"); }
     public static String getState(){ return getProperty("state"); }
     public static String getPostalCode(){ return getProperty("postalCode"); }
+    public static String getSlug(){ return getProperty("slug"); }
 
 }

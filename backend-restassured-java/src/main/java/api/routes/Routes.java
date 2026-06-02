@@ -1,5 +1,7 @@
 package api.routes;
 
+import api.utils.Config;
+
 public class Routes {
     public static final String LOGIN = "/auth/login";
     public static final String REGISTER = "/auth/register";
@@ -15,6 +17,7 @@ public class Routes {
     public static final String CHANGE_PASSWORD = "/users/change-password";
     public static final String ADDRESS = "/users/addresses";
     public static final String CATEGORIES = "/categories";
+    public static final String SINGLE_CATEGORY = "/categories/" + Config.getSlug();
 
 }
 

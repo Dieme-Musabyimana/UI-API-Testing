@@ -5,6 +5,9 @@ import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.utils.Config;
 import api.utils.FakerUtils;
 
+import java.sql.Statement;
+import java.util.Map;
+
 public class RequestPayloads {
 
     public static RegisterReqPOJO createReqBody(){
@@ -24,5 +27,13 @@ public class RequestPayloads {
         loginData.setPassword(Config.getLoginpsswd());
 
         return loginData;
+    }
+
+
+    public Map<String, Object> createProductBody(){
+        createProductBody().put("name", "Sport");
+        createProductBody().put("description", "For doing sports");
+        createProductBody().put("parentId", "Spots_clothes");
+        return createProductBody();
     }
 }
