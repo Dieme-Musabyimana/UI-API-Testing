@@ -14,9 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserService extends BaseService {
+    public static final String firsName = FakerUtils.getFirstName();
+    public static final String lastName = FakerUtils.getFirstName();
+
     AuthService authService;
-    public static final String firstName = FakerUtils.getFirstName();
-    public static final String secondName = FakerUtils.getLastName();
+
 
     public UserService(){
        this.authService = new AuthService();
@@ -24,9 +26,10 @@ public class UserService extends BaseService {
     }
 
     public Response fillUpdateInf(){
+
         RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
-        registerReqPOJO.setFirstName(FakerUtils.getFirstName());
-        registerReqPOJO.setLastName(FakerUtils.getLastName());
+        registerReqPOJO.setFirstName(firsName);
+        registerReqPOJO.setLastName(lastName);
         registerReqPOJO.setPhone(FakerUtils.getPhone());
         return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, "");
     }
@@ -34,8 +37,8 @@ public class UserService extends BaseService {
     public Response loginAndUpdateProfile(){
         String token = authService.login().jsonPath().getString("data.token");
         RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
-        registerReqPOJO.setFirstName(FakerUtils.getFirstName());
-        registerReqPOJO.setLastName(FakerUtils.getLastName());
+        registerReqPOJO.setFirstName(firsName);
+        registerReqPOJO.setLastName(lastName);
         registerReqPOJO.setPhone(FakerUtils.getPhone());
         return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, token);
 
@@ -70,8 +73,8 @@ public class UserService extends BaseService {
 
         Map<String, Object> addressBody = new HashMap<>();
         addressBody.put("label", Config.getLabel());
-        addressBody.put("firstName", firstName);
-        addressBody.put("lastName", secondName);
+        addressBody.put("firstName", firsName);
+        addressBody.put("lastName", lastName);
         addressBody.put("phone", FakerUtils.getPhone());
         addressBody.put("street", Config.getStreet());
         addressBody.put("city", Config.getCity());

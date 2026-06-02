@@ -23,8 +23,8 @@ public class AddUserAddress extends BaseAPI {
     public void addAddressTest(){
         Response response = userService.addAddress();
         Assert.assertEquals(response.getStatusCode(), StatusCodes.CREATED);
-        Assert.assertEquals(response.jsonPath().getString("data.firstName"), UserService.firstName);
-        Assert.assertEquals(response.jsonPath().getString("data.lastName"), UserService.secondName);
+        Assert.assertEquals(response.jsonPath().getString("data.firstName"), UserService.firsName);
+        Assert.assertEquals(response.jsonPath().getString("data.lastName"), UserService.lastName);
         Assert.assertTrue(response.jsonPath().get("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expectations.ADDRESS_ADDED);
     }

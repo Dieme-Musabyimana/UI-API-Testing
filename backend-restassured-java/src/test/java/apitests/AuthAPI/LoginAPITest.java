@@ -25,8 +25,8 @@ public class LoginAPITest extends BaseAPI {
 
         Assert.assertNotNull(loginResBody.getData().getToken());
         Assert.assertNotNull(loginResBody.getData().getRefreshToken());
-        Assert.assertEquals(loginResBody.getData().getUser().getFirstName(), Expectations.Firstname);
-        Assert.assertEquals(loginResBody.getData().getUser().getLastName(), Expectations.Lastname);
+        Assert.assertEquals(loginResBody.getData().getUser().getFirstName(), Expectations.firstname);
+        Assert.assertEquals(loginResBody.getData().getUser().getLastName(), Expectations.lastname);
         Assert.assertEquals(loginResBody.getData().getUser().getRole(), "CUSTOMER");
         Assert.assertEquals(loginResBody.getData().getUser().getEmail(), Config.getLoginEmail());
         Assert.assertNotNull(loginResBody.getData().getUser().getPhone());

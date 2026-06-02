@@ -1,6 +1,7 @@
 package apitests.UserAPI;
 
 import api.base.BaseAPI;
+import api.services.AuthService;
 import api.services.UserService;
 import api.utils.Expectations;
 import io.restassured.response.Response;
@@ -25,6 +26,8 @@ public class UpdateUserProfileAPITest extends BaseAPI {
 
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expectations.PROFILE_UPDATED);
+        Assert.assertEquals(response.jsonPath().getString("data.firstName"), UserService.firsName);
+        Assert.assertEquals(response.jsonPath().getString("data.lastName"), UserService.lastName);
 
     }
 
