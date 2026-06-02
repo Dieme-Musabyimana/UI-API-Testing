@@ -47,7 +47,7 @@ public class AuthService extends BaseService {
     }
 
     public Response loginAndGetRefreshToken(){
-        String refreshToken = login().jsonPath().get("data.refreshToken");
+        String refreshToken = login().jsonPath().getString("data.refreshToken");
         return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", refreshToken));
     }
 

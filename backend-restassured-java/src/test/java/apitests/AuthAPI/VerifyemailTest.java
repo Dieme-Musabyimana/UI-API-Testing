@@ -10,8 +10,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class VerifyemailTest extends BaseAPI {
-
-
     @Test
     public void verifyEmailTest () {
         AuthService authService = new AuthService();

@@ -21,14 +21,13 @@ public void setUp(){
     this.userService = new UserService();
 
 }
-    @Test
-    public void getUserAddressTest(){
-        String token = authService.login().jsonPath().getString(Config.getTokenPath());
-        Response response = userService.getUserAddress(token);
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
-        Assert.assertTrue(response.jsonPath().getBoolean("success"));
+@Test
+public void getUserAddressTest(){
+    String token = authService.login().jsonPath().getString(Config.getTokenPath());
+    Response response = userService.getUserAddress(token);
+    Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+    Assert.assertTrue(response.jsonPath().getBoolean("success"));
     }
-
     @Test
     public void getUserAddressWithoutLogin(){
     Response response = userService.getUserAddress(" ");

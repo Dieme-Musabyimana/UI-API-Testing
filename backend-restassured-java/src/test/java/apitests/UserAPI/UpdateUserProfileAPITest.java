@@ -11,14 +11,12 @@ import org.testng.annotations.Test;
 public class UpdateUserProfileAPITest extends BaseAPI {
 
     @Test
-    public void updateProfileWithoutToken(){
+    public void updateProfileWithoutToken() {
         UserService userService = new UserService();
-        Response response =  userService.fillUpdateInf();
+        Response response = userService.fillUpdateInf();
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AUTHENTICATION_ERROR);
-
     }
-
     @Test
     public void updateProfileWithToken(){
         UserService userService = new UserService();

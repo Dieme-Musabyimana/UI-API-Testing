@@ -24,7 +24,6 @@ public class GetCurrentUser extends BaseAPI {
         Assert.assertEquals(response.jsonPath().get("message"), "Not authenticated. Please log in.");
 
     }
-
     @Test
     public void getCurrentLoggedInUserTest(){
         Response response = authService.loginAndGetCurrentUser();

@@ -36,10 +36,8 @@ public class ChangePasswordTest extends BaseAPI {
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AUTHENTICATION_ERROR);
     }
-
     @Test
     public void changePasswordWithWrongPassword(){
 
     }
-
 }

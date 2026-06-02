@@ -4,7 +4,6 @@ import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.UserService;
 import api.utils.Expectations;
-import api.utils.FakerUtils;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -28,7 +27,6 @@ public class AddUserAddress extends BaseAPI {
         Assert.assertTrue(response.jsonPath().get("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expectations.ADDRESS_ADDED);
     }
-
     @Test
     public void AddAddressWithSomEmptyFied(){
         userService.addAddressWithEmptyFields();

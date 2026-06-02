@@ -35,8 +35,7 @@ public class FileUploadTest extends BaseAPI {
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AVATAR_UPLOADED);
-    }
-
+      }
     @Test
     public void uploadWithoutLoginTest(){
         File testImage = new File(Config.getFilePath());
