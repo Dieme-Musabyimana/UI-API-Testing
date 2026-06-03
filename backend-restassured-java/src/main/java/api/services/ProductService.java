@@ -16,4 +16,8 @@ public class ProductService extends BaseService {
     public Response createCategory(){
         return sendPost(Routes.CATEGORIES, createCategory());
     }
+
+    public Response getProducts(String path){
+        return sendGet(path);
+    }
 }

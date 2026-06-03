@@ -17,7 +17,9 @@ public class Routes {
     public static final String CHANGE_PASSWORD = "/users/change-password";
     public static final String ADDRESS = "/users/addresses";
     public static final String CATEGORIES = "/categories";
-    public static final String SINGLE_CATEGORY = "/categories/" + Config.getSlug();
+    public static final String SINGLE_CATEGORY = CATEGORIES + Config.getCategorySlug();
+    public static final String PRODUCT = "/products";
+    public static final String SINGLE_PRODUCT = PRODUCT + Config.getProductSlug();
 
 }
 

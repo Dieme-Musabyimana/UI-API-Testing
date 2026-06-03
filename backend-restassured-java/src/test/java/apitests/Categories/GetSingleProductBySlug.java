@@ -5,8 +5,7 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class GetSingleProduct {
-
+public class GetSingleProductBySlug {
     @Test
     public void getSingleCategory(){
         Response response = new ProductService().getSingleCategory();
