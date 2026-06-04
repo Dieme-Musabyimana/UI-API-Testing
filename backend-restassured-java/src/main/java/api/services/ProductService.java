@@ -28,4 +28,8 @@ public class ProductService extends BaseService {
     public Response updateProduct(String path, Object object, String token){
         return sendPutWithAuth(path, object, token);
     }
+
+    public Response deleteProduct(String token, String id){
+        return sendDeleteWithAuth(Routes.DELETE_PRODUCT, token);
+    }
 }

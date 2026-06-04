@@ -3,7 +3,7 @@ package apitests.UserAPI;
 import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.UserService;
-import api.utils.Expectations;
+import api.utils.Expected;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -26,7 +26,7 @@ public class ChangePasswordTest extends BaseAPI {
         Response response = userService.changePassword(token);
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.PASSWORD_CHANGED);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.PASSWORD_CHANGED);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class ChangePasswordTest extends BaseAPI {
         Response response = userService.changePassword("");
         Assert.assertEquals(response.getStatusCode(), StatusCodes.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AUTHENTICATION_ERROR);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
     }
     @Test
     public void changePasswordWithWrongPassword(){

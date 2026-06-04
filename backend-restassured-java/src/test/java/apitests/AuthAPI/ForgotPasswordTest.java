@@ -3,7 +3,7 @@ package apitests.AuthAPI;
 import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.AuthService;
-import api.utils.Expectations;
+import api.utils.Expected;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -20,6 +20,6 @@ public class ForgotPasswordTest extends BaseAPI {
 
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
         Assert.assertTrue(successValue);
-        Assert.assertEquals(messageValue, Expectations.successMessage);
+        Assert.assertEquals(messageValue, Expected.successMessage);
     }
 }

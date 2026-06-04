@@ -3,7 +3,7 @@ package apitests.UserAPI;
 import api.base.BaseAPI;
 import api.constants.StatusCodes;
 import api.services.UserService;
-import api.utils.Expectations;
+import api.utils.Expected;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -25,7 +25,7 @@ public class AddUserAddress extends BaseAPI {
         Assert.assertEquals(response.jsonPath().getString("data.firstName"), UserService.firsName);
         Assert.assertEquals(response.jsonPath().getString("data.lastName"), UserService.lastName);
         Assert.assertTrue(response.jsonPath().get("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.ADDRESS_ADDED);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.ADDRESS_ADDED);
     }
     @Test
     public void AddAddressWithSomEmptyFied(){

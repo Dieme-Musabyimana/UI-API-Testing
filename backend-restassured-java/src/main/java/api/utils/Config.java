@@ -46,6 +46,9 @@ public class Config {private static Properties properties;
     public static String getCategorySlug(){ return getProperty("category_slug"); }
     public static String getProductSlug(){ return getProperty("product_slug"); }
     public static String getProductId(){ return getProperty("product_id"); }
+    public static String getIdToDelete(){ return getProperty("product2Id"); }
+    public static String getUnExistingId(){ return  getProperty("unExistingId"); }
+
 
 
 }

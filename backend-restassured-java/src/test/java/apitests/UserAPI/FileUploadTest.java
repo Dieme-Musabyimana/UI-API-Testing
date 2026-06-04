@@ -5,7 +5,7 @@ import api.constants.StatusCodes;
 import api.services.AuthService;
 import api.services.UserService;
 import api.utils.Config;
-import api.utils.Expectations;
+import api.utils.Expected;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -34,7 +34,7 @@ public class FileUploadTest extends BaseAPI {
         Response response = userService.uploadAvatar(testImage, token);
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AVATAR_UPLOADED);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.AVATAR_UPLOADED);
       }
     @Test
     public void uploadWithoutLoginTest(){
@@ -42,7 +42,7 @@ public class FileUploadTest extends BaseAPI {
         Response response = userService.uploadAvatar(testImage, " ");
         Assert.assertEquals(response.statusCode(), StatusCodes.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AUTHENTICATION_ERROR);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
 
 
     }

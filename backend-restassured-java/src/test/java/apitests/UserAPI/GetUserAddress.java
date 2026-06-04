@@ -5,7 +5,7 @@ import api.constants.StatusCodes;
 import api.services.AuthService;
 import api.services.UserService;
 import api.utils.Config;
-import api.utils.Expectations;
+import api.utils.Expected;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -33,6 +33,6 @@ public void getUserAddressTest(){
     Response response = userService.getUserAddress(" ");
     Assert.assertEquals(response.getStatusCode(), StatusCodes.UNAUTHORIZED);
     Assert.assertFalse(response.jsonPath().getBoolean("success"));
-    Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AUTHENTICATION_ERROR);
+    Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
 }
 }

@@ -1,6 +1,6 @@
 package api.utils;
 
-public class Expectations {
+public class Expected {
 
     public static final String successMessage = "If an account with that email exists, a reset link has been sent.";
     public static final String firstname = "Sfvketm";
@@ -11,6 +11,8 @@ public class Expectations {
     public static final String PASSWORD_CHANGED = "Password changed";
     public static final String ADDRESS_ADDED = "Address added";
     public static final String PRODUCT_UPDATED = "Product updated";
+    public static final String NOT_FOUND = "Record not found";
+    public static final String DELETED = "Product deleted";
 
 
 }

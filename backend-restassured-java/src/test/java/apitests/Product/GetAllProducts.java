@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 public class GetAllProducts {
 
     @Test
-    public void getAllProduts(){
+    public void getAllProducts(){
         Response response = new ProductService().getProducts(Routes.PRODUCT);
         response.then().statusCode(StatusCodes.OK);
         response.then().body("success", equalTo(true));
