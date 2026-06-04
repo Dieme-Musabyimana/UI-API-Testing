@@ -25,7 +25,7 @@ public class ProductService extends BaseService {
         return sendGet(path);
     }
 
-    public Response updateProduct(String path, String token){
-        return sendPutWithAuth(path, Map.of("name", newProductName), token);
+    public Response updateProduct(String path, Object object, String token){
+        return sendPutWithAuth(path, object, token);
     }
 }
