@@ -19,7 +19,7 @@ public class RegisterAPITest extends BaseAPI {
         Response response = auth.registerUser();
         RegisterResPOJO resBody = response.getBody().as(RegisterResPOJO.class);
 
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.CREATED, "User registration failed!");
+        Assert.assertEquals(response.getStatusCode(), StatusCodes.CREATED);
         Assert.assertTrue(resBody.isSuccess(), "Success key flag should be true");
         Assert.assertEquals(resBody.getMessage(), "Registration successful. Check your email to verify.");
 

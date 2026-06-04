@@ -22,6 +22,13 @@ public class AuthService extends BaseService {
         return sendPost(Routes.LOGIN, loginData);
     }
 
+    public String getLoginToken(){
+        return login().jsonPath().getString("data.token");
+    }
+    public String getRefreshToken(){
+        return login().jsonPath().getString("data.refreshToken");
+    }
+
     public Response registerAndVerifyEmail() {
         Response regResponse = login();
         String emailToken = regResponse.jsonPath().getString("data.refreshToken");String path = Routes.VERIFY_EMAIL + emailToken;
@@ -36,17 +43,14 @@ public class AuthService extends BaseService {
     }
 
     public Response loginAndGetCurrentUser(){
-        String token = login().jsonPath().get("data.token");
-        return sendGetWithAuth(Routes.GET_ME, token);
+        return sendGetWithAuth(Routes.GET_ME, getLoginToken());
     }
 
     public Response loginAndGetRefreshToken(){
-        String refreshToken = login().jsonPath().getString("data.refreshToken");
-        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", refreshToken));
+        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", getRefreshToken()));
     }
     public Response loginAndResetPassword(){
-        String token = registerUser().jsonPath().getString("data.token");
-         String path = Routes.RESET_PASSWORD + token;
+         String path = Routes.RESET_PASSWORD + getLoginToken();
         return sendPost(path, Map.of("password", Config.getLoginpsswd() ));
     }
 }

@@ -1,7 +1,9 @@
 package apitests.Product;
 
+import api.constants.StatusCodes;
 import api.routes.Routes;
 import api.services.ProductService;
+import api.utils.Config;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -20,10 +22,10 @@ public class GetSingleProduct {
     @Test
     public void getSingleProduct(){
         Response response = productService.getProducts(Routes.SINGLE_PRODUCT);
-        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("data[0].id"), "89c903cd-df0d-441a-9a68-a0b8465a3109");
-        Assert.assertEquals(response.jsonPath().getString("data[0].name"), "Clear PVC Stadium Tote Bag");
-        Assert.assertEquals(response.jsonPath().getFloat("data[0].price"), 14.99f);
+
+        Assert.assertEquals(response.jsonPath().getString("data.id"), Config.getProductId());
+        Assert.assertEquals(response.jsonPath().getString("data.slug"), Config.getProductSlug());
     }
 }

@@ -45,6 +45,7 @@ public class Config {private static Properties properties;
     public static String getPostalCode(){ return getProperty("postalCode"); }
     public static String getCategorySlug(){ return getProperty("category_slug"); }
     public static String getProductSlug(){ return getProperty("product_slug"); }
+    public static String getProductId(){ return getProperty("product_id"); }
 
 
 }

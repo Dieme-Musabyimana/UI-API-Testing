@@ -1,9 +1,7 @@
 package apitests.AuthAPI;
 
-import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.base.BaseAPI;
 import api.constants.StatusCodes;
-import api.payloads.RequestPayloads;
 import api.services.AuthService;
 import io.restassured.response.Response;
 import org.testng.Assert;
