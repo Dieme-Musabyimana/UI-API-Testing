@@ -5,9 +5,7 @@ import api.routes.Routes;
 import api.services.ProductService;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
-
 import static org.hamcrest.Matchers.*;
-
 
 public class GetAllProducts {
 

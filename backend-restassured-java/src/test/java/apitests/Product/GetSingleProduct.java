@@ -13,18 +13,14 @@ public class GetSingleProduct {
     ProductService productService;
 
     @BeforeMethod
-
     public void setUp(){
         this.productService = new ProductService();
     }
-
-
     @Test
     public void getSingleProduct(){
         Response response = productService.getProducts(Routes.SINGLE_PRODUCT);
         Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-
         Assert.assertEquals(response.jsonPath().getString("data.id"), Config.getProductId());
         Assert.assertEquals(response.jsonPath().getString("data.slug"), Config.getProductSlug());
     }

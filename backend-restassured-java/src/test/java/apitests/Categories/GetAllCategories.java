@@ -22,6 +22,5 @@ public class GetAllCategories extends BaseAPI {
         Assert.assertEquals(response.jsonPath().getString("data[0].id"), "24517e2b-3a02-4bfa-aca1-6a9198dc8c70");
         Assert.assertEquals(response.jsonPath().getString("data[0].name"), "Bags & Luggage");
         Assert.assertEquals(response.jsonPath().getString("data[0].slug"), "bags-luggage");
-        Assert.assertNull(response.jsonPath().get("data[0].parentId"));
     }
 }

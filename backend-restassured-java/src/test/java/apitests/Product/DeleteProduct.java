@@ -25,7 +25,6 @@ public class DeleteProduct {
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.DELETED);
     }
-
     @Test
     public void deleteUnExistingId(){
         Response response = productService.deleteProduct(authService.getLoginToken(), Config.getUnExistingId());

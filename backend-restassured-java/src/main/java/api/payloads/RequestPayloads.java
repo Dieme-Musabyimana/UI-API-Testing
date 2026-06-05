@@ -14,8 +14,8 @@ import java.util.Map;
 import static java.lang.Double.parseDouble;
 
 public class RequestPayloads {
-    String sku = FakerUtils.getVariantSku();
-    String name = FakerUtils.getFirstName();
+    public static final String sku = FakerUtils.getVariantSku();
+    public static final String name = FakerUtils.getFirstName();
 
     public static RegisterReqPOJO createReqBody(){
         RegisterReqPOJO registerData = new RegisterReqPOJO();

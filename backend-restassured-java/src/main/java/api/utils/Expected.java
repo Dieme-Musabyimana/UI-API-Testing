@@ -13,6 +13,7 @@ public class Expected {
     public static final String PRODUCT_UPDATED = "Product updated";
     public static final String NOT_FOUND = "Record not found";
     public static final String DELETED = "Product deleted";
+    public static final String CREATED  = "Product created";
 
 
 }

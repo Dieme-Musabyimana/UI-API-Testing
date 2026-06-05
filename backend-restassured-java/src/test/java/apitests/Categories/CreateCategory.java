@@ -6,8 +6,7 @@ import org.testng.annotations.Test;
 public class CreateCategory {
 
   @Test
-
-    public void createCategory(){
+  public void createCategory(){
       new ProductService().createCategory();
   }
 }
