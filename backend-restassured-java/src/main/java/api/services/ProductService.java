@@ -1,6 +1,7 @@
 package api.services;
 
 import api.base.BaseService;
+import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.FakerUtils;
 import io.restassured.response.Response;
@@ -31,5 +32,10 @@ public class ProductService extends BaseService {
 
     public Response deleteProduct(String token, String id){
         return sendDeleteWithAuth(Routes.DELETE_PRODUCT, token);
+    }
+
+    public Response createProduct(String token){
+        RequestPayloads requestPayloads = new RequestPayloads().createProductBody();
+        return sendPostWithAuth(Routes.PRODUCT, requestPayloads, token);
     }
 }

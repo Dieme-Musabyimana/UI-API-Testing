@@ -1,5 +1,4 @@
 package apitests.Product;
-
 import api.constants.StatusCodes;
 import api.services.AuthService;
 import api.services.ProductService;

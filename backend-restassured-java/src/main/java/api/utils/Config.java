@@ -49,6 +49,24 @@ public class Config {private static Properties properties;
     public static String getIdToDelete(){ return getProperty("product2Id"); }
     public static String getUnExistingId(){ return  getProperty("unExistingId"); }
 
+    public static String getProductName() { return getProperty("product.create.name"); }
+    public static String getProductDescription() { return getProperty("product.create.description"); }
+    public static String getProductPrice() { return getProperty("product.create.price"); }
+    public static String getProductComparePrice() { return getProperty("product.create.comparePrice"); }
+    public static String getProductCategoryId() { return getProperty("product.create.categoryId"); }
+    public static String getProductTags() { return getProperty("product.create.tags"); }
+    public static String getProductIsFeatured() { return getProperty("product.create.isFeatured"); }
+    public static String getProductIsFlashSale() { return getProperty("product.create.isFlashSale"); }
+    public static String getProductFlashSalePrice() { return getProperty("product.create.flashSalePrice"); }
+
+    // --- Variant Nested Array Getters ---
+    public static String getVariantSize() { return getProperty("product.variant.size"); }
+    public static String getVariantColor() { return getProperty("product.variant.color"); }
+    public static String getVariantColorHex() { return getProperty("product.variant.colorHex"); }
+    public static String getVariantSku() { return getProperty("product.variant.sku"); }
+    public static String getVariantStock() { return getProperty("product.variant.stock"); }
+    public static String getVariantPrice() { return getProperty("product.variant.price"); }
+
 
 
 }
