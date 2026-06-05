@@ -25,4 +25,6 @@ public class FakerUtils {
     public static String getPhone() {
         return "+25078" + faker.regexify("[0-9]{7}");
     }
+    public static String getVariantSku() { return "SKU-" + faker.regexify("[A-Z0-9]{8}");
+    }
 }

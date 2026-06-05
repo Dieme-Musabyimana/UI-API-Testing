@@ -54,9 +54,9 @@ public class Config {private static Properties properties;
     public static String getProductPrice() { return getProperty("product.create.price"); }
     public static String getProductComparePrice() { return getProperty("product.create.comparePrice"); }
     public static String getProductCategoryId() { return getProperty("product.create.categoryId"); }
-    public static String getProductTags() { return getProperty("product.create.tags"); }
-    public static String getProductIsFeatured() { return getProperty("product.create.isFeatured"); }
-    public static String getProductIsFlashSale() { return getProperty("product.create.isFlashSale"); }
+//    public static String getProductTags() { return getProperty("product.create.tags"); }
+//    public static String getProductIsFeatured() { return getProperty("product.create.isFeatured"); }
+//    public static String getProductIsFlashSale() { return getProperty("product.create.isFlashSale"); }
     public static String getProductFlashSalePrice() { return getProperty("product.create.flashSalePrice"); }
 
     // --- Variant Nested Array Getters ---

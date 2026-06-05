@@ -1,5 +1,6 @@
 package api.services;
 
+import api.POJOs.requestPOJO.ProductRequest;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
@@ -35,7 +36,7 @@ public class ProductService extends BaseService {
     }
 
     public Response createProduct(String token){
-        RequestPayloads requestPayloads = new RequestPayloads().createProductBody();
+        ProductRequest requestPayloads = new RequestPayloads().createProductBody();
         return sendPostWithAuth(Routes.PRODUCT, requestPayloads, token);
     }
 }

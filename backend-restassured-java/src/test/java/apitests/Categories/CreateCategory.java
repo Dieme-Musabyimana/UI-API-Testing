@@ -7,7 +7,7 @@ public class CreateCategory {
 
   @Test
 
-    public void creatCategory(){
+    public void createCategory(){
       new ProductService().createCategory();
   }
 }

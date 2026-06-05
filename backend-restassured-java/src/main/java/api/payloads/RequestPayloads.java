@@ -8,13 +8,14 @@ import api.utils.Config;
 import api.utils.FakerUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static java.lang.Double.parseDouble;
 
 public class RequestPayloads {
+    String sku = FakerUtils.getVariantSku();
+    String name = FakerUtils.getFirstName();
 
     public static RegisterReqPOJO createReqBody(){
         RegisterReqPOJO registerData = new RegisterReqPOJO();
@@ -43,13 +44,16 @@ public class RequestPayloads {
         return updateProductBody();
     }
 
-    public RequestPayloads createProductBody(){
+    public ProductRequest createProductBody(){
         ProductRequest productRequest = new ProductRequest();
         Variant singleVariant = new Variant();
 
-        productRequest.setName(FakerUtils.getFirstName());
+        productRequest.setName(name);
         productRequest.setDescription(Config.getProductDescription());
         productRequest.setPrice(parseDouble(Config.getProductPrice()));
+        productRequest.setComparePrice(parseDouble(Config.getProductComparePrice()));
+        productRequest.setCategoryId(Config.getProductCategoryId());
+
 
         List<String> tags = new ArrayList<>();
         tags.add("tag1");
@@ -63,7 +67,7 @@ public class RequestPayloads {
         singleVariant.setSize(Config.getVariantSize());
         singleVariant.setColor(Config.getVariantColor());
         singleVariant.setColorHex(Config.getVariantColorHex());
-        singleVariant.setSku(Config.getVariantSku());
+        singleVariant.setSku(sku);
         singleVariant.setStock(Integer.parseInt(Config.getVariantStock()));
         singleVariant.setPrice(parseDouble(Config.getVariantPrice()));
 
@@ -71,6 +75,6 @@ public class RequestPayloads {
         variantList.add(singleVariant);
 
         productRequest.setVariants(variantList);
-     return new RequestPayloads();
+     return productRequest;
     }
 }

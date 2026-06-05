@@ -6,7 +6,6 @@ import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
 import api.utils.FakerUtils;
-import groovy.transform.Final;
 import io.restassured.response.Response;
 
 import java.io.File;
