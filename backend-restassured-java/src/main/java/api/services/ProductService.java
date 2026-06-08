@@ -65,4 +65,8 @@ public class ProductService extends BaseService {
     public Response getProductFlashSales(){
         return sendGet(Routes.FLESH_SALES);
     }
+
+    public Response getRelatedProducts(){
+        return sendGet(Routes.RELATED_PRODUCT);
+    }
 }

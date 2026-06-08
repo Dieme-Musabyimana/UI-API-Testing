@@ -13,5 +13,7 @@ public class uploadProductImage extends BaseAPI {
     public void uploadProductImageTest(){
         Response response = new ProductService().uploadProductImage();
         Assert.assertEquals(response.statusCode(), StatusCodes.CREATED);
+        Assert.assertTrue(response.jsonPath().getBoolean("success"));
+        Assert.assertEquals(response.jsonPath().getString("message"), "Success");
     }
 }
