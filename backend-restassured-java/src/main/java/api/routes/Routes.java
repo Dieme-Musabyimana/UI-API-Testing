@@ -24,6 +24,7 @@ public class Routes {
     public static final String DELETE_PRODUCT = PRODUCT + "/" + Config.getIdToDelete();
     public static final String UPLOAD_IMAGE = PRODUCT + "/59b5ea21-15b1-4c26-87f6-46d09c18510f/images";
     public static final String TRENDING = PRODUCT + "/" + "trending";
+    public static final String FLESH_SALES = PRODUCT + "/flash-sales";
 
 }
 
