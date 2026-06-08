@@ -57,4 +57,8 @@ public class ProductService extends BaseService {
         return sendPostMultipartWithAuth(Routes.UPLOAD_IMAGE, testImage, "images", authService.getLoginToken());
 
     }
+
+    public Response getTrendingProduct(){
+        return sendGet(Routes.TRENDING);
+    }
 }

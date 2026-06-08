@@ -1,0 +1,22 @@
+package apitests.Product;
+
+import api.constants.StatusCodes;
+import api.services.ProductService;
+import api.utils.Expected;
+import io.restassured.response.Response;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class GetTrendingProduct {
+
+    @Test
+    public void getTrendingProductTest(){
+        Response response = new ProductService().getTrendingProduct();
+        Assert.assertEquals(response.statusCode(), StatusCodes.OK);
+        Assert.assertTrue(response.jsonPath().getBoolean("success"));
+        Assert.assertEquals(response.jsonPath().getString("message"), "success");
+        Assert.assertNotEquals(response.jsonPath().getList("data").size(),0);
+        Assert.assertNotNull(response.jsonPath().getString("data[0].id"));
+
+    }
+}
