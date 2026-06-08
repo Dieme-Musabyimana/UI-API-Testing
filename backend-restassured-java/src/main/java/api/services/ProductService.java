@@ -4,12 +4,21 @@ import api.POJOs.requestPOJO.ProductRequest;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
+import api.utils.Config;
 import api.utils.FakerUtils;
 import io.restassured.response.Response;
 
+import java.io.File;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class ProductService extends BaseService {
+    AuthService authService;
+
+    public ProductService(){
+        this.authService = new AuthService();
+    }
     public final static String newProductName = FakerUtils.getFirstName();
 
     public Response getProductCategories(){
@@ -38,5 +47,14 @@ public class ProductService extends BaseService {
     public Response createProduct(String token){
         ProductRequest requestPayloads = new RequestPayloads().createProductBody();
         return sendPostWithAuth(Routes.PRODUCT, requestPayloads, token);
+    }
+
+    public Response uploadProductImage(){
+        String path = "C:\\DOM\\api-ui-test\\backend-restassured-java\\src\\main\\resources\\avatar.png";
+        System.out.println(",,,,,,,,,,,,,,,,," + path);
+        File testImage = new File(path);
+//        List<File> imageList = Collections.singletonList(testImage);
+        return sendPostMultipartWithAuth(Routes.UPLOAD_IMAGE, testImage, "images", authService.getLoginToken());
+
     }
 }
