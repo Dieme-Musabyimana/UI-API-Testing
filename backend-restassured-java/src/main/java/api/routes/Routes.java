@@ -1,5 +1,8 @@
 package api.routes;
 
+import api.payloads.RequestPayloads;
+import api.services.CartService;
+import api.services.ProductService;
 import api.utils.Config;
 
 public class Routes {
@@ -28,6 +31,7 @@ public class Routes {
     public static final String RELATED_PRODUCT = UPDATE_PRODUCT + "/related";
     public static final String CART = "/cart";
     public static final String ADD_TO_CART = CART + "/items";
+    public static final String UPDATE_QUANTITY = ADD_TO_CART + "/" + RequestPayloads.productId;
 
 
 }

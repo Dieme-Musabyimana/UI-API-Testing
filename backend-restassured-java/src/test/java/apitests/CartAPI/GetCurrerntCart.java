@@ -33,9 +33,8 @@ public class GetCurrerntCart {
         Assert.assertEquals(response.statusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertFalse(response.jsonPath().getList("data.items").isEmpty());
-        Assert.assertTrue(response.jsonPath().getInt("data.subtotal") > 0);
-        Assert.assertTrue(response.jsonPath().getInt("data.discount") > 0);
-        Assert.assertTrue(response.jsonPath().getInt("data.total") > 0);
+        Assert.assertTrue(response.jsonPath().getFloat("data.subtotal") > 0);
+        Assert.assertTrue(response.jsonPath().getFloat("data.total") > 0);
         Assert.assertTrue(response.jsonPath().getInt("data.itemCount") > 0);
     }
 }

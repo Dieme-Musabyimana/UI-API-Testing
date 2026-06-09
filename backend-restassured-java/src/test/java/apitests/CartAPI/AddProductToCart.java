@@ -1,8 +1,10 @@
 package apitests.CartAPI;
 
 import api.constants.StatusCodes;
+import api.payloads.RequestPayloads;
 import api.services.CartService;
 import api.services.ProductService;
+import api.utils.Expected;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,5 +17,6 @@ public class AddProductToCart {
     public void addProductToCart(){
         Response response = new CartService().addToCart();
         Assert.assertEquals(response.statusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.ADDED);
     }
 }

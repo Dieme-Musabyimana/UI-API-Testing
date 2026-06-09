@@ -39,7 +39,6 @@ public class RequestPayloads {
         return loginData;
     }
 
-    // Fix potential infinite recursion loop if this was hitting itself previously
     public Map<String, Object> updateProductBody(Map<String, Object> existingMap){
         existingMap.put("name", "Sport");
         existingMap.put("description", "For doing sports");
@@ -51,7 +50,6 @@ public class RequestPayloads {
         ProductRequest productRequest = new ProductRequest();
         Variant singleVariant = new Variant();
 
-        // Uses the unique instance variables generated during 'new RequestPayloads()'
         productRequest.setName(getName());
         productRequest.setDescription(Config.getProductDescription());
         productRequest.setPrice(parseDouble(Config.getProductPrice()));
@@ -70,7 +68,7 @@ public class RequestPayloads {
         singleVariant.setSize(Config.getVariantSize());
         singleVariant.setColor(Config.getVariantColor());
         singleVariant.setColorHex(Config.getVariantColorHex());
-        singleVariant.setSku(getSku()); // Completely unique SKU bound to this payload instance
+        singleVariant.setSku(getSku());
         singleVariant.setStock(Integer.parseInt(Config.getVariantStock()));
         singleVariant.setPrice(parseDouble(Config.getVariantPrice()));
 
@@ -81,11 +79,12 @@ public class RequestPayloads {
         return productRequest;
     }
 
-    // CLEANER HOOK: Accept explicit IDs directly within your runner architecture
+    public static final String productId = new ProductService().getProductIds().get(0);
+    public static final String variantId = new ProductService().getProductIds().get(1);
     public ProductRequest addToCartPayload(){
         ProductRequest addToCartPayload = new ProductRequest();
-        addToCartPayload.setProductId(new ProductService().getProductIds().get(0));
-        addToCartPayload.setVariantId(new ProductService().getProductIds().get(1));
+        addToCartPayload.setProductId(productId);
+        addToCartPayload.setVariantId(variantId);
         addToCartPayload.setQuantity(3);
         return addToCartPayload;
     }
