@@ -15,10 +15,10 @@ public class CreateProduct {
         String token = new AuthService().getLoginToken();
         Response response = new ProductService().createProduct(token);
         Assert.assertEquals(response.getStatusCode(), StatusCodes.CREATED);
-        Assert.assertEquals(response.jsonPath().getString("data.name"), RequestPayloads.name);
+        Assert.assertEquals(response.jsonPath().getString("data.name"), new RequestPayloads().getName());
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.CREATED);
-        Assert.assertEquals(response.jsonPath().getString("data.variants[0].sku"), RequestPayloads.sku);
-        Assert.assertNotNull(response.jsonPath().getString("data.user.id"));
+        Assert.assertEquals(response.jsonPath().getString("data.variants[0].sku"), new RequestPayloads().getSku());
+        Assert.assertNotNull(response.jsonPath().getString("data.id"));
     }
 }

@@ -97,5 +97,4 @@ public Response addAddressWithEmptyFields(){
     unCompleteBody.put("lastName", "");
     return sendPostWithAuth(Routes.ADDRESS, unCompleteBody, token);
 }
-
 }

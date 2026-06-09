@@ -54,6 +54,15 @@ public class BaseService {
                 .response();
     }
 
+    protected Response sendDelete(String endpoint){
+        return given()
+                .spec(getRequestSpec())
+                .when()
+                .delete(endpoint)
+                .then().log().all()
+                .extract().response();
+    }
+
     protected Response sendDeleteWithAuth(String endpoint, String token) {
         return given()
                 .spec(getRequestSpec())

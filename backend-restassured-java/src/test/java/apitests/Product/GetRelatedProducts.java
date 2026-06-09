@@ -21,10 +21,12 @@ public class GetRelatedProducts extends BaseAPI {
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");
 
+
         List<String> allProducts = response.jsonPath().getList("data");
-        String ExpectedCategoryId = response.jsonPath().getString("data[0].categoryId");
+        Assert.assertFalse(allProducts.isEmpty());
+        String expectedCategoryId = response.jsonPath().getString("data[0].categoryId");
         for(int i = 0; i<allProducts.size(); i++){
-            Assert.assertEquals(response.jsonPath().getString("data["+ i +"].categoryId"), ExpectedCategoryId);
+            Assert.assertEquals(response.jsonPath().getString("data["+ i +"].categoryId"), expectedCategoryId);
             Assert.assertTrue(response.jsonPath().getBoolean("data["+ i +"].isActive"));
         }
 

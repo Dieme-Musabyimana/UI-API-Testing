@@ -9,6 +9,7 @@ import api.utils.FakerUtils;
 import io.restassured.response.Response;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,6 @@ public class ProductService extends BaseService {
     public Response getProducts(String path){
         return sendGet(path);
     }
-
     public Response updateProduct(String path, Object object, String token){
         return sendPutWithAuth(path, object, token);
     }
@@ -48,6 +48,21 @@ public class ProductService extends BaseService {
         ProductRequest requestPayloads = new RequestPayloads().createProductBody();
         return sendPostWithAuth(Routes.PRODUCT, requestPayloads, token);
     }
+    public List<String> getProductIds(){
+        Response response = createProduct(authService.getLoginToken());
+
+        // Correct paths: data is an object, variants is an array
+        String productId = response.jsonPath().getString("data.id");
+        String variantId = response.jsonPath().getString("data.variants[0].id");
+
+        // Initialize and return a simple list container
+        List<String> ids = new ArrayList<>();
+        ids.add(productId);
+        ids.add(variantId);
+
+        return ids;
+    }
+
 
     public Response uploadProductImage(){
         String path = "C:\\DOM\\api-ui-test\\backend-restassured-java\\src\\main\\resources\\avatar.png";
@@ -69,4 +84,5 @@ public class ProductService extends BaseService {
     public Response getRelatedProducts(){
         return sendGet(Routes.RELATED_PRODUCT);
     }
+
 }
