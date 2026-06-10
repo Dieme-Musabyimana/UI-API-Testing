@@ -13,9 +13,12 @@ public class Expected {
     public static final String PRODUCT_UPDATED = "Product updated";
     public static final String NOT_FOUND = "Record not found";
     public static final String DELETED = "Product deleted";
-    public static final String CREATED  = "Product created";
+    public static final String DEACTIVATED = "Product deactivated";
+    public static final String CREATED  = "Product deleted";
     public static final String CART_CLEARED = "Cart cleared";
     public static final String ADDED = "Item added to cart";
+    public static final String REMOVED = "Item removed";
+    public static final String SAVED = "Saved for later";
 
 
 }

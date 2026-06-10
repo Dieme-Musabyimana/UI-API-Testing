@@ -2,18 +2,18 @@ package apitests.CartAPI;
 
 import api.constants.StatusCodes;
 import api.services.CartService;
+import api.utils.Expected;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UpdateCartItemQuantity {
+public class RemoveItemFromCart {
 
     @Test
-    public void updateCartQuantity(){
-        Response response = new CartService().updateQuantity();
+    public void removeItemFromCart(){
+        Response response = new CartService().removeItemFromCart();
         Assert.assertEquals(response.statusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), "Cart updated");
-
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.REMOVED);
     }
 }

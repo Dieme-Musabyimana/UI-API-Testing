@@ -1,12 +1,9 @@
 package apitests.AuthAPI;
 
-import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.POJOs.responsePOJO.registerResPOJO.RegisterResPOJO; // Import your response root
 import api.base.BaseAPI;
 import api.constants.StatusCodes;
-//import api.payloads.RequestPayloads;
 import api.services.AuthService;
-import api.utils.FakerUtils;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;

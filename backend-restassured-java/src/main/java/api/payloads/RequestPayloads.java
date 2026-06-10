@@ -79,8 +79,8 @@ public class RequestPayloads {
         return productRequest;
     }
 
-    public static final String productId = new ProductService().getProductIds().get(0);
-    public static final String variantId = new ProductService().getProductIds().get(1);
+    public static String productId = new ProductService().getProductIds().get(0);
+    public static String variantId = new ProductService().getProductIds().get(1);
     public ProductRequest addToCartPayload(){
         ProductRequest addToCartPayload = new ProductRequest();
         addToCartPayload.setProductId(productId);

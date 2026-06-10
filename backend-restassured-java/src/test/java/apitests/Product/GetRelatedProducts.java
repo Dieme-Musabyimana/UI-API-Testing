@@ -12,20 +12,15 @@ import java.util.List;
 public class GetRelatedProducts extends BaseAPI {
 
     @Test
-
     public void getRelatedProducts(){
         Response response = new ProductService().getRelatedProducts();
-
-
         Assert.assertEquals(response.statusCode(), StatusCodes.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");
-
-
         List<String> allProducts = response.jsonPath().getList("data");
         Assert.assertFalse(allProducts.isEmpty());
         String expectedCategoryId = response.jsonPath().getString("data[0].categoryId");
-        for(int i = 0; i<allProducts.size(); i++){
+        for(int i = 0; i < allProducts.size(); i++){
             Assert.assertEquals(response.jsonPath().getString("data["+ i +"].categoryId"), expectedCategoryId);
             Assert.assertTrue(response.jsonPath().getBoolean("data["+ i +"].isActive"));
         }

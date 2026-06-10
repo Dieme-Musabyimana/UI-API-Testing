@@ -13,7 +13,6 @@ public class VerifyemailTest extends BaseAPI {
         AuthService authService = new AuthService();
         Response verificationResponse = authService.registerAndVerifyEmail();
         Assert.assertEquals(verificationResponse.getStatusCode(), StatusCodes.OK);
-
     }
 
 }

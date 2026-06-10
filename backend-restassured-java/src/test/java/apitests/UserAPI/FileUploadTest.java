@@ -2,10 +2,10 @@ package apitests.UserAPI;
 
 import api.base.BaseAPI;
 import api.constants.StatusCodes;
-import api.services.AuthService;
 import api.services.UserService;
 import api.utils.Config;
 import api.utils.Expected;
+import api.utils.TokenManager;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -15,16 +15,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileUploadTest extends BaseAPI {
-    AuthService authService;
+    TokenManager tokenManager;
     UserService userService;
     String token;
     @BeforeMethod
     public void setUp(){
-       this.authService = new AuthService();
+       this.tokenManager = new TokenManager();
        this.userService = new UserService();
-       this.token = authService.getLoginToken();
-
-
+       this.token = tokenManager.getToken();
     }
 
     @Test

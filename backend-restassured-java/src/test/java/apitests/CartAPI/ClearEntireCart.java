@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import java.util.Map;
 public class ClearEntireCart {
 
-
     @Test
     public void clearEntireCartTest(){
         Response response = new CartService().clearEntireCart();

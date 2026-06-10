@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 public class ForgotPasswordTest extends BaseAPI {
 
-
     @Test
     public void forgotPasswordTest (){
         AuthService authService = new AuthService();

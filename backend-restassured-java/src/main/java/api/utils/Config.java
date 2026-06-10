@@ -23,6 +23,7 @@ public class Config {private static Properties properties;
         return value.trim();
     }
 
+    public static String getRunTimeException(){ return getProperty("run_time_exception"); }
 
     public static String getBaseUri() {
         return getProperty("baseUri");
@@ -63,7 +64,6 @@ public class Config {private static Properties properties;
     public static String getVariantSize() { return getProperty("product.variant.size"); }
     public static String getVariantColor() { return getProperty("product.variant.color"); }
     public static String getVariantColorHex() { return getProperty("product.variant.colorHex"); }
-    public static String getVariantSku() { return getProperty("product.variant.sku"); }
     public static String getVariantStock() { return getProperty("product.variant.stock"); }
     public static String getVariantPrice() { return getProperty("product.variant.price"); }
 

@@ -43,9 +43,10 @@ public class BaseService {
                 .response();
     }
 
-    protected Response sendPatch(String endpoint, Object body) {
+    protected Response sendPatchWithAuth(String endpoint, Object body, String token) {
         return given()
                 .spec(getRequestSpec())
+                .header("Authorization", "Bearer " + token)
                 .body(body)
                 .when()
                 .patch(endpoint)

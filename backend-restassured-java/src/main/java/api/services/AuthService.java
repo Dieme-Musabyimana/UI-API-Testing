@@ -6,11 +6,21 @@ import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
+import api.utils.TokenManager;
 import io.restassured.response.Response;
 
 import java.util.Map;
 
 public class AuthService extends BaseService {
+    TokenManager tokenManager;
+    String token;
+    String refreshToken;
+
+    public AuthService(){
+        this.tokenManager = new TokenManager();
+        this.token = tokenManager.getToken();
+        this.refreshToken = tokenManager.getRefreshToken();
+    }
 
     public Response registerUser() {
         RegisterReqPOJO reqBody = RequestPayloads.createReqBody();
@@ -22,35 +32,30 @@ public class AuthService extends BaseService {
         return sendPost(Routes.LOGIN, loginData);
     }
 
-    public String getLoginToken(){
-        return login().jsonPath().getString("data.token");
-    }
-    public String getRefreshToken(){
-        return login().jsonPath().getString("data.refreshToken");
-    }
 
     public Response registerAndVerifyEmail() {
-        Response regResponse = login();
-        String emailToken = regResponse.jsonPath().getString("data.refreshToken");String path = Routes.VERIFY_EMAIL + emailToken;
+        String path = Routes.VERIFY_EMAIL + refreshToken;
         return sendGet(path);
+
     }
 
     public Response requestForgotPasswordEmail(){
         return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getTestEmail()));
     }
+
     public Response getCurrentUser(){
         return sendGet(Routes.GET_ME);
     }
-
     public Response loginAndGetCurrentUser(){
-        return sendGetWithAuth(Routes.GET_ME, getLoginToken());
+        return sendGetWithAuth(Routes.GET_ME, token);
     }
 
     public Response loginAndGetRefreshToken(){
-        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", getRefreshToken()));
+        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", refreshToken));
     }
+
     public Response loginAndResetPassword(){
-         String path = Routes.RESET_PASSWORD + getLoginToken();
+         String path = Routes.RESET_PASSWORD + token;
         return sendPost(path, Map.of("password", Config.getLoginpsswd() ));
     }
 }

@@ -5,6 +5,7 @@ import api.routes.Routes;
 import api.services.AuthService;
 import api.services.ProductService;
 import api.utils.Expected;
+import api.utils.TokenManager;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -13,14 +14,14 @@ import java.util.Map;
 import static api.services.ProductService.newProductName;
 
 public class UpdateProduct {
-AuthService authService;
+    TokenManager tokenManager;
     @BeforeMethod
     public void setUp() {
-        this.authService = new AuthService();
+        this.tokenManager = new TokenManager();
     }
 @Test
 public void loginAsAdminAndUpdateProduct(){
-    Response response = new ProductService().updateProduct(Routes.UPDATE_PRODUCT, Map.of("name", newProductName), authService.getLoginToken());
+    Response response = new ProductService().updateProduct(Routes.UPDATE_PRODUCT, Map.of("name", newProductName), tokenManager.getToken());
     Assert.assertEquals(response.statusCode(), StatusCodes.OK);
     Assert.assertTrue(response.jsonPath().getBoolean("success"));
     Assert.assertEquals(response.jsonPath().getString("message"), Expected.PRODUCT_UPDATED);
@@ -34,7 +35,7 @@ public void updateProductWithoutLogin() {
 }
 @Test
     public void updateProductWithEmptyName(){
-    Response response = new ProductService().updateProduct(Routes.UPDATE_PRODUCT, Map.of("name", " "), authService.getLoginToken());
+    Response response = new ProductService().updateProduct(Routes.UPDATE_PRODUCT, Map.of("name", " "), tokenManager.getToken());
     Assert.assertEquals(response.statusCode(), StatusCodes.BAD_REQUEST);
 }
 }

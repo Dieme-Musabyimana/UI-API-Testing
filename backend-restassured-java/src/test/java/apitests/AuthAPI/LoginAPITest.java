@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 public class LoginAPITest extends BaseAPI {
 
-
     @Test
     public void loginTest (){
    AuthService authService = new AuthService();

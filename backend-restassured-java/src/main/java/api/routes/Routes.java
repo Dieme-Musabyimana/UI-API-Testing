@@ -22,16 +22,17 @@ public class Routes {
     public static final String CATEGORIES = "/categories";
     public static final String SINGLE_CATEGORY = CATEGORIES + Config.getCategorySlug();
     public static final String PRODUCT = "/products";
-    public static final String SINGLE_PRODUCT = PRODUCT + "/" + Config.getProductSlug();
+    public static final String SINGLE_PRODUCT = PRODUCT + "/";
     public static final String UPDATE_PRODUCT = PRODUCT + "/" + Config.getProductId();
-    public static final String DELETE_PRODUCT = PRODUCT + "/" + Config.getIdToDelete();
+    public static final String DELETE_PRODUCT = PRODUCT + "/";
     public static final String UPLOAD_IMAGE = PRODUCT + "/" + Config.getProductId() + "/images";
     public static final String TRENDING = PRODUCT + "/" + "trending";
     public static final String FLESH_SALES = PRODUCT + "/flash-sales";
     public static final String RELATED_PRODUCT = UPDATE_PRODUCT + "/related";
     public static final String CART = "/cart";
     public static final String ADD_TO_CART = CART + "/items";
-    public static final String UPDATE_QUANTITY = ADD_TO_CART + "/" + RequestPayloads.productId;
+    public static final String UPDATE_QUANTITY = ADD_TO_CART;
+//    public static final String SAVE_FOR_LATER_USE = "/cart/items/{itemId}/save-for-later" ;
 
 
 }
