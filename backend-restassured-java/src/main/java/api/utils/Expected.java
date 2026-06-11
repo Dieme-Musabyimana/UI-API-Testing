@@ -19,6 +19,8 @@ public class Expected {
     public static final String ADDED = "Item added to cart";
     public static final String REMOVED = "Item removed";
     public static final String SAVED = "Saved for later";
+    public static final String UPDATED = "Cart updated";
+    public static final String APPLIED = "Coupon applied";
 
 
 }

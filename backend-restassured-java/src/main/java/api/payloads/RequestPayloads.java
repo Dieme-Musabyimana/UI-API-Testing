@@ -9,6 +9,7 @@ import api.utils.Config;
 import api.utils.FakerUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -87,5 +88,18 @@ public class RequestPayloads {
         addToCartPayload.setVariantId(variantId);
         addToCartPayload.setQuantity(3);
         return addToCartPayload;
+    }
+    public static Map<String, Object> createCouponPayload() {
+        Map<String, Object> payload = new HashMap<>();
+
+        payload.put("code", "SAVE15NOW");
+        payload.put("description", "15% off on all items with minimum checkout order fulfillment.");
+        payload.put("discountType", "PERCENTAGE");
+        payload.put("discountValue", 15);
+        payload.put("minOrderAmount", 50);
+        payload.put("maxUses", 200);
+        payload.put("expiresAt", "2026-12-31T23:59:59.000Z");
+
+        return payload;
     }
 }

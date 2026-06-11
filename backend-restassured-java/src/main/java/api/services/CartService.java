@@ -54,4 +54,8 @@ public class CartService extends BaseService {
         String path = Routes.ADD_TO_CART + "/" + getCartItemId() + "/save-for-later";
         return sendPatchWithAuth(path, Map.of("id", getCartItemId()), token);
     }
+
+    public Response applyCoupon(){
+        return sendPostWithAuth(Routes.APPLY_COUPON, Map.of("code",  "SAVE15NOW"), token);
+    }
 }

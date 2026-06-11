@@ -1,0 +1,17 @@
+package api.services;
+
+import api.base.BaseService;
+import api.payloads.RequestPayloads;
+import api.routes.Routes;
+import api.utils.TokenManager;
+import io.restassured.response.Response;
+
+public class AdminService extends BaseService {
+
+
+    public Response createCoupon(){
+        RequestPayloads requestPayloads = new RequestPayloads();
+        Object payload = requestPayloads.createCouponPayload();
+        return sendPostWithAuth(Routes.COUPON, payload, new TokenManager().getToken());
+    }
+}

@@ -60,7 +60,6 @@ public class Config {private static Properties properties;
 //    public static String getProductIsFlashSale() { return getProperty("product.create.isFlashSale"); }
     public static String getProductFlashSalePrice() { return getProperty("product.create.flashSalePrice"); }
 
-    // --- Variant Nested Array Getters ---
     public static String getVariantSize() { return getProperty("product.variant.size"); }
     public static String getVariantColor() { return getProperty("product.variant.color"); }
     public static String getVariantColorHex() { return getProperty("product.variant.colorHex"); }
