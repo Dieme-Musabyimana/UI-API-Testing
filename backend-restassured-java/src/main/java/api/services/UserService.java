@@ -36,7 +36,6 @@ public class UserService extends BaseService {
     }
 
     public Response loginAndUpdateProfile(){
-        String token = authService.login().jsonPath().getString("data.token");
         RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
         registerReqPOJO.setFirstName(firsName);
         registerReqPOJO.setLastName(lastName);
