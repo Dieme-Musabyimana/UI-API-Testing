@@ -40,6 +40,13 @@ public class RequestPayloads {
         return loginData;
     }
 
+    public Map<String, Object> changePasswordBody(){
+        Map<String, Object> body = new HashMap<>();
+        body.put("currentPassword", Config.getLoginPassd2());
+        body.put("newPassword", FakerUtils.getPassword());
+        return body;
+    }
+
     public Map<String, Object> updateProductBody(Map<String, Object> existingMap){
         existingMap.put("name", "Sport");
         existingMap.put("description", "For doing sports");
@@ -101,5 +108,15 @@ public class RequestPayloads {
         payload.put("expiresAt", "2026-12-31T23:59:59.000Z");
 
         return payload;
+    }
+
+    public static Map<String, Object> orderPayload(){
+        Map<String, Object> body = new HashMap<>();
+        body.put("addressId", "57c06e75-0b9d-4891-ad38-ad1d430bacb9");
+        body.put("paymentMethod", "CASH_ON_DELIVERY");
+        body.put("notes", "This is my first order");
+        body.put("shippingFee", 2);
+
+        return body;
     }
 }

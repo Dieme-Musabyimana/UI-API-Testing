@@ -6,21 +6,16 @@ import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
-import api.utils.TokenManager;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.Map;
 
-public class AuthService extends BaseService {
-    TokenManager tokenManager;
-    String token;
-    String refreshToken;
+import static api.utils.TokenManager.getRefreshToken;
+import static api.utils.TokenManager.getToken;
 
-    public AuthService(){
-        this.tokenManager = new TokenManager();
-        this.token = tokenManager.getToken();
-        this.refreshToken = tokenManager.getRefreshToken();
-    }
+public class AuthService extends BaseService {
+
 
     public Response registerUser() {
         RegisterReqPOJO reqBody = RequestPayloads.createReqBody();
@@ -34,7 +29,7 @@ public class AuthService extends BaseService {
 
 
     public Response registerAndVerifyEmail() {
-        String path = Routes.VERIFY_EMAIL + refreshToken;
+        String path = Routes.VERIFY_EMAIL + getRefreshToken();
         return sendGet(path);
 
     }
@@ -47,15 +42,15 @@ public class AuthService extends BaseService {
         return sendGet(Routes.GET_ME);
     }
     public Response loginAndGetCurrentUser(){
-        return sendGetWithAuth(Routes.GET_ME, token);
+        return sendGetWithAuth(Routes.GET_ME, null);
     }
 
     public Response loginAndGetRefreshToken(){
-        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", refreshToken));
+        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", getRefreshToken()));
     }
 
     public Response loginAndResetPassword(){
-         String path = Routes.RESET_PASSWORD + token;
+         String path = Routes.RESET_PASSWORD + getToken();
         return sendPost(path, Map.of("password", Config.getLoginpsswd() ));
     }
 }

@@ -1,7 +1,7 @@
 package apitests.UserAPI;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.UserService;
 import api.utils.Expected;
 import io.restassured.response.Response;
@@ -21,7 +21,7 @@ public class AddUserAddress extends BaseAPI {
 
     public void addAddressTest(){
         Response response = userService.addAddress();
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.CREATED);
+        Assert.assertEquals(response.getStatusCode(), Status.CREATED);
         Assert.assertEquals(response.jsonPath().getString("data.firstName"), UserService.firsName);
         Assert.assertEquals(response.jsonPath().getString("data.lastName"), UserService.lastName);
         Assert.assertTrue(response.jsonPath().get("success"));

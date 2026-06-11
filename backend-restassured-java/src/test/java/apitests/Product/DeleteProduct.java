@@ -1,6 +1,6 @@
 package apitests.Product;
 
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.ProductService;
 import api.utils.Config;
 import api.utils.Expected;
@@ -25,29 +25,27 @@ public class DeleteProduct {
 
     @Test
     public void loginAndDeleteProduct(){
-        String token = tokenManager.getToken();
-        Response res = productService.createProduct(token);
+        Response res = productService.createProduct();
         String id = res.jsonPath().getString("data.id");
-        Response response = productService.deleteProduct(token, id);
+        Response response = productService.deleteProduct(id);
         String actualMessage = response.jsonPath().getString("message");
 
-        Assert.assertEquals(response.statusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         assertThat(actualMessage, either(is(Expected.DELETED)).or(is(Expected.DEACTIVATED)));    }
 
     @Test
     public void deleteUnExistingId(){
-        String token = tokenManager.getToken();
-        Response response = productService.deleteProduct(token, Config.getUnExistingId());
-        Assert.assertEquals(response.statusCode(), StatusCodes.NOT_FOUND);
+        Response response = productService.deleteProduct(Config.getUnExistingId());
+        Assert.assertEquals(response.statusCode(), Status.NOT_FOUND);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.NOT_FOUND);
     }
 
     @Test
     public void deleteProductWithoutLogin(){
-        Response response = productService.deleteProduct("", Config.getIdToDelete());
-        Assert.assertEquals(response.statusCode(), StatusCodes.UNAUTHORIZED);
+        Response response = productService.deleteProduct(Config.getIdToDelete());
+        Assert.assertEquals(response.statusCode(), Status.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
     }

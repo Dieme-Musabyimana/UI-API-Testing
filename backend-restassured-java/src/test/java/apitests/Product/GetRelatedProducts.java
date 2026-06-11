@@ -1,7 +1,7 @@
 package apitests.Product;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.ProductService;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -14,7 +14,7 @@ public class GetRelatedProducts extends BaseAPI {
     @Test
     public void getRelatedProducts(){
         Response response = new ProductService().getRelatedProducts();
-        Assert.assertEquals(response.statusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");
         List<String> allProducts = response.jsonPath().getList("data");

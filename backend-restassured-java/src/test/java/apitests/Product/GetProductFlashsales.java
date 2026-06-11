@@ -1,6 +1,6 @@
 package apitests.Product;
 
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.ProductService;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -11,7 +11,7 @@ public class GetProductFlashsales {
     @Test
     public void getProductFlashSalesTest(){
         Response response = new ProductService().getProductFlashSales();
-        Assert.assertEquals(response.statusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");
     }

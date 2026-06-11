@@ -2,7 +2,7 @@ package apitests.AuthAPI;
 
 import api.POJOs.responsePOJO.registerResPOJO.LoginResPOJO;
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.AuthService;
 import api.utils.Config;
 import api.utils.Expected;
@@ -18,7 +18,7 @@ public class LoginAPITest extends BaseAPI {
    Response response = authService.login();
    LoginResPOJO loginResBody = response.getBody().as(LoginResPOJO.class);
 
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK, "User registration failed!");
+        Assert.assertEquals(response.getStatusCode(), Status.OK, "User registration failed!");
         Assert.assertTrue(loginResBody.isSuccess(), "Success key flag should be true");
         Assert.assertEquals(loginResBody.getMessage(), "Login successful");
 

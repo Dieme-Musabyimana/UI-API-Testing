@@ -1,7 +1,7 @@
 package apitests.AuthAPI;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.AuthService;
 import api.utils.Config;
 import io.restassured.response.Response;
@@ -26,7 +26,7 @@ public class GetCurrentUser extends BaseAPI {
     @Test
     public void getCurrentLoggedInUserTest(){
         Response response = authService.loginAndGetCurrentUser();
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertEquals(response.jsonPath().get("data.user.email"), Config.getLoginEmail());
     }
 }

@@ -6,6 +6,7 @@ import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
 import api.utils.FakerUtils;
+import api.utils.TokenManager;
 import io.restassured.response.Response;
 
 import java.io.File;
@@ -31,7 +32,7 @@ public class UserService extends BaseService {
         registerReqPOJO.setFirstName(firsName);
         registerReqPOJO.setLastName(lastName);
         registerReqPOJO.setPhone(FakerUtils.getPhone());
-        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, "");
+        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO);
     }
 
     public Response loginAndUpdateProfile(){
@@ -40,13 +41,13 @@ public class UserService extends BaseService {
         registerReqPOJO.setFirstName(firsName);
         registerReqPOJO.setLastName(lastName);
         registerReqPOJO.setPhone(FakerUtils.getPhone());
-        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, token);
+        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO);
 
 
     }
 
     public Response uploadAvatar(File image, String token){
-        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar", token);
+        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar");
     }
 
     public String login2(){
@@ -58,15 +59,18 @@ public class UserService extends BaseService {
 
     }
 
-    public Response changePassword(String token){
-        Map<String, String> updatedLoginBody = new HashMap<>();
-        updatedLoginBody.put("currentPassword", Config.getLoginPassd2());
-        updatedLoginBody.put("newPassword", FakerUtils.getPassword());
-        return sendPutWithAuth(Routes.CHANGE_PASSWORD, updatedLoginBody, token);
+    public Response changePassword(){
+        RequestPayloads payloads = new RequestPayloads();
+        return sendPutWithAuth(Routes.CHANGE_PASSWORD, payloads.changePasswordBody());
+    }
+
+    public Response changePasswordWithoutLogin(){
+        RequestPayloads payloads = new RequestPayloads();
+        return sendPut(Routes.CHANGE_PASSWORD, payloads.changePasswordBody());
     }
 
     public Response getUserAddress(String token){
-        return sendGetWithAuth(Routes.ADDRESS, token);
+        return sendGetWithAuth(Routes.ADDRESS, null);
     }
 
     public static Map<String, Object> getAddressPayload() {
@@ -87,14 +91,13 @@ public class UserService extends BaseService {
     }
 
     public Response addAddress(){
-        String token = authService.login().jsonPath().getString(Config.getTokenPath());
-        return sendPostWithAuth(Routes.ADDRESS,getAddressPayload(),token);
+        return sendPostWithAuth(Routes.ADDRESS,getAddressPayload());
     }
 public Response addAddressWithEmptyFields(){
-    String token = authService.login().jsonPath().getString(Config.getTokenPath());
     Map<String, Object> unCompleteBody = getAddressPayload();
     unCompleteBody.put("firstName", "");
     unCompleteBody.put("lastName", "");
-    return sendPostWithAuth(Routes.ADDRESS, unCompleteBody, token);
+    return sendPostWithAuth(Routes.ADDRESS, unCompleteBody);
 }
+
 }

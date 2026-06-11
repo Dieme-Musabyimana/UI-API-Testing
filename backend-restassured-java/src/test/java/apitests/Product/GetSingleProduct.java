@@ -1,6 +1,6 @@
 package apitests.Product;
 
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.routes.Routes;
 import api.services.ProductService;
 import io.restassured.response.Response;
@@ -20,7 +20,7 @@ public class GetSingleProduct {
 
         String productSlug = new ProductService().getProductSlug();
         Response response = productService.getProducts(Routes.SINGLE_PRODUCT+productSlug);
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("data.slug"), productSlug);
     }

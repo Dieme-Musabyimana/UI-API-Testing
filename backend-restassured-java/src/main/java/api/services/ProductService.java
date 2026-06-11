@@ -13,17 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService extends BaseService {
-    // Kept these fields exactly as they were so other classes can use them
     TokenManager tokenManager;
     String token;
-    String refreshToken;
 
     public ProductService (){
-        this.tokenManager = new TokenManager();
-        // FIXED: These now dynamically read from the cache!
-        // No redundant API login loops will happen here anymore.
-        this.token = tokenManager.getToken();
-        this.refreshToken = tokenManager.getRefreshToken();
     }
 
     public final static String newProductName = FakerUtils.getFirstName();
@@ -37,7 +30,6 @@ public class ProductService extends BaseService {
     }
 
     public Response createCategory(){
-        // Fixed: Stopped a recursive method loop bug from your original code
         return sendPost(Routes.CATEGORIES, new RequestPayloads().createProductBody());
     }
 
@@ -46,20 +38,17 @@ public class ProductService extends BaseService {
     }
 
     public Response updateProduct(String path, Object object, String token){
-        return sendPutWithAuth(path, object, token);
+        return sendPutWithAuth(path, object);
     }
 
-    // METHOD SIGNATURE MATCHED: Other tests calling deleteProduct(token, id) will still work perfectly
-    public Response deleteProduct(String token, String id){
-        // Fix for the delete endpoint: ensures path evaluates to /products/{id} instead of just /products
+    public Response deleteProduct(String id){
         String finalUrl = Routes.DELETE_PRODUCT + id;
-        return sendDeleteWithAuth(finalUrl, token);
+        return sendDeleteWithAuth(finalUrl);
     }
 
-    // METHOD SIGNATURE MATCHED: Other tests calling createProduct(token) will still work perfectly
-    public Response createProduct(String token){
+    public Response createProduct(){
         ProductRequest requestPayloads = new RequestPayloads().createProductBody();
-        return sendPostWithAuth(Routes.PRODUCT, requestPayloads, token);
+        return sendPostWithAuth(Routes.PRODUCT, requestPayloads);
     }
 
     public String getProductSlug(){
@@ -68,7 +57,7 @@ public class ProductService extends BaseService {
     }
 
     public List<String> getProductIds(){
-        Response response = createProduct(token);
+        Response response = createProduct();
 
         String productId = response.jsonPath().getString("data.id");
         String variantId = response.jsonPath().getString("data.variants[0].id");
@@ -83,7 +72,7 @@ public class ProductService extends BaseService {
     public Response uploadProductImage(){
         String path = "C:\\DOM\\api-ui-test\\backend-restassured-java\\src\\main\\resources\\avatar.png";
         File testImage = new File(path);
-        return sendPostMultipartWithAuth(Routes.UPLOAD_IMAGE, testImage, "images", token);
+        return sendPostMultipartWithAuth(Routes.UPLOAD_IMAGE, testImage, "images");
     }
 
     public Response getTrendingProduct(){

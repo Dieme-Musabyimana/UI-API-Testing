@@ -21,6 +21,7 @@ public class Expected {
     public static final String SAVED = "Saved for later";
     public static final String UPDATED = "Cart updated";
     public static final String APPLIED = "Coupon applied";
+    public static final String NO_ORDER = "Order not found";
 
 
 }

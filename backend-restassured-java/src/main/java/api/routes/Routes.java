@@ -34,6 +34,8 @@ public class Routes {
     public static final String UPDATE_QUANTITY = ADD_TO_CART;
     public static final String COUPON = "/admin/coupons";
     public static final String APPLY_COUPON = "/cart/coupon";
+    public static final String ORDERS = "/orders";
+    public static final String CANCEL_ORDER = "/orders/{id}/cancel";
 
 }
 

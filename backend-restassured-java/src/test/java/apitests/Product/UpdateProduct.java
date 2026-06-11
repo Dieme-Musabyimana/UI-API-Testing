@@ -1,8 +1,7 @@
 package apitests.Product;
 
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.routes.Routes;
-import api.services.AuthService;
 import api.services.ProductService;
 import api.utils.Expected;
 import api.utils.TokenManager;
@@ -22,7 +21,7 @@ public class UpdateProduct {
 @Test
 public void loginAsAdminAndUpdateProduct(){
     Response response = new ProductService().updateProduct(Routes.UPDATE_PRODUCT, Map.of("name", newProductName), tokenManager.getToken());
-    Assert.assertEquals(response.statusCode(), StatusCodes.OK);
+    Assert.assertEquals(response.statusCode(), Status.OK);
     Assert.assertTrue(response.jsonPath().getBoolean("success"));
     Assert.assertEquals(response.jsonPath().getString("message"), Expected.PRODUCT_UPDATED);
     Assert.assertEquals(response.jsonPath().getString("data.name"), newProductName);
@@ -30,13 +29,13 @@ public void loginAsAdminAndUpdateProduct(){
 @Test
 public void updateProductWithoutLogin() {
     Response response = new ProductService().updateProduct(Routes.UPDATE_PRODUCT, Map.of("name",newProductName), "");
-    Assert.assertEquals(response.statusCode(), StatusCodes.UNAUTHORIZED);
+    Assert.assertEquals(response.statusCode(), Status.UNAUTHORIZED);
     Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
 }
 @Test
     public void updateProductWithEmptyName(){
     Response response = new ProductService().updateProduct(Routes.UPDATE_PRODUCT, Map.of("name", " "), tokenManager.getToken());
-    Assert.assertEquals(response.statusCode(), StatusCodes.BAD_REQUEST);
+    Assert.assertEquals(response.statusCode(), Status.BAD_REQUEST);
 }
 }
 

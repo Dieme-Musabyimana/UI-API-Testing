@@ -1,6 +1,6 @@
 package apitests.CartAPI;
 
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.CartService;
 import api.utils.Expected;
 import io.restassured.response.Response;
@@ -12,7 +12,7 @@ public class ApplyCoupon {
     @Test
     public  void ApplyCoupon(){
         Response response = new CartService().applyCoupon();
-        Assert.assertEquals(response.statusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertTrue(response.jsonPath().getString("message").contains(Expected.APPLIED));

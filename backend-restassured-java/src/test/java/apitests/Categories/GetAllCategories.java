@@ -1,7 +1,7 @@
 package apitests.Categories;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.ProductService;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -13,7 +13,7 @@ public class GetAllCategories extends BaseAPI {
     public void getAllCategoriesTest(){
       Response response =  new ProductService().getProductCategories();
 
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.getStatusCode(), Status.OK);
 
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");

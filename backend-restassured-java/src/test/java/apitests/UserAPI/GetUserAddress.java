@@ -1,7 +1,7 @@
 package apitests.UserAPI;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.UserService;
 import api.utils.Expected;
 import api.utils.TokenManager;
@@ -24,13 +24,13 @@ public void setUp(){
 public void getUserAddressTest(){
     String token = tokenManager.getToken();
     Response response = userService.getUserAddress(token);
-    Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+    Assert.assertEquals(response.getStatusCode(), Status.OK);
     Assert.assertTrue(response.jsonPath().getBoolean("success"));
     }
     @Test
     public void getUserAddressWithoutLogin(){
     Response response = userService.getUserAddress(" ");
-    Assert.assertEquals(response.getStatusCode(), StatusCodes.UNAUTHORIZED);
+    Assert.assertEquals(response.getStatusCode(), Status.UNAUTHORIZED);
     Assert.assertFalse(response.jsonPath().getBoolean("success"));
     Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
 }
