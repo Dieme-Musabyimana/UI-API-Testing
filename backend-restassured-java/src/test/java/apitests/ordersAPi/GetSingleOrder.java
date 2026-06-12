@@ -3,7 +3,6 @@ package apitests.ordersAPi;
 import api.constants.Status;
 import api.services.OrderService;
 import api.utils.Expected;
-import groovy.xml.StreamingDOMBuilder;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;

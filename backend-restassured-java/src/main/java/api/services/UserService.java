@@ -45,7 +45,7 @@ public class UserService extends BaseService {
 
     }
 
-    public Response uploadAvatar(File image, String token){
+    public Response uploadAvatar(File image){
         return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar");
     }
 
@@ -68,7 +68,7 @@ public class UserService extends BaseService {
         return sendPut(Routes.CHANGE_PASSWORD, payloads.changePasswordBody());
     }
 
-    public Response getUserAddress(String token){
+    public Response getUserAddress(){
         return sendGetWithAuth(Routes.ADDRESS, null);
     }
 

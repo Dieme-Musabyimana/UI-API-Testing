@@ -19,7 +19,11 @@ public class CartService extends BaseService {
     }
 
     public Response addToCart(){
-        return sendPostWithAuth(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload());
+        Response response = new ProductService().createProduct();
+        String productId = new ProductService().getProductIds(response).get(0);
+        String variantId = new ProductService().getProductIds(response).get(1);
+
+        return sendPostWithAuth(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload(productId, variantId));
     }
 
     public String getCartItemId() {

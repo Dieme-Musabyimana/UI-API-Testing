@@ -56,8 +56,8 @@ public class ProductService extends BaseService {
         return response.path("data[0].slug");
     }
 
-    public List<String> getProductIds(){
-        Response response = createProduct();
+    public List<String> getProductIds(Response response){
+//        Response response = createProduct();
 
         String productId = response.jsonPath().getString("data.id");
         String variantId = response.jsonPath().getString("data.variants[0].id");
