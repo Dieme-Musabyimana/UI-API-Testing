@@ -89,12 +89,15 @@ public class BaseService {
                 .response();
     }
 
-    protected Response sendPatchWithAuth(String endpoint, Object body, Map<String, Object> pathParams) {
+    protected Response sendPatchWithAuth(String endpoint, Object body, Map<String, Object> pathParams, Map<String, Object> queryParams) {
         var requestSpec = given()
                 .spec(getRequestSpec())
                 .header("Authorization", "Bearer " + getAuthToken());
         if (pathParams != null && !pathParams.isEmpty()) {
-            requestSpec.queryParams(pathParams);
+            requestSpec.pathParams(pathParams);
+        }
+        if (queryParams != null && !queryParams.isEmpty()) {
+            requestSpec.queryParams(queryParams);
         }
         if (body != null) {
             if (body instanceof String && ((String) body).trim().isEmpty()) {

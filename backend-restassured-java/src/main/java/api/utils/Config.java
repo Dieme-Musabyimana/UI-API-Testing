@@ -65,6 +65,7 @@ public class Config {private static Properties properties;
     public static String getVariantColorHex() { return getProperty("product.variant.colorHex"); }
     public static String getVariantStock() { return getProperty("product.variant.stock"); }
     public static String getVariantPrice() { return getProperty("product.variant.price"); }
+    public static String getMessage(){ return  getProperty("updateStatusMessage"); }
 
 
 

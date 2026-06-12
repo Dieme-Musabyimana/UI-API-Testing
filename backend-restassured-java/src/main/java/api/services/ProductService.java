@@ -4,7 +4,7 @@ import api.POJOs.requestPOJO.ProductRequest;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
-import api.utils.FakerUtils;
+import api.utils.Faker;
 import api.utils.TokenManager;
 import io.restassured.response.Response;
 
@@ -19,7 +19,7 @@ public class ProductService extends BaseService {
     public ProductService (){
     }
 
-    public final static String newProductName = FakerUtils.getFirstName();
+    public final static String newProductName = Faker.getFirstName();
 
     public Response getProductCategories(){
         return sendGet(Routes.CATEGORIES);

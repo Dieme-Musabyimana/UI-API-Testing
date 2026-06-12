@@ -4,9 +4,8 @@ import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.ProductRequest;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.POJOs.requestPOJO.Variant;
-import api.services.ProductService;
 import api.utils.Config;
-import api.utils.FakerUtils;
+import api.utils.Faker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,18 +17,18 @@ import static java.lang.Double.parseDouble;
 public class RequestPayloads {
 
     public String getSku(){
-        return FakerUtils.getVariantSku();
+        return Faker.getVariantSku();
     }
     public String getName(){
-        return FakerUtils.getFirstName();
+        return Faker.getFirstName();
     }
     public static RegisterReqPOJO createReqBody(){
         RegisterReqPOJO registerData = new RegisterReqPOJO();
-        registerData.setFirstName(FakerUtils.getFirstName());
-        registerData.setLastName(FakerUtils.getLastName());
-        registerData.setEmail(FakerUtils.getEmail());
-        registerData.setPassword(FakerUtils.getPassword());
-        registerData.setPhone(FakerUtils.getPhone());
+        registerData.setFirstName(Faker.getFirstName());
+        registerData.setLastName(Faker.getLastName());
+        registerData.setEmail(Faker.getEmail());
+        registerData.setPassword(Faker.getPassword());
+        registerData.setPhone(Faker.getPhone());
         return registerData;
     }
 
@@ -43,7 +42,7 @@ public class RequestPayloads {
     public Map<String, Object> changePasswordBody(){
         Map<String, Object> body = new HashMap<>();
         body.put("currentPassword", Config.getLoginPassd2());
-        body.put("newPassword", FakerUtils.getPassword());
+        body.put("newPassword", Faker.getPassword());
         return body;
     }
 
@@ -122,17 +121,17 @@ public class RequestPayloads {
 
     public Object createCategoryPayload(){
         Map<String, Object> body = new HashMap<>();
-        body.put("name", FakerUtils.getFirstName());
+        body.put("name", Faker.getFirstName());
         body.put("description", Config.getProductDescription());
-        body.put("parentId", FakerUtils.getRandomParentId());
+        body.put("parentId", Faker.getRandomParentId());
         return body;
     }
 
-    public Object updateOrderStatusPayload(String status, String trackingNumber) {
+    public Map<String, Object> updateOrderStatusPayload(String status) {
         Map<String, Object> body = new HashMap<>();
-
+        String trackingNumber = Faker.getTrackingNumber();
         body.put("status", status);
-        body.put("message", "I nod not need this status now");
+        body.put("message", Config.getMessage());
         body.put("trackingNumber", trackingNumber);
 
         return body;

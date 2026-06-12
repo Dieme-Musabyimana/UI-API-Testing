@@ -1,12 +1,10 @@
 package api.utils;
 
-import com.github.javafaker.Faker;
-
 import java.util.UUID;
 
-public class FakerUtils {
+public class Faker {
 
-    private static final Faker faker = new Faker();
+    private static final com.github.javafaker.Faker faker = new com.github.javafaker.Faker();
 
     public static String getFirstName() {
         return faker.regexify("[A-Z][a-z]{6,10}");
@@ -31,5 +29,8 @@ public class FakerUtils {
     }
     public static String getRandomParentId() {
         return UUID.randomUUID().toString();
+    }
+    public static String getTrackingNumber() {
+        return faker.regexify("[A-Z]{2}[0-9]{9}RW");
     }
 }

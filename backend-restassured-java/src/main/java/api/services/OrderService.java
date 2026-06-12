@@ -29,15 +29,16 @@ public class OrderService extends BaseService {
     }
 
     public Response cancelOrder(String id){
-        return sendPatchWithAuth(Routes.CANCEL_ORDER, null, Map.of("id", id));
+        return sendPatchWithAuth(Routes.CANCEL_ORDER, null, java.util.Map.of("id", id), null);
     }
 
     public Response getAllOrders(){
         return sendGetWithAuth(Routes.ALL_ORDES, null);
     }
-
-    public Response updateOderStatus(String status, String trackingNumber){
-        Object payloads = new RequestPayloads().updateOrderStatusPayload(status,trackingNumber);
-        return sendPatchWithAuth(Routes.UPDATE_ORDER_STATUS, payloads, null);
+    private Map<String, Object> updateOderPayload;
+    public Response updateOderStatus(Map<String, Object> payload){
+        Map<String, Object> param = java.util.Map.of("id", "824ba5ed-f8e5-4b08-ae51-a8dbe459c932");
+        return sendPatchWithAuth(Routes.UPDATE_ORDER_STATUS, payload, param,    null);
     }
+
 }

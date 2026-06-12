@@ -5,18 +5,16 @@ import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
-import api.utils.FakerUtils;
-import api.utils.TokenManager;
+import api.utils.Faker;
 import io.restassured.response.Response;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class UserService extends BaseService {
-    public static final String firsName = FakerUtils.getFirstName();
-    public static final String lastName = FakerUtils.getFirstName();
+    public static final String firsName = Faker.getFirstName();
+    public static final String lastName = Faker.getFirstName();
 
     AuthService authService;
 
@@ -31,7 +29,7 @@ public class UserService extends BaseService {
         RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
         registerReqPOJO.setFirstName(firsName);
         registerReqPOJO.setLastName(lastName);
-        registerReqPOJO.setPhone(FakerUtils.getPhone());
+        registerReqPOJO.setPhone(Faker.getPhone());
         return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO);
     }
 
@@ -39,7 +37,7 @@ public class UserService extends BaseService {
         RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
         registerReqPOJO.setFirstName(firsName);
         registerReqPOJO.setLastName(lastName);
-        registerReqPOJO.setPhone(FakerUtils.getPhone());
+        registerReqPOJO.setPhone(Faker.getPhone());
         return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO);
 
 
@@ -78,7 +76,7 @@ public class UserService extends BaseService {
         addressBody.put("label", Config.getLabel());
         addressBody.put("firstName", firsName);
         addressBody.put("lastName", lastName);
-        addressBody.put("phone", FakerUtils.getPhone());
+        addressBody.put("phone", Faker.getPhone());
         addressBody.put("street", Config.getStreet());
         addressBody.put("city", Config.getCity());
         addressBody.put("state", Config.getState());

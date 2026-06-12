@@ -17,7 +17,7 @@ public class GetUserOders {
         orderService = new OrderService();
     }
 
-    private void validateOrdersByStatusAndPage(String expectedStatus, int expectedPage) {
+    private Response validateOrdersByStatusAndPage(String expectedStatus, int expectedPage) {
         Response response = orderService.getUserOder(expectedStatus, expectedPage);
 
         Assert.assertEquals(response.statusCode(), Status.OK);
@@ -31,11 +31,13 @@ public class GetUserOders {
 
         int actualPage = response.jsonPath().getInt("pagination.page");
         Assert.assertEquals(actualPage, expectedPage);
+        return response;
     }
 
     @Test
     public void getPendingOrders(){
         validateOrdersByStatusAndPage("PENDING", 2);
+        Assert.assertEquals(validateOrdersByStatusAndPage("PENDING", 2).jsonPath().getString("message"), "Success");
     }
 
     @Test
