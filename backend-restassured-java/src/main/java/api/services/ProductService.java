@@ -30,7 +30,7 @@ public class ProductService extends BaseService {
     }
 
     public Response createCategory(){
-        return sendPost(Routes.CATEGORIES, new RequestPayloads().createProductBody());
+        return sendPostWithAuth(Routes.CATEGORIES, new RequestPayloads().createCategoryPayload());
     }
 
     public Response getProducts(String path){
@@ -86,4 +86,7 @@ public class ProductService extends BaseService {
     public Response getRelatedProducts(){
         return sendGet(Routes.RELATED_PRODUCT);
     }
+
+
+
 }

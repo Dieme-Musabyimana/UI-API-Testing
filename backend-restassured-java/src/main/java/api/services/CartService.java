@@ -10,9 +10,6 @@ import java.util.Map;
 
 public class CartService extends BaseService {
 
-    public CartService(){
-    }
-
     public Response getCurrentCart(){
         return sendGetWithAuth(Routes.CART, null);
     }

@@ -2,6 +2,8 @@ package api.utils;
 
 import com.github.javafaker.Faker;
 
+import java.util.UUID;
+
 public class FakerUtils {
 
     private static final Faker faker = new Faker();
@@ -26,5 +28,8 @@ public class FakerUtils {
         return "+25078" + faker.regexify("[0-9]{7}");
     }
     public static String getVariantSku() { return "SKU-" + faker.regexify("[A-Z0-9]{8}");
+    }
+    public static String getRandomParentId() {
+        return UUID.randomUUID().toString();
     }
 }

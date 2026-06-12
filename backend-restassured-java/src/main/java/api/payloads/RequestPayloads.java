@@ -110,12 +110,30 @@ public class RequestPayloads {
         return payload;
     }
 
-    public static Map<String, Object> orderPayload(){
+    public Map<String, Object> orderPayload(){
         Map<String, Object> body = new HashMap<>();
         body.put("addressId", "57c06e75-0b9d-4891-ad38-ad1d430bacb9");
         body.put("paymentMethod", "CASH_ON_DELIVERY");
         body.put("notes", "This is my first order");
         body.put("shippingFee", 2);
+
+        return body;
+    }
+
+    public Object createCategoryPayload(){
+        Map<String, Object> body = new HashMap<>();
+        body.put("name", FakerUtils.getFirstName());
+        body.put("description", Config.getProductDescription());
+        body.put("parentId", FakerUtils.getRandomParentId());
+        return body;
+    }
+
+    public Object updateOrderStatusPayload(String status, String trackingNumber) {
+        Map<String, Object> body = new HashMap<>();
+
+        body.put("status", status);
+        body.put("message", "I nod not need this status now");
+        body.put("trackingNumber", trackingNumber);
 
         return body;
     }

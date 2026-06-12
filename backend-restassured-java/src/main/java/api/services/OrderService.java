@@ -3,6 +3,7 @@ package api.services;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
+import api.utils.TokenManager;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -29,5 +30,14 @@ public class OrderService extends BaseService {
 
     public Response cancelOrder(String id){
         return sendPatchWithAuth(Routes.CANCEL_ORDER, null, Map.of("id", id));
+    }
+
+    public Response getAllOrders(){
+        return sendGetWithAuth(Routes.ALL_ORDES, null);
+    }
+
+    public Response updateOderStatus(String status, String trackingNumber){
+        Object payloads = new RequestPayloads().updateOrderStatusPayload(status,trackingNumber);
+        return sendPatchWithAuth(Routes.UPDATE_ORDER_STATUS, payloads, null);
     }
 }
