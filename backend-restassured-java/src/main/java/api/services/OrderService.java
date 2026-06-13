@@ -3,13 +3,9 @@ package api.services;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
-import api.utils.TokenManager;
 import io.restassured.response.Response;
 
 import java.util.Map;
-
-import static api.utils.TokenManager.getToken;
-
 public class OrderService extends BaseService {
 
 
@@ -39,6 +35,11 @@ public class OrderService extends BaseService {
     public Response updateOderStatus(Map<String, Object> payload){
         Map<String, Object> param = java.util.Map.of("id", "824ba5ed-f8e5-4b08-ae51-a8dbe459c932");
         return sendPatchWithAuth(Routes.UPDATE_ORDER_STATUS, payload, param,    null);
-    }
 
+    }
+    public Map<String, Object> getBody(String status) {
+        Map<String, Object> payload = new RequestPayloads().updateOrderStatusPayload(status);
+        return payload;
+
+}
 }

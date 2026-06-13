@@ -1,7 +1,6 @@
 package apitests.ordersAPi;
 
 import api.constants.Status;
-import api.payloads.RequestPayloads;
 import api.services.OrderService;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -18,9 +17,10 @@ public class UpdateOrderStatus {
         this.orderService = new OrderService();
     }
 
+
     @Test
     public void updateOrderStatusAsDelivered(){
-        Map<String, Object> payload = new RequestPayloads().updateOrderStatusPayload("DELIVERED");
+        Map<String, Object> payload = orderService.getBody("DELIVERED");
         Response response = orderService.updateOderStatus(payload);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
@@ -31,7 +31,7 @@ public class UpdateOrderStatus {
 
     @Test
     public void updateOrderStatusAsShipped(){
-        Map<String, Object> payload = new RequestPayloads().updateOrderStatusPayload("SHIPPED");
+        Map<String, Object> payload = orderService.getBody("SHIPPED");
         Response response = orderService.updateOderStatus(payload);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
@@ -42,7 +42,7 @@ public class UpdateOrderStatus {
 
     @Test
     public void updateOrderStatusAsCancelled(){
-        Map<String, Object> payload = new RequestPayloads().updateOrderStatusPayload("CANCELLED");
+        Map<String, Object> payload = orderService.getBody("CANCELLED");
         Response response = orderService.updateOderStatus(payload);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
@@ -53,7 +53,7 @@ public class UpdateOrderStatus {
 
     @Test
     public void updateOrderStatusAsReturned(){
-        Map<String, Object> payload = new RequestPayloads().updateOrderStatusPayload("RETURNED");
+        Map<String, Object> payload = orderService.getBody("RETURNED");
         Response response = orderService.updateOderStatus(payload);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
@@ -64,7 +64,7 @@ public class UpdateOrderStatus {
 
     @Test
     public void updateOrderStatusAsConfirmed(){
-        Map<String, Object> payload = new RequestPayloads().updateOrderStatusPayload("CONFIRMED");
+        Map<String, Object> payload = orderService.getBody("CONFIRMED");
         Response response = orderService.updateOderStatus(payload);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
