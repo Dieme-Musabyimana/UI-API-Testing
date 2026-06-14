@@ -11,6 +11,6 @@ public class AdminService extends BaseService {
     public Response createCoupon(){
         RequestPayloads requestPayloads = new RequestPayloads();
         Object payload = requestPayloads.createCouponPayload();
-        return sendPostWithAuth(Routes.COUPON, payload);
+        return sendPost(Routes.COUPON, payload, true);
     }
 }

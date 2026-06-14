@@ -19,13 +19,13 @@ public class GetCurrentUser extends BaseAPI {
 
     @Test
     public void getCurrentUserTestWithoutLogin(){
-        Response response = authService.getCurrentUser();
+        Response response = authService.getCurrentUser(false);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().get("message"), "Not authenticated. Please log in.");
     }
     @Test
     public void getCurrentLoggedInUserTest(){
-        Response response = authService.loginAndGetCurrentUser();
+        Response response = authService.getCurrentUser(true);
         Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertEquals(response.jsonPath().get("data.user.email"), Config.getLoginEmail());
     }

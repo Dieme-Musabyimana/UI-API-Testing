@@ -13,7 +13,7 @@ public class GetRelatedProducts extends BaseAPI {
 
     @Test
     public void getRelatedProducts(){
-        Response response = new ProductService().getRelatedProducts();
+        Response response = new ProductService().getRelatedProducts(true);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");

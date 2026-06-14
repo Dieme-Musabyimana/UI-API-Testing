@@ -7,7 +7,6 @@ import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
 import io.restassured.response.Response;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.Map;
 
@@ -19,38 +18,36 @@ public class AuthService extends BaseService {
 
     public Response registerUser() {
         RegisterReqPOJO reqBody = RequestPayloads.createReqBody();
-        return sendPost(Routes.REGISTER, reqBody);
+        return sendPost(Routes.REGISTER, reqBody, false);
     }
 
     public Response login(){
         LoginPOJO loginData = RequestPayloads.createLoginBody();
-        return sendPost(Routes.LOGIN, loginData);
+        return sendPost(Routes.LOGIN, loginData, false);
     }
 
 
     public Response registerAndVerifyEmail() {
-        String path = Routes.VERIFY_EMAIL + getRefreshToken();
-        return sendGet(path);
+        String token = registerUser().jsonPath().getString("data.token");
+        Map<String, Object> param = Map.of("token", token);
+        return sendGet(Routes.VERIFY_EMAIL, param, null, true);
 
     }
 
     public Response requestForgotPasswordEmail(){
-        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getTestEmail()));
+        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getTestEmail()), true);
     }
 
-    public Response getCurrentUser(){
-        return sendGet(Routes.GET_ME);
-    }
-    public Response loginAndGetCurrentUser(){
-        return sendGetWithAuth(Routes.GET_ME, null);
+    public Response getCurrentUser(boolean userAuth){
+        return sendGet(Routes.GET_ME, null, null, userAuth);
     }
 
     public Response loginAndGetRefreshToken(){
-        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", getRefreshToken()));
+        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", getRefreshToken()), true);
     }
 
     public Response loginAndResetPassword(){
          String path = Routes.RESET_PASSWORD + getToken();
-        return sendPost(path, Map.of("password", Config.getLoginpsswd() ));
+        return sendPost(path, Map.of("password", Config.getLoginpsswd()), true);
     }
 }

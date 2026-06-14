@@ -10,7 +10,7 @@ public class GetProductFlashsales {
 
     @Test
     public void getProductFlashSalesTest(){
-        Response response = new ProductService().getProductFlashSales();
+        Response response = new ProductService().getProductFlashSales(true);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");

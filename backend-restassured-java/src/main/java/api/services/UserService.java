@@ -18,56 +18,38 @@ public class UserService extends BaseService {
 
     AuthService authService;
 
-
     public UserService(){
        this.authService = new AuthService();
-
     }
 
-    public Response fillUpdateInf(){
-
+    public Response updateProfile(boolean useAuth){
         RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
         registerReqPOJO.setFirstName(firsName);
         registerReqPOJO.setLastName(lastName);
         registerReqPOJO.setPhone(Faker.getPhone());
-        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO);
-    }
-
-    public Response loginAndUpdateProfile(){
-        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
-        registerReqPOJO.setFirstName(firsName);
-        registerReqPOJO.setLastName(lastName);
-        registerReqPOJO.setPhone(Faker.getPhone());
-        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO);
-
-
+        return sendPut(Routes.UPDATE_PROFILE, registerReqPOJO, null, useAuth);
     }
 
     public Response uploadAvatar(File image){
-        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar");
+        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar", null);
     }
 
     public String login2(){
         Map<String, String> loginBody = new HashMap<>();
         loginBody.put("email", Config.getLoginEmail2());
         loginBody.put("password", Config.getLoginPassd2());
-      Response response =  sendPost(Routes.LOGIN, loginBody);
+      Response response =  sendPost(Routes.LOGIN, null, false);
       return response.jsonPath().getString(Config.getTokenPath());
 
     }
 
-    public Response changePassword(){
+    public Response changePassword(boolean userAuth){
         RequestPayloads payloads = new RequestPayloads();
-        return sendPutWithAuth(Routes.CHANGE_PASSWORD, payloads.changePasswordBody());
+        return sendPut(Routes.CHANGE_PASSWORD, payloads.changePasswordBody(), null,userAuth);
     }
 
-    public Response changePasswordWithoutLogin(){
-        RequestPayloads payloads = new RequestPayloads();
-        return sendPut(Routes.CHANGE_PASSWORD, payloads.changePasswordBody());
-    }
-
-    public Response getUserAddress(){
-        return sendGetWithAuth(Routes.ADDRESS, null);
+    public Response getUserAddress(boolean useAuth){
+        return sendGet(Routes.ADDRESS, null, null, useAuth);
     }
 
     public static Map<String, Object> getAddressPayload() {
@@ -87,14 +69,14 @@ public class UserService extends BaseService {
         return addressBody;
     }
 
-    public Response addAddress(){
-        return sendPostWithAuth(Routes.ADDRESS,getAddressPayload());
+    public Response addAddress(boolean useAuh){
+        return sendPost(Routes.ADDRESS,getAddressPayload(), useAuh);
     }
 public Response addAddressWithEmptyFields(){
     Map<String, Object> unCompleteBody = getAddressPayload();
     unCompleteBody.put("firstName", "");
     unCompleteBody.put("lastName", "");
-    return sendPostWithAuth(Routes.ADDRESS, unCompleteBody);
+    return sendPost(Routes.ADDRESS, unCompleteBody, true);
 }
 
 }

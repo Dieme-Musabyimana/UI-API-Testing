@@ -10,7 +10,7 @@ public class GetTrendingProduct {
 
     @Test
     public void getTrendingProductTest(){
-        Response response = new ProductService().getTrendingProduct();
+        Response response = new ProductService().getTrendingProduct(true);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");

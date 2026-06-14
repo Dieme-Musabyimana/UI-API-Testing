@@ -10,7 +10,10 @@ public class GetAllOrders {
 
     @Test
     public void getAllOrders(){
-        Response response = new OrderService().getAllOrders();
+        Response response = new OrderService().getAllOrders(true);
         Assert.assertEquals(response.statusCode(), Status.OK);
+        Assert.assertTrue(response.jsonPath().getBoolean("success"));
+        Assert.assertEquals(response.jsonPath().getString("message"), "Success");
+        Assert.assertFalse(response.jsonPath().getList("data").isEmpty());
     }
 }

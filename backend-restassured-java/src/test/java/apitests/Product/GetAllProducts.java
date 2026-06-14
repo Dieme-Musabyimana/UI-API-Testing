@@ -11,7 +11,7 @@ public class GetAllProducts {
 
     @Test
     public void getAllProducts(){
-        Response response = new ProductService().getProducts(Routes.PRODUCT);
+        Response response = new ProductService().getProducts(Routes.PRODUCT, null);
         response.then().statusCode(Status.OK);
         response.then().body("success", equalTo(true));
         response.then().body("message", equalTo("Success"));

@@ -20,6 +20,5 @@ public class ApplyCoupon {
         Assert.assertEquals(response.jsonPath().getString("data.coupon.code"), "SAVE15NOW");
         Assert.assertEquals(response.jsonPath().getString("data.coupon.discountType"), "PERCENTAGE");
         Assert.assertFalse(response.jsonPath().getString("data.coupon.discountValue").isEmpty());
-//        Assert.assertNotNull(response.jsonPath().getBoolean("isActive"));
     }
 }

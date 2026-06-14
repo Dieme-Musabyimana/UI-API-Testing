@@ -18,7 +18,7 @@ public class ChangePasswordTest extends BaseAPI {
 
     @Test
     public void changePasswordTest(){
-        Response response = userService.changePassword();
+        Response response = userService.changePassword(true);
         Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.PASSWORD_CHANGED);
@@ -26,7 +26,7 @@ public class ChangePasswordTest extends BaseAPI {
 
     @Test
     public void changePasswordWithoutLogin(){
-        Response response = userService.changePasswordWithoutLogin();
+        Response response = userService.changePassword(false);
         Assert.assertEquals(response.getStatusCode(), Status.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);

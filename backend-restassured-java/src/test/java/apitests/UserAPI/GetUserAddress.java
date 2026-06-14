@@ -22,13 +22,13 @@ public void setUp(){
 }
 @Test
 public void getUserAddressTest(){
-    Response response = userService.getUserAddress();
+    Response response = userService.getUserAddress(true);
     Assert.assertEquals(response.getStatusCode(), Status.OK);
     Assert.assertTrue(response.jsonPath().getBoolean("success"));
     }
     @Test
     public void getUserAddressWithoutLogin(){
-    Response response = userService.getUserAddress();
+    Response response = userService.getUserAddress(false);
     Assert.assertEquals(response.getStatusCode(), Status.UNAUTHORIZED);
     Assert.assertFalse(response.jsonPath().getBoolean("success"));
     Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);

@@ -27,7 +27,7 @@ public class Faker {
     }
     public static String getVariantSku() { return "SKU-" + faker.regexify("[A-Z0-9]{8}");
     }
-    public static String getRandomParentId() {
+    public static String getRandomId() {
         return UUID.randomUUID().toString();
     }
     public static String getTrackingNumber() {

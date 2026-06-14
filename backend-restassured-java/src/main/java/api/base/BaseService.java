@@ -1,3 +1,4 @@
+
 package api.base;
 
 import api.utils.TokenManager;
@@ -7,7 +8,6 @@ import java.io.File;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 
 public class BaseService {
 
@@ -19,33 +19,17 @@ public class BaseService {
         return BaseAPI.getRequestSpec();
     }
 
-    public Response sendPost(String endpoint, Object body) {
-        return given()
-                .spec(getRequestSpec())
-                .body(body)
-                .when()
-                .post(endpoint)
-                .then().log().all()
-                .extract()
-                .response();
-    }
+    protected Response sendGet(String endpoint, Map<String, Object> pathParams, Map<String, Object> queryParams, boolean login) {
+        var requestSpec = given().spec(getRequestSpec());
 
-    protected Response sendGet(String endpoint) {
-        return given()
-                .spec(getRequestSpec())
-                .when()
-                .get(endpoint)
-                .then().log().all()
-                .extract()
-                .response();
-    }
-
-    protected Response sendGetWithAuth(String endpoint, Map<String, Object> queryParams) {
-        var requestSpec = given()
-                .spec(getRequestSpec())
-                .header("Authorization", "Bearer " + getAuthToken());
+        if (login) {
+            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        }
         if (queryParams != null && !queryParams.isEmpty()) {
             requestSpec.queryParams(queryParams);
+        }
+        if (pathParams != null && !pathParams.isEmpty()) {
+            requestSpec.pathParams(pathParams);
         }
         return requestSpec.when()
                 .get(endpoint)
@@ -54,22 +38,34 @@ public class BaseService {
                 .response();
     }
 
-    protected Response sendPostWithAuth(String endpoint, Object body) {
-        return given()
+    public Response sendPost(String endpoint, Object body, boolean login) {
+        var requestSpec = given()
                 .spec(getRequestSpec())
-                .header("Authorization", "Bearer " + getAuthToken())
-                .body(body)
-                .when()
+                .body(body);
+
+        if (login) {
+            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        }
+
+        return requestSpec.when()
                 .post(endpoint)
                 .then().log().all()
                 .extract()
                 .response();
     }
 
-    protected Response sendPut(String endpoint, Object body) {
-        return given()
-                .spec(getRequestSpec())
-                .body(body)
+    protected Response sendPut(String endpoint, Object body, Map<String, Object> pathParams, boolean login) {
+        var requestSpec = given().spec(getRequestSpec());
+
+        if (login) {
+            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        }
+        requestSpec.body(body);
+
+        if (pathParams != null && !pathParams.isEmpty()) {
+            requestSpec.pathParams(pathParams);
+        }
+        return requestSpec
                 .when()
                 .put(endpoint)
                 .then().log().all()
@@ -77,22 +73,12 @@ public class BaseService {
                 .response();
     }
 
-    protected Response sendPutWithAuth(String endpoint, Object body) {
-        return given()
-                .spec(getRequestSpec())
-                .header("Authorization", "Bearer " + getAuthToken())
-                .body(body)
-                .when()
-                .put(endpoint)
-                .then().log().all()
-                .extract()
-                .response();
-    }
+    protected Response sendPatch(String endpoint, Object body, Map<String, Object> pathParams, Map<String, Object> queryParams, boolean login) {
+        var requestSpec = given().spec(getRequestSpec());
 
-    protected Response sendPatchWithAuth(String endpoint, Object body, Map<String, Object> pathParams, Map<String, Object> queryParams) {
-        var requestSpec = given()
-                .spec(getRequestSpec())
-                .header("Authorization", "Bearer " + getAuthToken());
+        if (login) {
+            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        }
         if (pathParams != null && !pathParams.isEmpty()) {
             requestSpec.pathParams(pathParams);
         }
@@ -100,13 +86,9 @@ public class BaseService {
             requestSpec.queryParams(queryParams);
         }
         if (body != null) {
-            if (body instanceof String && ((String) body).trim().isEmpty()) {
-            } else {
-                requestSpec.body(body);
-            }
+            requestSpec.body(body);
         }
         return requestSpec
-                .body(body)
                 .when()
                 .patch(endpoint)
                 .then().log().all()
@@ -114,19 +96,16 @@ public class BaseService {
                 .response();
     }
 
-    protected Response sendDelete(String endpoint){
-        return given()
-                .spec(getRequestSpec())
-                .when()
-                .delete(endpoint)
-                .then().log().all()
-                .extract().response();
-    }
+    protected Response sendDelete(String endpoint, Map<String, Object> pathParams, boolean login) {
+        var requestSpec = given().spec(getRequestSpec());
 
-    protected Response sendDeleteWithAuth(String endpoint) {
-        return given()
-                .spec(getRequestSpec())
-                .header("Authorization", "Bearer " + getAuthToken())
+        if (login) {
+            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        }
+        if (pathParams != null && !pathParams.isEmpty()) {
+            requestSpec.pathParams(pathParams);
+        }
+        return requestSpec
                 .when()
                 .delete(endpoint)
                 .then().log().all()
@@ -134,11 +113,25 @@ public class BaseService {
                 .response();
     }
 
-    protected Response sendPostMultipartWithAuth(String endpoint, File file, String controlName) {
-        return given()
-                .spec(BaseAPI.getMultipartRequestSpec())
-                .header("Authorization", "Bearer " + getAuthToken())
-                .multiPart(controlName, file)
+    protected Response sendPostMultipartWithAuth(String endpoint, File file, String controlName, Map<String, Object> pathParams) {
+        var requestSpec = given();
+
+        requestSpec.header("Authorization", "Bearer " + getAuthToken());
+
+        if (file != null && file.isFile()) {
+            requestSpec.spec(BaseAPI.getMultipartRequestSpec());
+        } else {
+            requestSpec.spec(getRequestSpec());
+        }
+
+        if (pathParams != null && !pathParams.isEmpty()) {
+            requestSpec.pathParams(pathParams);
+        }
+
+        if (file != null && file.exists()) {
+            requestSpec.multiPart(controlName, file);
+        }
+        return requestSpec
                 .when()
                 .post(endpoint)
                 .then().log().all()

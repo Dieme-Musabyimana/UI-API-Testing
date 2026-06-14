@@ -2,7 +2,6 @@ package apitests.ordersAPi;
 
 import api.base.BaseAPI;
 import api.constants.Status;
-import api.services.CartService;
 import api.services.OrderService;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -13,8 +12,7 @@ public class PlaceNewOrder extends BaseAPI {
     @Test
 
     public void placeOrder(){
-        new CartService().addToCart();
-        Response response = new OrderService().placeOder();
+        Response response = new OrderService().placeOder("CASH_ON_DELIVERY");
         Assert.assertEquals(response.statusCode(), Status.CREATED);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
     }

@@ -20,7 +20,7 @@ public class AddUserAddress extends BaseAPI {
     @Test
 
     public void addAddressTest(){
-        Response response = userService.addAddress();
+        Response response = userService.addAddress(true);
         Assert.assertEquals(response.getStatusCode(), Status.CREATED);
         Assert.assertEquals(response.jsonPath().getString("data.firstName"), UserService.firsName);
         Assert.assertEquals(response.jsonPath().getString("data.lastName"), UserService.lastName);
@@ -28,7 +28,7 @@ public class AddUserAddress extends BaseAPI {
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.ADDRESS_ADDED);
     }
     @Test
-    public void AddAddressWithSomEmptyFied(){
+    public void addAddressWithSomEmptyFields(){
         userService.addAddressWithEmptyFields();
 
     }

@@ -7,6 +7,7 @@ import api.POJOs.requestPOJO.Variant;
 import api.utils.Config;
 import api.utils.Faker;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,13 +17,15 @@ import static java.lang.Double.parseDouble;
 
 public class RequestPayloads {
 
-    public String getSku(){
+    public String getSku() {
         return Faker.getVariantSku();
     }
-    public String getName(){
+
+    public String getName() {
         return Faker.getFirstName();
     }
-    public static RegisterReqPOJO createReqBody(){
+
+    public static RegisterReqPOJO createReqBody() {
         RegisterReqPOJO registerData = new RegisterReqPOJO();
         registerData.setFirstName(Faker.getFirstName());
         registerData.setLastName(Faker.getLastName());
@@ -32,28 +35,28 @@ public class RequestPayloads {
         return registerData;
     }
 
-    public static LoginPOJO createLoginBody(){
+    public static LoginPOJO createLoginBody() {
         LoginPOJO loginData = new LoginPOJO();
         loginData.setEmail(Config.getLoginEmail());
         loginData.setPassword(Config.getLoginpsswd());
         return loginData;
     }
 
-    public Map<String, Object> changePasswordBody(){
+    public Map<String, Object> changePasswordBody() {
         Map<String, Object> body = new HashMap<>();
         body.put("currentPassword", Config.getLoginPassd2());
         body.put("newPassword", Faker.getPassword());
         return body;
     }
 
-    public Map<String, Object> updateProductBody(Map<String, Object> existingMap){
+    public Map<String, Object> updateProductBody(Map<String, Object> existingMap) {
         existingMap.put("name", "Sport");
         existingMap.put("description", "For doing sports");
         existingMap.put("parentId", "Spots_clothes");
         return existingMap;
     }
 
-    public ProductRequest createProductBody(){
+    public ProductRequest createProductBody() {
         ProductRequest productRequest = new ProductRequest();
         Variant singleVariant = new Variant();
 
@@ -86,16 +89,15 @@ public class RequestPayloads {
         return productRequest;
     }
 
-//    public static String productId = new ProductService().getProductIds().get(0);
-//    public static String variantId = new ProductService().getProductIds().get(1);
-    public ProductRequest addToCartPayload(String productId, String variantId){
+    public ProductRequest addToCartPayload(String productId, String variantId) {
         ProductRequest addToCartPayload = new ProductRequest();
         addToCartPayload.setProductId(productId);
         addToCartPayload.setVariantId(variantId);
         addToCartPayload.setQuantity(3);
         return addToCartPayload;
     }
-    public static Map<String, Object> createCouponPayload() {
+
+    public Map<String, Object> createCouponPayload() {
         Map<String, Object> payload = new HashMap<>();
 
         payload.put("code", "SAVE15NOW");
@@ -109,21 +111,21 @@ public class RequestPayloads {
         return payload;
     }
 
-    public Map<String, Object> orderPayload(){
+    public Map<String, Object> orderPayload(String paymentMethod) {
         Map<String, Object> body = new HashMap<>();
         body.put("addressId", "57c06e75-0b9d-4891-ad38-ad1d430bacb9");
-        body.put("paymentMethod", "CASH_ON_DELIVERY");
+        body.put("paymentMethod", paymentMethod);
         body.put("notes", "This is my first order");
         body.put("shippingFee", 2);
 
         return body;
     }
 
-    public Object createCategoryPayload(){
+    public Object createCategoryPayload(String parentId) {
         Map<String, Object> body = new HashMap<>();
         body.put("name", Faker.getFirstName());
         body.put("description", Config.getProductDescription());
-        body.put("parentId", Faker.getRandomParentId());
+        body.put("parentId", parentId);
         return body;
     }
 
@@ -136,4 +138,18 @@ public class RequestPayloads {
 
         return body;
     }
+
+    public Map<String, Object> returnReason() {
+        Map<String, Object> reason = new HashMap<>();
+        reason.put("reason", Config.getReturnReason());
+        return reason;
+    }
+
+    public File paymentProof() {
+        return new File("backend-restassured-java/src/main/resources/avatar.png");
+    }
 }
+
+
+
+

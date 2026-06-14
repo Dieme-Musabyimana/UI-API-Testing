@@ -11,7 +11,8 @@ public class UpdateCartItemQuantity {
 
     @Test
     public void updateCartQuantity(){
-        Response response = new CartService().updateQuantity();
+        String id = new CartService().getCartItemId();
+        Response response = new CartService().updateQuantity(id, true);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.UPDATED);

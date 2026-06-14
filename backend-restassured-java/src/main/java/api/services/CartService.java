@@ -10,47 +10,46 @@ import java.util.Map;
 
 public class CartService extends BaseService {
 
-    public Response getCurrentCart(){
-        return sendGetWithAuth(Routes.CART, null);
+    public Response getCurrentCart(boolean userAuth){
+        return sendGet(Routes.CART, null, null, userAuth);
     }
 
     public Response clearEntireCart(){
-        return sendDeleteWithAuth(Routes.CART);
+        return sendDelete(Routes.CART, null, true);
     }
 
-    public Response addToCart(){
+    public Response addToCart(boolean login){
         Response response = new ProductService().createProduct();
         String productId = new ProductService().getProductIds(response).get(0);
         String variantId = new ProductService().getProductIds(response).get(1);
 
-        return sendPostWithAuth(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload(productId, variantId));
+        return sendPost(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload(productId, variantId), login);
     }
 
     public String getCartItemId() {
-        List<String> itemIds = getCurrentCart().jsonPath().getList("data.items.id");
+        List<String> itemIds = getCurrentCart(true).jsonPath().getList("data.items.id");
         if (itemIds == null || itemIds.isEmpty()) {
-            addToCart();
-            itemIds = getCurrentCart().jsonPath().getList("data.items.id");
+            addToCart(true);
+            itemIds = getCurrentCart(true).jsonPath().getList("data.items.id");
         }
         return itemIds.get(0);
     }
 
-    public Response updateQuantity(){
-        String path = Routes.UPDATE_QUANTITY + "/" + getCartItemId();
-        return sendPutWithAuth(path, Map.of("quantity", 10));
+    public Response updateQuantity(String id, boolean useAuth){
+        Map<String, Object> param = Map.of("itemId", id);
+        return sendPut(Routes.UPDATE_QUANTITY, Map.of("quantity", 10), param, useAuth);
     }
 
-    public Response removeItemFromCart(){
-        String path = Routes.UPDATE_QUANTITY + "/" + getCartItemId();
-        return sendDeleteWithAuth(path);
+    public Response removeItemFromCart(String id){
+        Map<String, Object> param = Map.of("itemId", getCartItemId());
+        return sendDelete(Routes.UPDATE_QUANTITY, param, true);
     }
 
     public Response saveForLaterUse(){
-        String path = Routes.ADD_TO_CART + "/" + getCartItemId() + "/save-for-later";
-        return sendPatchWithAuth(path, Map.of("id", getCartItemId()), null, null);
+        return sendPatch(Routes.SAVE_FOR_LATER, null, Map.of("itemId", getCartItemId()), null, true);
     }
 
     public Response applyCoupon(){
-        return sendPostWithAuth(Routes.APPLY_COUPON, Map.of("code",  "SAVE15NOW"));
+        return sendPost(Routes.APPLY_COUPON, Map.of("code",  "SAVE15NOW"), true);
     }
 }

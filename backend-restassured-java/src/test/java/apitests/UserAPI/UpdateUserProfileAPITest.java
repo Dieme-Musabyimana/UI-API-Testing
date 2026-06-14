@@ -1,5 +1,4 @@
 package apitests.UserAPI;
-
 import api.base.BaseAPI;
 import api.services.UserService;
 import api.utils.Expected;
@@ -12,14 +11,14 @@ public class UpdateUserProfileAPITest extends BaseAPI {
     @Test
     public void updateProfileWithoutToken() {
         UserService userService = new UserService();
-        Response response = userService.fillUpdateInf();
+        Response response = userService.updateProfile(false);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
     }
     @Test
     public void updateProfileWithToken(){
         UserService userService = new UserService();
-        Response response = userService.loginAndUpdateProfile();
+        Response response = userService.updateProfile(true);
 
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.PROFILE_UPDATED);

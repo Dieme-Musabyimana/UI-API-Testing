@@ -22,6 +22,10 @@ public class Expected {
     public static final String UPDATED = "Cart updated";
     public static final String APPLIED = "Coupon applied";
     public static final String NO_ORDER = "Order not found";
+    public static final String CANCELLED = "Order cancelled";
+    public static final String RETURN_SUBMITTED = "Return request submitted";
+    public static final String RETURN_REFUSED = "Only delivered orders can be returned";
+    public static final String RECORD_NOT_FOUND = "Related record not found";
 
 
 }

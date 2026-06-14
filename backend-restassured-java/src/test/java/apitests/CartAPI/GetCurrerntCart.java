@@ -12,7 +12,7 @@ public class GetCurrerntCart {
     public void clearEntireAndGetCurrentCart(){
         CartService cartService = new CartService();
         cartService.clearEntireCart();
-        Response response = cartService.getCurrentCart();
+        Response response = cartService.getCurrentCart(true);
 
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
@@ -28,8 +28,8 @@ public class GetCurrerntCart {
 
     public void addAndGetCurrentCartTest(){
         CartService cartService = new CartService();
-        cartService.addToCart();
-        Response response = cartService.getCurrentCart();
+        cartService.addToCart(true);
+        Response response = cartService.getCurrentCart(true);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertFalse(response.jsonPath().getList("data.items").isEmpty());
