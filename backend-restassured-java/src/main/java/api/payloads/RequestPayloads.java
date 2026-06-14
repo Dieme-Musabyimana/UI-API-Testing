@@ -4,8 +4,10 @@ import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.ProductRequest;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.POJOs.requestPOJO.Variant;
+import api.routes.Routes;
 import api.utils.Config;
 import api.utils.Faker;
+import io.restassured.response.Response;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,6 +25,12 @@ public class RequestPayloads {
 
     public String getName() {
         return Faker.getFirstName();
+    }
+    public Map<String, Object> login2Body() {
+        Map<String, Object> loginBody = new HashMap<>();
+        loginBody.put("email", Config.getLoginEmail2());
+        loginBody.put("password", Config.getLoginPassd2());
+        return loginBody;
     }
 
     public static RegisterReqPOJO createReqBody() {
@@ -47,6 +55,14 @@ public class RequestPayloads {
         body.put("currentPassword", Config.getLoginPassd2());
         body.put("newPassword", Faker.getPassword());
         return body;
+    }
+
+    public RegisterReqPOJO updateProfilePayload(String firstName, String lastName){
+        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
+        registerReqPOJO.setFirstName(firstName);
+        registerReqPOJO.setLastName(lastName);
+        registerReqPOJO.setPhone(Faker.getPhone());
+        return registerReqPOJO;
     }
 
     public Map<String, Object> updateProductBody(Map<String, Object> existingMap) {
@@ -97,6 +113,22 @@ public class RequestPayloads {
         return addToCartPayload;
     }
 
+    public  Map<String, Object> getAddressPayload(String firsName, String lastName) {
+        Map<String, Object> addressBody = new HashMap<>();
+        addressBody.put("label", Config.getLabel());
+        addressBody.put("firstName", firsName);
+        addressBody.put("lastName", lastName);
+        addressBody.put("phone", Faker.getPhone());
+        addressBody.put("street", Config.getStreet());
+        addressBody.put("city", Config.getCity());
+        addressBody.put("state", Config.getState());
+        addressBody.put("country", Config.getCountry());
+        addressBody.put("postalCode",Config.getPostalCode());
+        addressBody.put("isDefault", true);
+
+        return addressBody;
+    }
+
     public Map<String, Object> createCouponPayload() {
         Map<String, Object> payload = new HashMap<>();
 
@@ -110,6 +142,8 @@ public class RequestPayloads {
 
         return payload;
     }
+
+
 
     public Map<String, Object> orderPayload(String paymentMethod) {
         Map<String, Object> body = new HashMap<>();
@@ -148,6 +182,7 @@ public class RequestPayloads {
     public File paymentProof() {
         return new File("backend-restassured-java/src/main/resources/avatar.png");
     }
+
 }
 
 

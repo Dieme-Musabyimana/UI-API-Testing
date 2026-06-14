@@ -23,7 +23,7 @@ public class CartService extends BaseService {
         String productId = new ProductService().getProductIds(response).get(0);
         String variantId = new ProductService().getProductIds(response).get(1);
 
-        return sendPost(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload(productId, variantId), login);
+        return sendPost(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload(productId, variantId), null, login);
     }
 
     public String getCartItemId() {
@@ -50,6 +50,6 @@ public class CartService extends BaseService {
     }
 
     public Response applyCoupon(){
-        return sendPost(Routes.APPLY_COUPON, Map.of("code",  "SAVE15NOW"), true);
+        return sendPost(Routes.APPLY_COUPON, Map.of("code",  "SAVE15NOW"), null,true);
     }
 }

@@ -18,7 +18,7 @@ public class OrderService extends BaseService {
     public Response placeOder(String paymentMethod){
         new CartService().addToCart(true);
         Object requestBody = requestPayloads.orderPayload(paymentMethod);
-        return sendPost(Routes.ORDERS, requestBody, true);
+        return sendPost(Routes.ORDERS, requestBody, null,true);
     }
 
     public Response getUserOder(String status,  int page){

@@ -15,11 +15,9 @@ public class TokenManager {
 
     public static synchronized String getToken() {
         if (cachedToken == null) {
-            System.out.println("🔑 [AUTH] Token not found in memory. Authenticating via API...");
+            System.out.println("[AUTH] Token not found in memory. Authenticating via API...");
             LoginPOJO loginData = RequestPayloads.createLoginBody();
-
-            // Explicitly pass 'false' to the single sendPost method to bypass auth check
-            var response = new BaseService().sendPost(Routes.LOGIN, loginData, false);
+            var response = new BaseService().sendPost(Routes.LOGIN, loginData, null, false);
 
             cachedToken = response.jsonPath().getString("data.token");
             cachedRefreshToken = response.jsonPath().getString("data.refreshToken");

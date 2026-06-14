@@ -4,6 +4,7 @@ import api.POJOs.requestPOJO.ProductRequest;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
+import api.utils.Config;
 import api.utils.Faker;
 import io.restassured.response.Response;
 
@@ -14,8 +15,6 @@ import java.util.Map;
 
 public class ProductService extends BaseService {
 
-    public ProductService (){
-    }
 
     public final static String newProductName = Faker.getFirstName();
 
@@ -29,7 +28,7 @@ public class ProductService extends BaseService {
     }
 
     public Response createCategory(String parentId){
-        return sendPost(Routes.CATEGORIES, new RequestPayloads().createCategoryPayload(parentId),true);
+        return sendPost(Routes.CATEGORIES, new RequestPayloads().createCategoryPayload(parentId),null,true);
     }
 
     public Response getProducts(String path, String slug ){
@@ -50,7 +49,7 @@ public class ProductService extends BaseService {
 
     public Response createProduct(){
         ProductRequest requestPayloads = new RequestPayloads().createProductBody();
-        return sendPost(Routes.PRODUCT, requestPayloads, true);
+        return sendPost(Routes.PRODUCT, requestPayloads, null,true);
     }
 
     public String getProductSlug(){
@@ -71,7 +70,7 @@ public class ProductService extends BaseService {
     }
 
     public Response uploadProductImage(){
-        String path = "C:\\DOM\\api-ui-test\\backend-restassured-java\\src\\main\\resources\\avatar.png";
+        String path = Config.getFilePath();
         File testImage = new File(path);
         return sendPostMultipartWithAuth(Routes.UPLOAD_IMAGE, testImage, "images", null);
     }

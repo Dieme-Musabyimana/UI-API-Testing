@@ -10,44 +10,41 @@ import io.restassured.response.Response;
 
 import java.util.Map;
 
-import static api.utils.TokenManager.getRefreshToken;
-import static api.utils.TokenManager.getToken;
-
 public class AuthService extends BaseService {
 
 
     public Response registerUser() {
         RegisterReqPOJO reqBody = RequestPayloads.createReqBody();
-        return sendPost(Routes.REGISTER, reqBody, false);
+        return sendPost(Routes.REGISTER, reqBody, null, false);
     }
 
     public Response login(){
         LoginPOJO loginData = RequestPayloads.createLoginBody();
-        return sendPost(Routes.LOGIN, loginData, false);
+        return sendPost(Routes.LOGIN, loginData, null,false);
     }
 
 
     public Response registerAndVerifyEmail() {
         String token = registerUser().jsonPath().getString("data.token");
         Map<String, Object> param = Map.of("token", token);
-        return sendGet(Routes.VERIFY_EMAIL, param, null, true);
+        return sendGet(Routes.VERIFY_EMAIL, param, param, true);
 
     }
 
     public Response requestForgotPasswordEmail(){
-        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getTestEmail()), true);
+        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getTestEmail()), null,true);
     }
 
     public Response getCurrentUser(boolean userAuth){
         return sendGet(Routes.GET_ME, null, null, userAuth);
     }
 
-    public Response loginAndGetRefreshToken(){
-        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", getRefreshToken()), true);
+    public Response getRefreshToken(){
+        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", getRefreshToken()), null,false);
     }
 
-    public Response loginAndResetPassword(){
-         String path = Routes.RESET_PASSWORD + getToken();
-        return sendPost(path, Map.of("password", Config.getLoginpsswd()), true);
+    public Response resetPassword(String token){
+        Map<String, Object> path = Map.of("token", token);
+        return sendPost(Routes.RESET_PASSWORD, Map.of("password", Config.getLoginpsswd()), path, false);
     }
 }

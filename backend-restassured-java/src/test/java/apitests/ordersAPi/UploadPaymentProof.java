@@ -12,9 +12,7 @@ import java.util.Stack;
 public class UploadPaymentProof {
 
     @Test
-
     public void uploadPaymentProofWithMobileMoney() {
-
         String orderId = new OrderService().getOrderIdForPayment("MOBILE_MONEY");
         Response response = new OrderService().uploadPaymentProof(orderId);
         Assert.assertEquals(response.statusCode(), Status.OK);

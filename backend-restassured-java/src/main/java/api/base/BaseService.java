@@ -38,11 +38,13 @@ public class BaseService {
                 .response();
     }
 
-    public Response sendPost(String endpoint, Object body, boolean login) {
+    public Response sendPost(String endpoint, Object body, Map<String, Object> pathParams, boolean login) {
         var requestSpec = given()
                 .spec(getRequestSpec())
                 .body(body);
-
+        if(pathParams != null && !pathParams.isEmpty()){
+            requestSpec.pathParams(pathParams);
+        }
         if (login) {
             requestSpec.header("Authorization", "Bearer " + getAuthToken());
         }

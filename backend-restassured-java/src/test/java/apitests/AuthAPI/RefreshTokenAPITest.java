@@ -12,7 +12,7 @@ public class RefreshTokenAPITest extends BaseAPI {
     @Test
     public void getRefreshToken(){
         AuthService authService = new AuthService();
-       Response response = authService.loginAndGetRefreshToken();
+       Response response = authService.getRefreshToken();
        Assert.assertEquals(response.getStatusCode(), Status.OK);
     }
 }
