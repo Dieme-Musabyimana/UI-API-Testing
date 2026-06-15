@@ -4,6 +4,7 @@ import api.base.BaseAPI;
 import api.constants.Status;
 import api.services.UserService;
 import api.utils.Expected;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -21,7 +22,7 @@ public class AddUserAddress extends BaseAPI {
 
     public void addAddressTest(){
 
-        Response response = userService.addAddress(UserService.firsName,UserService.lastName,true);
+        Response response = userService.addAddress(UserService.firsName,UserService.lastName, LoginAs.ADMIN);
         Assert.assertEquals(response.getStatusCode(), Status.CREATED);
         Assert.assertEquals(response.jsonPath().getString("data.firstName"), UserService.firsName);
         Assert.assertEquals(response.jsonPath().getString("data.lastName"), UserService.lastName);
@@ -30,6 +31,6 @@ public class AddUserAddress extends BaseAPI {
     }
     @Test
     public void addAddressWithSomEmptyFields(){
-        userService.addAddress(" ", "", true);
+        userService.addAddress(" ", "", LoginAs.ADMIN);
     }
 }

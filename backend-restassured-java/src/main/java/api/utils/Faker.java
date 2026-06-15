@@ -33,4 +33,7 @@ public class Faker {
     public static String getTrackingNumber() {
         return faker.regexify("[A-Z]{2}[0-9]{9}RW");
     }
+    public static String generateCouponCode() {
+        return faker.regexify("[A-Z]{4}[0-9]{2}[A-Z]{3}");
+}
 }

@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 public class CreateProduct {
     @Test
     public void createProductTest() {
-        TokenManager tokenManager = new TokenManager();
         Response response = new ProductService().createProduct();
         Assert.assertEquals(response.getStatusCode(), Status.CREATED);
         Assert.assertEquals(response.jsonPath().getString("data.name"), new RequestPayloads().getName());

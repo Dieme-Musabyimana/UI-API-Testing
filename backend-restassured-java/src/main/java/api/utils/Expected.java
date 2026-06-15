@@ -26,6 +26,9 @@ public class Expected {
     public static final String RETURN_SUBMITTED = "Return request submitted";
     public static final String RETURN_REFUSED = "Only delivered orders can be returned";
     public static final String RECORD_NOT_FOUND = "Related record not found";
+    public static final String LOGIN_SUCCESS = "Login successful";
+    public static final String INVALID_CREDENTIALS = "Invalid email or password";
+    public static final String PERMISSION_ISSUE = "You do not have permission for this action";
 
 
 }

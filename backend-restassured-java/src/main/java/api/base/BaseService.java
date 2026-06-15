@@ -1,6 +1,6 @@
-
 package api.base;
 
+import api.utils.LoginAs;
 import api.utils.TokenManager;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.response.Response;
@@ -11,19 +11,17 @@ import static io.restassured.RestAssured.given;
 
 public class BaseService {
 
-    private String getAuthToken() {
-        return TokenManager.getToken();
-    }
-
     private RequestSpecification getRequestSpec() {
         return BaseAPI.getRequestSpec();
     }
 
-    protected Response sendGet(String endpoint, Map<String, Object> pathParams, Map<String, Object> queryParams, boolean login) {
+    protected Response sendGet(String endpoint, Map<String, Object> pathParams, Map<String, Object> queryParams, LoginAs loginAs) {
         var requestSpec = given().spec(getRequestSpec());
 
-        if (login) {
-            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        // Smart Auth: Only attaches header if a specific profile is selected and isn't NONE
+        if (loginAs != null && loginAs != LoginAs.NONE) {
+            String token = TokenManager.getToken(loginAs);
+            requestSpec.header("Authorization", "Bearer " + token);
         }
         if (queryParams != null && !queryParams.isEmpty()) {
             requestSpec.queryParams(queryParams);
@@ -38,15 +36,20 @@ public class BaseService {
                 .response();
     }
 
-    public Response sendPost(String endpoint, Object body, Map<String, Object> pathParams, boolean login) {
-        var requestSpec = given()
-                .spec(getRequestSpec())
-                .body(body);
-        if(pathParams != null && !pathParams.isEmpty()){
+    public Response sendPost(String endpoint, Object body, Map<String, Object> pathParams, LoginAs loginAs) {
+        var requestSpec = given().spec(getRequestSpec());
+
+        if (body != null) {
+            requestSpec.body(body);
+        }
+        if (pathParams != null && !pathParams.isEmpty()) {
             requestSpec.pathParams(pathParams);
         }
-        if (login) {
-            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+
+        // Smart Auth: Only attaches header if a specific profile is selected and isn't NONE
+        if (loginAs != null && loginAs != LoginAs.NONE) {
+            String token = TokenManager.getToken(loginAs);
+            requestSpec.header("Authorization", "Bearer " + token);
         }
 
         return requestSpec.when()
@@ -56,30 +59,34 @@ public class BaseService {
                 .response();
     }
 
-    protected Response sendPut(String endpoint, Object body, Map<String, Object> pathParams, boolean login) {
+    protected Response sendPut(String endpoint, Object body, Map<String, Object> pathParams, LoginAs loginAs) {
         var requestSpec = given().spec(getRequestSpec());
 
-        if (login) {
-            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        // Smart Auth: Only attaches header if a specific profile is selected and isn't NONE
+        if (loginAs != null && loginAs != LoginAs.NONE) {
+            String token = TokenManager.getToken(loginAs);
+            requestSpec.header("Authorization", "Bearer " + token);
         }
-        requestSpec.body(body);
-
+        if (body != null) {
+            requestSpec.body(body);
+        }
         if (pathParams != null && !pathParams.isEmpty()) {
             requestSpec.pathParams(pathParams);
         }
-        return requestSpec
-                .when()
+        return requestSpec.when()
                 .put(endpoint)
                 .then().log().all()
                 .extract()
                 .response();
     }
 
-    protected Response sendPatch(String endpoint, Object body, Map<String, Object> pathParams, Map<String, Object> queryParams, boolean login) {
+    protected Response sendPatch(String endpoint, Object body, Map<String, Object> pathParams, Map<String, Object> queryParams, LoginAs loginAs) {
         var requestSpec = given().spec(getRequestSpec());
 
-        if (login) {
-            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        // Smart Auth: Only attaches header if a specific profile is selected and isn't NONE
+        if (loginAs != null && loginAs != LoginAs.NONE) {
+            String token = TokenManager.getToken(loginAs);
+            requestSpec.header("Authorization", "Bearer " + token);
         }
         if (pathParams != null && !pathParams.isEmpty()) {
             requestSpec.pathParams(pathParams);
@@ -90,35 +97,39 @@ public class BaseService {
         if (body != null) {
             requestSpec.body(body);
         }
-        return requestSpec
-                .when()
+        return requestSpec.when()
                 .patch(endpoint)
                 .then().log().all()
                 .extract()
                 .response();
     }
 
-    protected Response sendDelete(String endpoint, Map<String, Object> pathParams, boolean login) {
+    protected Response sendDelete(String endpoint, Map<String, Object> pathParams, LoginAs loginAs) {
         var requestSpec = given().spec(getRequestSpec());
 
-        if (login) {
-            requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        // Smart Auth: Only attaches header if a specific profile is selected and isn't NONE
+        if (loginAs != null && loginAs != LoginAs.NONE) {
+            String token = TokenManager.getToken(loginAs);
+            requestSpec.header("Authorization", "Bearer " + token);
         }
         if (pathParams != null && !pathParams.isEmpty()) {
             requestSpec.pathParams(pathParams);
         }
-        return requestSpec
-                .when()
+        return requestSpec.when()
                 .delete(endpoint)
                 .then().log().all()
                 .extract()
                 .response();
     }
 
-    protected Response sendPostMultipartWithAuth(String endpoint, File file, String controlName, Map<String, Object> pathParams) {
+    protected Response sendPostMultipartWithAuth(String endpoint, File file, String controlName, Map<String, Object> pathParams, LoginAs loginAs) {
         var requestSpec = given();
 
-        requestSpec.header("Authorization", "Bearer " + getAuthToken());
+        // Smart Auth: Only attaches header if a specific profile is selected and isn't NONE
+        if (loginAs != null && loginAs != LoginAs.NONE) {
+            String token = TokenManager.getToken(loginAs);
+            requestSpec.header("Authorization", "Bearer " + token);
+        }
 
         if (file != null && file.isFile()) {
             requestSpec.spec(BaseAPI.getMultipartRequestSpec());
@@ -133,8 +144,7 @@ public class BaseService {
         if (file != null && file.exists()) {
             requestSpec.multiPart(controlName, file);
         }
-        return requestSpec
-                .when()
+        return requestSpec.when()
                 .post(endpoint)
                 .then().log().all()
                 .extract()

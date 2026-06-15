@@ -2,6 +2,7 @@ package apitests.CartAPI;
 
 import api.constants.Status;
 import api.services.CartService;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,7 +13,7 @@ public class GetCurrerntCart {
     public void clearEntireAndGetCurrentCart(){
         CartService cartService = new CartService();
         cartService.clearEntireCart();
-        Response response = cartService.getCurrentCart(true);
+        Response response = cartService.getCurrentCart(LoginAs.ADMIN);
 
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
@@ -28,8 +29,8 @@ public class GetCurrerntCart {
 
     public void addAndGetCurrentCartTest(){
         CartService cartService = new CartService();
-        cartService.addToCart(true);
-        Response response = cartService.getCurrentCart(true);
+        cartService.addToCart(LoginAs.ADMIN);
+        Response response = cartService.getCurrentCart(LoginAs.ADMIN);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertFalse(response.jsonPath().getList("data.items").isEmpty());

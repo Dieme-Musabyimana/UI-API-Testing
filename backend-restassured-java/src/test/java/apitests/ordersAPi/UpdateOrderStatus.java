@@ -2,6 +2,7 @@ package apitests.ordersAPi;
 
 import api.constants.Status;
 import api.services.OrderService;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -16,7 +17,7 @@ public class UpdateOrderStatus {
     public void setUp(){
         this.orderService = new OrderService();
     }
-    String id = new OrderService().getAllOrders(true).jsonPath().getString("data[0].id");
+    String id = new OrderService().getAllOrders(LoginAs.ADMIN).jsonPath().getString("data[0].id");
     @Test
     public void updateOrderStatusAsDelivered(){
         Map<String, Object> payload = orderService.getBody("DELIVERED");

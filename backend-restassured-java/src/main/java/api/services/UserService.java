@@ -5,6 +5,7 @@ import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Faker;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 
 import java.io.File;
@@ -20,26 +21,26 @@ public class UserService extends BaseService {
        this.authService = new AuthService();
     }
 
-    public Response updateProfile(String firsName, String lastName, boolean login){
+    public Response updateProfile(String firsName, String lastName, LoginAs loginAs){
         RegisterReqPOJO body = new RequestPayloads().updateProfilePayload(firsName, lastName);
-        return sendPut(Routes.UPDATE_PROFILE, body, null, login);
+        return sendPut(Routes.UPDATE_PROFILE, body, null, loginAs);
     }
 
     public Response uploadAvatar(File image){
-        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar", null);
+        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar", null, LoginAs.NONE);
     }
 
-    public Response changePassword(boolean login){
+    public Response changePassword(LoginAs loginAs){
         RequestPayloads payloads = new RequestPayloads();
-        return sendPut(Routes.CHANGE_PASSWORD, payloads.changePasswordBody(), null,login);
+        return sendPut(Routes.CHANGE_PASSWORD, payloads.changePasswordBody(), null,loginAs);
     }
 
-    public Response getUserAddress(boolean login){
-        return sendGet(Routes.ADDRESS, null, null, login);
+    public Response getUserAddress(LoginAs loginAs){
+        return sendGet(Routes.ADDRESS, null, null, loginAs);
     }
 
-    public Response addAddress(String firsName, String lastName, boolean login){
+    public Response addAddress(String firsName, String lastName, LoginAs signIn){
         Map<String, Object> body = new RequestPayloads().getAddressPayload(firsName, lastName);
-        return sendPost(Routes.ADDRESS,body, null, login);
+        return sendPost(Routes.ADDRESS,body, null, signIn);
     }
 }

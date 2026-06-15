@@ -3,11 +3,16 @@ package api.services;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
+import api.utils.LoginAs;
+import com.beust.ah.A;
 import io.restassured.response.Response;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+
+import static api.utils.LoginAs.ADMIN;
+
 public class OrderService extends BaseService {
     RequestPayloads requestPayloads;
 
@@ -16,32 +21,32 @@ public class OrderService extends BaseService {
     }
 
     public Response placeOder(String paymentMethod){
-        new CartService().addToCart(true);
+        new CartService().addToCart(ADMIN);
         Object requestBody = requestPayloads.orderPayload(paymentMethod);
-        return sendPost(Routes.ORDERS, requestBody, null,true);
+        return sendPost(Routes.ORDERS, requestBody, null, ADMIN);
     }
 
     public Response getUserOder(String status,  int page){
         Map<String, Object> query = Map.of("status", status, "page", page);
-        return sendGet(Routes.ORDERS, null, query, true);
+        return sendGet(Routes.ORDERS, null, query, ADMIN);
     }
 
-    public Response getSingleOrder(String id, boolean useAuth){
+    public Response getSingleOrder(String id, LoginAs loginAs){
         Map<String, Object> param = Map.of("id", id);
 
-        return sendGet(Routes.SINGLE_ODER, param, null, useAuth);
+        return sendGet(Routes.SINGLE_ODER, param, null, loginAs);
     }
 
     public Response cancelOrder(String id){
-        return sendPatch(Routes.CANCEL_ORDER, null, Map.of("id", id), null, true);
+        return sendPatch(Routes.CANCEL_ORDER, null, Map.of("id", id), null, ADMIN);
     }
 
-    public Response getAllOrders(boolean useAuth){
-        return sendGet(Routes.ALL_ORDES, null, null, useAuth);
+    public Response getAllOrders(LoginAs loginAs){
+        return sendGet(Routes.ALL_ORDES, null, null, loginAs);
     }
     public Response updateOderStatus(Map<String, Object> payload, String id){
         Map<String, Object> param = Map.of("id", id);
-        return sendPatch(Routes.UPDATE_ORDER_STATUS, payload, param,    null, true);
+        return sendPatch(Routes.UPDATE_ORDER_STATUS, payload, param,    null, ADMIN);
 
     }
     public Map<String, Object> getBody(String status) {
@@ -51,7 +56,7 @@ public class OrderService extends BaseService {
 
     public  Response requestReturn(String status){
         Map<String, Object> reason = requestPayloads.returnReason();
-        Response response = getAllOrders(true);
+        Response response = getAllOrders(ADMIN);
         String currentStatus = response.jsonPath().getString("data[0].status");
         String id = response.jsonPath().getString("data[0].id");
         Map<String, Object> body = Map.of("id", id);
@@ -60,12 +65,12 @@ public class OrderService extends BaseService {
             Map<String, Object> payload = requestPayloads.updateOrderStatusPayload(status);
             updateOderStatus(payload, id);
         }
-      return sendPatch(Routes.ORDER_RETURN, reason, body, null, true);
+      return sendPatch(Routes.ORDER_RETURN, reason, body, null, ADMIN);
     }
 
 
     public String getOrderIdForPayment(String paymentMethod) {
-        Response response = getAllOrders(true);
+        Response response = getAllOrders(ADMIN);
         List<Map<String, Object>> allOrders = response.jsonPath().getList("data");
 
         if (allOrders != null) {
@@ -89,6 +94,6 @@ public class OrderService extends BaseService {
         Map<String, Object> param = Map.of("id", orderId);
         File file = requestPayloads.paymentProof();
 
-        return sendPostMultipartWithAuth(Routes.PAYMENT_PROOF, file, "proof", param);
+        return sendPostMultipartWithAuth(Routes.PAYMENT_PROOF, file, "proof", param, ADMIN);
     }
 }

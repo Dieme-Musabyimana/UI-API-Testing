@@ -42,6 +42,8 @@ public class Routes {
     public static final String ORDER_RETURN = "/orders/{id}/return";
     public static final String PAYMENT_PROOF = "/orders/{id}/payment-proof";
     public static final String SAVE_FOR_LATER =     "/cart/items/{itemId}/save-for-later";
+    public static final String DASHBOARD = "/admin/dashboard";
+    public static final String ALL_USERS = "/admin/users";
 
 }
 

@@ -29,15 +29,15 @@ public class Config {private static Properties properties;
         return getProperty("baseUri");
     }
     public static String getTestEmail(){ return getProperty("email"); }
-    public static String getLoginEmail(){return getProperty("loginEmail");}
-    public static String getLoginpsswd(){ return getProperty("loginPssd");}
+    public static String getAdminLoginEmail(){return getProperty("loginEmail");}
+    public static String getAdminLoginPassword(){ return getProperty("loginPssd");}
     public static String getFilePath(){ return getProperty("filePath"); }
     public static String getTempFilePath(){ return getProperty("tempFilePath"); }
     public static String getTempFileName(){ return getProperty("tempFileName"); }
     public static String getFormat(){ return getProperty("format"); }
     public static String getTokenPath(){ return getProperty("tokenPath"); }
-    public static String getLoginEmail2(){ return getProperty("loginEmail2"); }
-    public static String getLoginPassd2(){ return getProperty("loginPassd2"); }
+    public static String getCustomerLoginEmail(){ return getProperty("loginEmail2"); }
+    public static String getCustomerLoginPassword(){ return getProperty("loginPassd2"); }
     public static String getLabel(){ return getProperty("label"); }
     public static String getStreet(){ return getProperty("street"); }
     public static String getCity(){ return getProperty("city"); }

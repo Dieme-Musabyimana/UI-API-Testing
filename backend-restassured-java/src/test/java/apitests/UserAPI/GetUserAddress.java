@@ -10,6 +10,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static api.utils.LoginAs.ADMIN;
+import static api.utils.LoginAs.NONE;
+
 public class GetUserAddress extends BaseAPI {
     TokenManager tokenManager;
     UserService userService;
@@ -22,13 +25,13 @@ public void setUp(){
 }
 @Test
 public void getUserAddressTest(){
-    Response response = userService.getUserAddress(true);
+    Response response = userService.getUserAddress(ADMIN);
     Assert.assertEquals(response.getStatusCode(), Status.OK);
     Assert.assertTrue(response.jsonPath().getBoolean("success"));
     }
     @Test
     public void getUserAddressWithoutLogin(){
-    Response response = userService.getUserAddress(false);
+    Response response = userService.getUserAddress(NONE);
     Assert.assertEquals(response.getStatusCode(), Status.UNAUTHORIZED);
     Assert.assertFalse(response.jsonPath().getBoolean("success"));
     Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);

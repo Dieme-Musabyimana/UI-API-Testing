@@ -4,10 +4,9 @@ import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.ProductRequest;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.POJOs.requestPOJO.Variant;
-import api.routes.Routes;
 import api.utils.Config;
 import api.utils.Faker;
-import io.restassured.response.Response;
+import api.utils.LoginAs;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,8 +27,8 @@ public class RequestPayloads {
     }
     public Map<String, Object> login2Body() {
         Map<String, Object> loginBody = new HashMap<>();
-        loginBody.put("email", Config.getLoginEmail2());
-        loginBody.put("password", Config.getLoginPassd2());
+        loginBody.put("email", Config.getCustomerLoginEmail());
+        loginBody.put("password", Config.getCustomerLoginPassword());
         return loginBody;
     }
 
@@ -45,14 +44,14 @@ public class RequestPayloads {
 
     public static LoginPOJO createLoginBody() {
         LoginPOJO loginData = new LoginPOJO();
-        loginData.setEmail(Config.getLoginEmail());
-        loginData.setPassword(Config.getLoginpsswd());
+        loginData.setEmail(Config.getAdminLoginEmail());
+        loginData.setPassword(Config.getAdminLoginPassword());
         return loginData;
     }
 
     public Map<String, Object> changePasswordBody() {
         Map<String, Object> body = new HashMap<>();
-        body.put("currentPassword", Config.getLoginPassd2());
+        body.put("currentPassword", Config.getCustomerLoginPassword());
         body.put("newPassword", Faker.getPassword());
         return body;
     }
@@ -180,9 +179,20 @@ public class RequestPayloads {
     }
 
     public File paymentProof() {
-        return new File("backend-restassured-java/src/main/resources/avatar.png");
+        return new File(Config.getFilePath());
     }
 
+
+    public static LoginPOJO getCredentials(LoginAs context) {
+        return switch (context) {
+            case ADMIN -> new LoginPOJO(Config.getAdminLoginEmail(), Config.getAdminLoginPassword());
+            case CUSTOMER -> new LoginPOJO(Config.getCustomerLoginEmail(), Config.getCustomerLoginPassword());
+            case SELLER -> new LoginPOJO("seller@example.com", "Seller@123456");
+            case NONE -> throw new IllegalArgumentException("Cannot fetch credentials for LoginAs.NONE because no authentication is required!");
+
+            default -> throw new IllegalArgumentException("Unexpected login option value: " + context);
+        };
+    }
 }
 
 
