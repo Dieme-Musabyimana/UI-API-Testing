@@ -44,6 +44,8 @@ public class Routes {
     public static final String SAVE_FOR_LATER =     "/cart/items/{itemId}/save-for-later";
     public static final String DASHBOARD = "/admin/dashboard";
     public static final String ALL_USERS = "/admin/users";
+    public static final String WISHLIST = "/wishlist";
+
 
 }
 

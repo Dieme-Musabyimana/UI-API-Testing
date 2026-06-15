@@ -91,6 +91,8 @@ public class ProductService extends BaseService {
         return sendGet(Routes.RELATED_PRODUCT, null, null, loginAs);
     }
 
-
+    public Response getWishList(LoginAs loginAs){
+        return sendGet(Routes.WISHLIST, null, null, loginAs);
+    }
 
 }
