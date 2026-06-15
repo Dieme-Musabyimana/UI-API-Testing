@@ -1,6 +1,8 @@
 package apitests.Categories;
 
 import api.services.ProductService;
+import api.utils.Config;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -8,7 +10,8 @@ import org.testng.annotations.Test;
 public class GetSingleCategory {
     @Test
     public void getSingleCategory(){
-        Response response = new ProductService().getSingleCategory();
+        String slug = Config.getCategorySlug();
+        Response response = new ProductService().getSingleCategory(slug, LoginAs.ADMIN);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));

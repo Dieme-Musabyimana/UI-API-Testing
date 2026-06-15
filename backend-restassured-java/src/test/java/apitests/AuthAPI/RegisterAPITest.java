@@ -1,12 +1,9 @@
 package apitests.AuthAPI;
 
-import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.POJOs.responsePOJO.registerResPOJO.RegisterResPOJO; // Import your response root
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
-//import api.payloads.RequestPayloads;
+import api.constants.Status;
 import api.services.AuthService;
-import api.utils.FakerUtils;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,7 +16,7 @@ public class RegisterAPITest extends BaseAPI {
         Response response = auth.registerUser();
         RegisterResPOJO resBody = response.getBody().as(RegisterResPOJO.class);
 
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.CREATED);
+        Assert.assertEquals(response.getStatusCode(), Status.CREATED);
         Assert.assertTrue(resBody.isSuccess(), "Success key flag should be true");
         Assert.assertEquals(resBody.getMessage(), "Registration successful. Check your email to verify.");
 

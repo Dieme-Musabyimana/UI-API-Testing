@@ -1,7 +1,7 @@
 package apitests.AuthAPI;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.AuthService;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -12,8 +12,7 @@ public class VerifyemailTest extends BaseAPI {
     public void verifyEmailTest () {
         AuthService authService = new AuthService();
         Response verificationResponse = authService.registerAndVerifyEmail();
-        Assert.assertEquals(verificationResponse.getStatusCode(), StatusCodes.OK);
-
+        Assert.assertEquals(verificationResponse.getStatusCode(), Status.OK);
     }
 
 }

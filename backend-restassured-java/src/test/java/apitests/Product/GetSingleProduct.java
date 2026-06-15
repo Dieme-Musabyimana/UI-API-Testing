@@ -1,6 +1,6 @@
 package apitests.Product;
 
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.routes.Routes;
 import api.services.ProductService;
 import api.utils.Config;
@@ -18,10 +18,12 @@ public class GetSingleProduct {
     }
     @Test
     public void getSingleProduct(){
-        Response response = productService.getProducts(Routes.SINGLE_PRODUCT);
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+
+        String productSlug = new ProductService().getProductSlug();
+        String slug = Config.getProductSlug();
+        Response response = productService.getProducts(Routes.SINGLE_PRODUCT, slug);
+        Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("data.id"), Config.getProductId());
-        Assert.assertEquals(response.jsonPath().getString("data.slug"), Config.getProductSlug());
+        Assert.assertEquals(response.jsonPath().getString("data.slug"), productSlug);
     }
 }

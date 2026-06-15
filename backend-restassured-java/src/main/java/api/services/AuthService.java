@@ -3,55 +3,58 @@ package api.services;
 import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.base.BaseService;
-//import api.payloads.RequestPayloads;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
+import api.utils.LoginAs;
+import api.utils.TokenManager;
 import io.restassured.response.Response;
 
+import java.util.List;
 import java.util.Map;
+
+import static api.utils.LoginAs.ADMIN;
 
 public class AuthService extends BaseService {
 
+
     public Response registerUser() {
         RegisterReqPOJO reqBody = RequestPayloads.createReqBody();
-        return sendPost(Routes.REGISTER, reqBody);
+        return sendPost(Routes.REGISTER, reqBody, null, null);
     }
 
-    public Response login(){
-        LoginPOJO loginData = RequestPayloads.createLoginBody();
-        return sendPost(Routes.LOGIN, loginData);
+    public Response login(String email,String password, LoginAs loginAs){
+        LoginPOJO loginData = RequestPayloads.getCredentials(loginAs);
+        loginData.setEmail(email);
+        loginData.setPassword(password);
+        return sendPost(Routes.LOGIN, loginData, null,null);
     }
 
-    public String getLoginToken(){
-        return login().jsonPath().getString("data.token");
-    }
-    public String getRefreshToken(){
-        return login().jsonPath().getString("data.refreshToken");
-    }
 
     public Response registerAndVerifyEmail() {
-        Response regResponse = login();
-        String emailToken = regResponse.jsonPath().getString("data.refreshToken");String path = Routes.VERIFY_EMAIL + emailToken;
-        return sendGet(path);
+        String token = registerUser().jsonPath().getString("data.token");
+        Map<String, Object> param = Map.of("token", token);
+        return sendGet(Routes.VERIFY_EMAIL, param, param, ADMIN);
+
     }
 
     public Response requestForgotPasswordEmail(){
-        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getTestEmail()));
+        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getCustomerLoginEmail()), null,null);
     }
-    public Response getCurrentUser(){
-        return sendGet(Routes.GET_ME);
+public List<String> tokenList(){
+        List<String> allTokens = new TokenManager().getAllTokens();
+        return allTokens;
+}
+    public Response getCurrentUser(LoginAs loginAs){
+        return sendGet(Routes.GET_ME, null, null, loginAs);
     }
 
-    public Response loginAndGetCurrentUser(){
-        return sendGetWithAuth(Routes.GET_ME, getLoginToken());
+    public Response getRefreshToken(){
+        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", tokenList().getLast()), null, ADMIN);
     }
 
-    public Response loginAndGetRefreshToken(){
-        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", getRefreshToken()));
-    }
-    public Response loginAndResetPassword(){
-         String path = Routes.RESET_PASSWORD + getLoginToken();
-        return sendPost(path, Map.of("password", Config.getLoginpsswd() ));
+    public Response resetPassword(String token){
+        Map<String, Object> path = Map.of("token", token);
+        return sendPost(Routes.RESET_PASSWORD, Map.of("password", Config.getCustomerLoginPassword()), path, null);
     }
 }

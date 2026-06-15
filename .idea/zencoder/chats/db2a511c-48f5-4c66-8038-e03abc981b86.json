@@ -1,0 +1,88 @@
+{
+    "checksum": "bca5e35f16fea67d90bbddbe0f82c723ed4be78b2bfefb9e6fd97806db7404e9",
+    "data": {
+    "id": "db2a511c-48f5-4c66-8038-e03abc981b86",
+    "createdAt": 1781191080265,
+    "updatedAt": 1781191090249,
+    "title": "Fix this: body.isEmpty() Cannot resolve method ...",
+    "messages": [
+        {
+            "id": "146d344a-e242-4e6e-94de-2be50e85794b",
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Fix this:"
+                },
+                {
+                    "type": "codeSnippet",
+                    "text": "body.isEmpty()",
+                    "language": "java"
+                },
+                {
+                    "type": "text",
+                    "text": "Cannot resolve method 'isEmpty' in 'Object'"
+                }
+            ],
+            "context": {
+                "currentFile": {
+                    "fsPath": "C:/DOM/api-ui-test/backend-restassured-java/src/main/java/api/base/BaseService.java"
+                }
+            },
+            "createdAt": 1781191080579,
+            "isInternal": false,
+            "rawContent": {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Fix this:"
+                            },
+                            {
+                                "type": "codeBlock",
+                                "attrs": {
+                                    "language": "java"
+                                },
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "body.isEmpty()"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "text",
+                                "text": "Cannot resolve method 'isEmpty' in 'Object'"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "e8f0a075-9acb-4e8e-b262-9c041e758ae6",
+            "role": "system",
+            "content": [
+                {
+                    "type": "errorText",
+                    "text": "No models available: offline mode without cached models, and settings.json contains no models. Either configure models in settings.json or ensure gateway is accessible with ZENCODER_ACCESS_TOKEN.",
+                    "actions": [
+                        {
+                            "type": "externalAction",
+                            "title": "Regenerate",
+                            "action": "regenerateLastAnswer"
+                        }
+                    ]
+                }
+            ],
+            "createdAt": 1781191090248,
+            "isInternal": false
+        }
+    ],
+    "model": "auto",
+    "lastUserMessageAt": 1781191080585
+}
+}

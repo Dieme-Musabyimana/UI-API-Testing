@@ -7,9 +7,9 @@ import org.testng.annotations.Test;
 public class ResetPasswordTest extends BaseAPI {
 
     @Test
-    public void resetPasswordTest(){
+    public void resetPasswordTestWithLogin(){
         AuthService authService = new AuthService();
-        authService.loginAndResetPassword();
+        authService.resetPassword(authService.tokenList().getFirst());
 
     }
 }
