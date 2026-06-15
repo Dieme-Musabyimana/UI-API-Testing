@@ -11,8 +11,8 @@ import static api.utils.LoginAs.ADMIN;
 public class AdminService extends BaseService {
     public Response createCoupon(String couponCode, LoginAs loginAs){
         RequestPayloads requestPayloads = new RequestPayloads();
-        Object payload = requestPayloads.createCouponPayload();
-        return sendPost(Routes.COUPON, payload, null, ADMIN);
+        Object payload = requestPayloads.createCouponPayload(couponCode);
+        return sendPost(Routes.COUPON, payload, null, loginAs);
     }
 
     public Response getDashboardAnalytics(LoginAs loginAs){

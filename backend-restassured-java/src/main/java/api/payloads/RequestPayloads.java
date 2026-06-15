@@ -128,10 +128,10 @@ public class RequestPayloads {
         return addressBody;
     }
 
-    public Map<String, Object> createCouponPayload() {
+    public Map<String, Object> createCouponPayload(String couponCode) {
         Map<String, Object> payload = new HashMap<>();
 
-        payload.put("code", "SAVE15NOW");
+        payload.put("code", couponCode);
         payload.put("description", "15% off on all items with minimum checkout order fulfillment.");
         payload.put("discountType", "PERCENTAGE");
         payload.put("discountValue", 15);
