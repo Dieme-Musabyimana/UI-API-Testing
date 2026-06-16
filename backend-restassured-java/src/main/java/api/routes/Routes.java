@@ -47,6 +47,7 @@ public class Routes {
     public static final String WISHLIST = "/wishlist";
     public static final String ADD_REMOVE_TO_WISHLIST = "/wishlist/{productId}";
     public static final String MOVE_TO_CART = "/wishlist/{productId}/move-to-cart";
+    public static final String REVIEWS = "/reviews/{productId}";
 
 
 }

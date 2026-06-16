@@ -194,6 +194,19 @@ public class RequestPayloads {
             default -> throw new IllegalArgumentException("Unexpected login option value: " + context);
         };
     }
+
+    public List<Map<String, Object>> reviewParams(String productId, int page, String sort){
+        List<Map<String, Object>> params = new ArrayList<>();
+        Map<String, Object> path = new HashMap<>();
+        path.put("productId", productId);
+        Map<String, Object> query = new HashMap<>();
+        query.put("page", page);
+        query.put("sort", sort);
+        params.add(path);
+        params.add(query);
+
+        return params;
+    }
 }
 
 

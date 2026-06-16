@@ -17,6 +17,11 @@ import java.util.Map;
 import static api.utils.LoginAs.ADMIN;
 
 public class ProductService extends BaseService {
+    RequestPayloads requestPayloads;
+
+    public ProductService(){
+        this.requestPayloads = new RequestPayloads();
+    }
 
 
     public final static String newProductName = Faker.getFirstName();
@@ -118,5 +123,11 @@ public class ProductService extends BaseService {
     public Response moveWishlistToCart(String productId, LoginAs loginAs) {
         Map<String, Object> path = Map.of("productId", productId);
         return sendPost(Routes.MOVE_TO_CART, null, path, loginAs);
+    }
+
+    public Response getProductReviews(String productId, int page, String sort, LoginAs loginAs){
+    Map<String, Object> path = requestPayloads.reviewParams(productId, page, sort).getFirst();
+    Map<String, Object> query = requestPayloads.reviewParams(productId, page, sort).getLast();
+    return sendGet(Routes.REVIEWS, path, query, loginAs);
     }
 }

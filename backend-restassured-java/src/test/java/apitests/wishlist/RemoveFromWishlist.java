@@ -1,7 +1,6 @@
 package apitests.wishlist;
 
 import api.constants.Status;
-import api.routes.Routes;
 import api.services.ProductService;
 import api.utils.Expected;
 import api.utils.LoginAs;
