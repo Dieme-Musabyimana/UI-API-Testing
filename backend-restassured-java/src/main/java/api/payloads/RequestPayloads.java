@@ -178,8 +178,9 @@ public class RequestPayloads {
         return reason;
     }
 
-    public File paymentProof() {
-        return new File(Config.getFilePath());
+    public File createFile(String path) {
+        File file = new File(path);
+        return file;
     }
 
 

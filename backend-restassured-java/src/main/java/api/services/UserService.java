@@ -4,6 +4,7 @@ import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
+import api.utils.Config;
 import api.utils.Faker;
 import api.utils.LoginAs;
 import io.restassured.response.Response;
@@ -26,8 +27,9 @@ public class UserService extends BaseService {
         return sendPut(Routes.UPDATE_PROFILE, body, null, loginAs);
     }
 
-    public Response uploadAvatar(File image){
-        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, image, "avatar", null, LoginAs.NONE);
+    public Response uploadAvatar(){
+        File file = new RequestPayloads().createFile(Config.getFilePath());
+        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, file, "avatar", null, LoginAs.ADMIN);
     }
 
     public Response changePassword(LoginAs loginAs){

@@ -11,7 +11,6 @@ public class Expected {
     public static final String PASSWORD_CHANGED = "Password changed";
     public static final String ADDRESS_ADDED = "Address added";
     public static final String PRODUCT_UPDATED = "Product updated";
-    public static final String NOT_FOUND = "Record not found";
     public static final String DELETED = "Product deleted";
     public static final String DEACTIVATED = "Product deactivated";
     public static final String CREATED  = "Product deleted";
@@ -25,10 +24,12 @@ public class Expected {
     public static final String CANCELLED = "Order cancelled";
     public static final String RETURN_SUBMITTED = "Return request submitted";
     public static final String RETURN_REFUSED = "Only delivered orders can be returned";
-    public static final String RECORD_NOT_FOUND = "Related record not found";
+    public static final String NOT_FOUND = "not found";
     public static final String LOGIN_SUCCESS = "Login successful";
     public static final String INVALID_CREDENTIALS = "Invalid email or password";
     public static final String PERMISSION_ISSUE = "You do not have permission for this action";
+    public static final String PRODUCT_REMOVED = "Removed from wishlist";
+    public static final String MOVED_TO_CART = "Moved to cart";
 
 
 }

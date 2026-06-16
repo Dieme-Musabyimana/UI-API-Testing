@@ -12,13 +12,21 @@ import org.testng.annotations.Test;
 public class GetUserWishlist {
 
     @Test
-    public void getWishListWithLogin(){
+    public void getWishListWithLoginAsAnAdmin(){
+        Response response = new ProductService().getWishList(LoginAs.ADMIN);
+        Assert.assertEquals(response.statusCode(), Status.OK);
+        Assert.assertTrue(response.jsonPath().getBoolean("success"));
+        Assert.assertEquals(response.jsonPath().getString("message"), "Success");
+        Assert.assertNotNull(response.jsonPath().getList("data"));
+    }
+
+    @Test
+    public void getWishListWithLoginAsCUSTOMER(){
         Response response = new ProductService().getWishList(LoginAs.CUSTOMER);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");
         Assert.assertNotNull(response.jsonPath().getList("data"));
-
     }
     @Test
     public void getWishListWithoutLogin(){

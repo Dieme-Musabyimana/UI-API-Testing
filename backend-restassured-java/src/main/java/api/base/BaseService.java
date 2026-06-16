@@ -5,6 +5,7 @@ import api.utils.TokenManager;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.response.Response;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -107,7 +108,6 @@ public class BaseService {
     protected Response sendDelete(String endpoint, Map<String, Object> pathParams, LoginAs loginAs) {
         var requestSpec = given().spec(getRequestSpec());
 
-        // Smart Auth: Only attaches header if a specific profile is selected and isn't NONE
         if (loginAs != null && loginAs != LoginAs.NONE) {
             String token = TokenManager.getToken(loginAs);
             requestSpec.header("Authorization", "Bearer " + token);
@@ -125,13 +125,12 @@ public class BaseService {
     protected Response sendPostMultipartWithAuth(String endpoint, File file, String controlName, Map<String, Object> pathParams, LoginAs loginAs) {
         var requestSpec = given();
 
-        // Smart Auth: Only attaches header if a specific profile is selected and isn't NONE
         if (loginAs != null && loginAs != LoginAs.NONE) {
             String token = TokenManager.getToken(loginAs);
             requestSpec.header("Authorization", "Bearer " + token);
         }
 
-        if (file != null && file.isFile()) {
+        if (file != null) {
             requestSpec.spec(BaseAPI.getMultipartRequestSpec());
         } else {
             requestSpec.spec(getRequestSpec());
@@ -141,13 +140,10 @@ public class BaseService {
             requestSpec.pathParams(pathParams);
         }
 
-        if (file != null && file.exists()) {
+        if (file != null && file.exists() && file.isFile()) {
             requestSpec.multiPart(controlName, file);
         }
-        return requestSpec.when()
-                .post(endpoint)
-                .then().log().all()
-                .extract()
-                .response();
+
+        return requestSpec.when().post(endpoint).then().extract().response();
     }
 }

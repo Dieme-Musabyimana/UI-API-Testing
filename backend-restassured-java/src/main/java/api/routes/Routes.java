@@ -25,7 +25,7 @@ public class Routes {
     public static final String SINGLE_PRODUCT = "/products/{slug}";
     public static final String UPDATE_PRODUCT = PRODUCT + "/" + Config.getProductId();
     public static final String DELETE_PRODUCT = PRODUCT + "/";
-    public static final String UPLOAD_IMAGE = PRODUCT + "/" + Config.getProductId() + "/images";
+    public static final String UPLOAD_IMAGE = "/products/{id}/images";
     public static final String TRENDING = PRODUCT + "/" + "trending";
     public static final String FLESH_SALES = PRODUCT + "/flash-sales";
     public static final String RELATED_PRODUCT = UPDATE_PRODUCT + "/related";
@@ -45,6 +45,8 @@ public class Routes {
     public static final String DASHBOARD = "/admin/dashboard";
     public static final String ALL_USERS = "/admin/users";
     public static final String WISHLIST = "/wishlist";
+    public static final String ADD_REMOVE_TO_WISHLIST = "/wishlist/{productId}";
+    public static final String MOVE_TO_CART = "/wishlist/{productId}/move-to-cart";
 
 
 }

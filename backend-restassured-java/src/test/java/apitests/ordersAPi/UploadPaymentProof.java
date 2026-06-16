@@ -7,8 +7,6 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Stack;
-
 public class UploadPaymentProof {
 
     @Test

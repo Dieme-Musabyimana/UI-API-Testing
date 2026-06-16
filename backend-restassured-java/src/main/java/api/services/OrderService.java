@@ -3,11 +3,12 @@ package api.services;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
+import api.utils.Config;
 import api.utils.LoginAs;
-import com.beust.ah.A;
 import io.restassured.response.Response;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -92,8 +93,7 @@ public class OrderService extends BaseService {
 
     public Response uploadPaymentProof(String orderId) {
         Map<String, Object> param = Map.of("id", orderId);
-        File file = requestPayloads.paymentProof();
-
+        File file = new RequestPayloads().createFile(Config.getFilePath());
         return sendPostMultipartWithAuth(Routes.PAYMENT_PROOF, file, "proof", param, ADMIN);
     }
 }

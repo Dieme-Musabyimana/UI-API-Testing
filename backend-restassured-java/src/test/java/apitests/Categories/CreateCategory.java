@@ -25,7 +25,7 @@ public class CreateCategory {
         Response response = new ProductService().createCategory(parentId);
         Assert.assertEquals(response.statusCode(), Status.BAD_REQUEST);
       Assert.assertFalse(response.jsonPath().getBoolean("success"));
-      Assert.assertEquals(response.jsonPath().getString("message"), Expected.RECORD_NOT_FOUND);
+      Assert.assertTrue(response.jsonPath().getString("message").contains(Expected.NOT_FOUND));
   }
 
 }

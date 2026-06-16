@@ -21,12 +21,12 @@ public class CartService extends BaseService {
         return sendDelete(Routes.CART, null, ADMIN);
     }
 
-    public Response addToCart(LoginAs signIn){
+    public Response addToCart(LoginAs loginAs){
         Response response = new ProductService().createProduct();
         String productId = new ProductService().getProductIds(response).get(0);
         String variantId = new ProductService().getProductIds(response).get(1);
 
-        return sendPost(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload(productId, variantId), null, signIn);
+        return sendPost(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload(productId, variantId), null, loginAs);
     }
 
     public String getCartItemId() {
