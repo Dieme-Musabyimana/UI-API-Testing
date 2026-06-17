@@ -15,8 +15,7 @@ import java.io.IOException;
 public class FileUploadTest extends BaseAPI {
 
     @Test
-    public void uploadTest(){
-
+    public void uploadWithValidCredentials(){
         Response response =new UserService().uploadAvatar();
         Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
@@ -24,7 +23,6 @@ public class FileUploadTest extends BaseAPI {
       }
     @Test
     public void uploadWithoutLoginTest(){
-        File testImage = new File(Config.getFilePath());
         Response response = new UserService().uploadAvatar();
         Assert.assertEquals(response.statusCode(), Status.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));

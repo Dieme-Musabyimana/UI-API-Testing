@@ -40,4 +40,10 @@ public class Message {
 
     public static final String FAILED_TO_REJECT_NON_EXISTENT_PRODUCT =
             "The system must return a 404 Not Found error when attempting to post a review for a non-existent product ID.";
+    public static final String PRICE_SORT_ASCENDING_MISMATCH =
+            "The product search list is not properly ordered in ascending sequence by price. Products with higher prices are appearing before lower-priced items.";
+    public static final String FAILED_TO_REJECT_ALL_MISSING_QUERIES =
+            "API should return a 400 Bad Request status code when all search queries are missing.";
+    public static final String FAILED_TO_REJECT_WHEN_MANDATORY_QUERY_IS_MISSING =
+            "API should reject the the request which is missing the mandatory query parameter";
 }

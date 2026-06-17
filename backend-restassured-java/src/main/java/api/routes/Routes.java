@@ -48,7 +48,8 @@ public class Routes {
     public static final String ADD_REMOVE_TO_WISHLIST = "/wishlist/{productId}";
     public static final String MOVE_TO_CART = "/wishlist/{productId}/move-to-cart";
     public static final String REVIEWS = "/reviews/{productId}";
-
-
+    public static final String FULL_TEXT = "/search";
+    public static final String SUGGESTION = "/search/suggestions";
+    public static final String TRENDING_SEARCH = "/search/trending";
 }
 

@@ -32,7 +32,6 @@ public class UpdateUserProfileAPITest extends BaseAPI {
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.PROFILE_UPDATED);
         Assert.assertEquals(response.jsonPath().getString("data.firstName"), firsName);
         Assert.assertEquals(response.jsonPath().getString("data.lastName"), lastName);
-
     }
 
     @Test
