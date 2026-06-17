@@ -1,4 +1,4 @@
-package apitests.search;
+package apitests.search.fullTextWithFilters;
 
 import api.services.ProductService;
 import api.utils.LoginAs;
@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class SingleQueryWithMandatoryQuerySearch {
+public class SingleQuerySearch {
     private ProductService productService;
 
     @BeforeMethod

@@ -1,4 +1,4 @@
-package apitests.search;
+package apitests.search.fullTextWithFilters;
 
 import api.services.ProductService;
 import api.utils.LoginAs;
@@ -50,14 +50,13 @@ public class Sorting {
         Assert.assertEquals(response.statusCode(), 200);
 
         List<Float> prices = response.jsonPath().getList("data.price");
-        Assert.assertFalse(prices.isEmpty(), "The prices list should not be empty.");
+        Assert.assertFalse(prices.isEmpty());
 
         for (int i = 0; i < prices.size() - 1; i++) {
             float current = prices.get(i);
             float next = prices.get(i + 1);
 
-            Assert.assertTrue(current >= next,
-                    String.format("Descending sort failure at index %d: Expected %f to be >= %f", i, current, next));
+            Assert.assertTrue(current >= next);
         }
     }
 

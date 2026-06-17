@@ -137,4 +137,10 @@ public class ProductService extends BaseService {
        Map<String, Object> searchQuery = requestPayloads.searchParam(q, page, limit, category, minPrice, maxPrice, sort);
        return sendGet(Routes.FULL_TEXT, null, searchQuery, loginAs);
     }
+
+    public Response getSearchSuggestions(String q, LoginAs loginAs){
+        Map<String, Object> query = new HashMap<>();
+        query.put("q", q);
+        return sendGet(Routes.SUGGESTION, null, query, loginAs);
+    }
 }

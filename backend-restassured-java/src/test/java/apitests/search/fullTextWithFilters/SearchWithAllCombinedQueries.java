@@ -1,4 +1,4 @@
-package apitests.search;
+package apitests.search.fullTextWithFilters;
 
 import api.services.ProductService;
 import api.utils.LoginAs;
