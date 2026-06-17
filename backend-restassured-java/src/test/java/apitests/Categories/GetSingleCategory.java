@@ -10,18 +10,16 @@ import org.testng.annotations.Test;
 public class GetSingleCategory {
     @Test
     public void getSingleCategory(){
-        String slug = Config.getCategorySlug();
+        Response response1 = new ProductService().getProductCategories();
+        String parentId = response1.jsonPath().getString("data.find { it.name == 'Electronics' }.id");
+        String slug = new ProductService().createCategory(parentId).jsonPath().getString("data.slug");
         Response response = new ProductService().getSingleCategory(slug, LoginAs.ADMIN);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");
         Assert.assertNotNull(response.jsonPath().getString("data.id"));
-        Assert.assertEquals(response.jsonPath().getString("data.slug"), "bags-luggage");
-        Assert.assertEquals(response.jsonPath().getString("data.name"), "Bags & Luggage");
-        Assert.assertNull(response.jsonPath().get("data.image"));
-        Assert.assertNull(response.jsonPath().get("data.parentId"));
-        Assert.assertNotNull(response.jsonPath().getList("data.children"));
-        Assert.assertEquals(response.jsonPath().getInt("data._count.products"), 24);
+        Assert.assertEquals(response.jsonPath().getString("data.slug"), slug);
+        Assert.assertEquals(response.jsonPath().get("data.parentId"), parentId);
     }
 }

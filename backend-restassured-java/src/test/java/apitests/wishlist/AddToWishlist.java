@@ -20,9 +20,8 @@ public class AddToWishlist {
 
     @Test
     public void addProductToWishlistWithAsAnAdmin(){
-        Response response1 = productService.createProduct();
-        String addedId = new ProductService().getProductIds(response1).getFirst();
-        Response response = new ProductService().addProductToWishlist(addedId, LoginAs.ADMIN);
+        String addedId = productService.getProductParams(LoginAs.ADMIN).get("productId").toString();
+        Response response = productService.addProductToWishlist(addedId, LoginAs.ADMIN);
         Assert.assertEquals(response.statusCode(), Status.CREATED);
         Response response3 = productService.getWishList(LoginAs.ADMIN);
         List<String> productIds = response3.jsonPath().getList("data.productId");
@@ -31,9 +30,8 @@ public class AddToWishlist {
 
     @Test
     public void addProductToWishlistWithAsCustomer(){
-        Response response1 = productService.createProduct();
-        String addedId = new ProductService().getProductIds(response1).getFirst();
-        Response response = new ProductService().addProductToWishlist(addedId, LoginAs.CUSTOMER);
+        String addedId = productService.getProductParams(LoginAs.CUSTOMER).get("productId").toString();
+        Response response = productService.addProductToWishlist(addedId, LoginAs.CUSTOMER);
         Assert.assertEquals(response.statusCode(), Status.CREATED);
         Response response3 = productService.getWishList(LoginAs.CUSTOMER);
         List<String> productIds = response3.jsonPath().getList("data.productId");
@@ -41,8 +39,7 @@ public class AddToWishlist {
     }
     @Test
     public void addProductToWishlistWithoutLogin(){
-        Response response1 = productService.createProduct();
-        String id = productService.getProductIds(response1).getFirst();
+        String id = productService.getProductParams(LoginAs.CUSTOMER).get("productId").toString();
         Response response = productService.addProductToWishlist(id, LoginAs.NONE);
         Assert.assertEquals(response.statusCode(), Status.UNAUTHORIZED);
     }

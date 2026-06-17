@@ -10,7 +10,7 @@ import api.utils.LoginAs;
 import io.restassured.response.Response;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,49 +31,53 @@ public class ProductService extends BaseService {
     }
 
     public Response getSingleCategory(String slug, LoginAs loginAs) {
-        Map<String, Object> query = Map.of("slug", slug);
-        return sendGet(Routes.SINGLE_CATEGORY, null, query, loginAs);
+        Map<String, Object> path = Map.of("slug", slug);
+        return sendGet(Routes.SINGLE_CATEGORY, path, null, loginAs);
     }
 
     public Response createCategory(String parentId) {
         return sendPost(Routes.CATEGORIES, new RequestPayloads().createCategoryPayload(parentId), null, ADMIN);
     }
 
-    public Response getProducts(String path, String slug) {
-        Map<String, Object> param = Map.of("slug", slug);
-        return sendGet(path, param, null, ADMIN);
+    public Response getProducts(LoginAs loginAs) {
+        return sendGet(Routes.PRODUCT, null, null, loginAs);
     }
 
-    public Response updateProduct(LoginAs loginAs) {
+    public Response getSingleProduct(String slug, LoginAs loginAs){
+        Map<String, Object> param = new HashMap<>();
+        param.put("slug", slug);
+        return sendGet(Routes.SINGLE_PRODUCT, param, null, loginAs);
+    }
+
+    public Response updateProduct(String id, LoginAs loginAs) {
+        Map<String, Object> path = new HashMap<>();
+        path.put("id", id);
         Map<String, Object> body = Map.of("name", newProductName);
-        return sendPut(Routes.UPDATE_PRODUCT, body, null, loginAs);
+        return sendPut(Routes.UPDATE_PRODUCT, body, path, loginAs);
     }
 
-    public Response deleteProduct(String id) {
-        String finalUrl = Routes.DELETE_PRODUCT;
+    public Response deleteProduct(String id, LoginAs loginAs) {
         Map<String, Object> param = Map.of("id", id);
-        return sendDelete(finalUrl, param, ADMIN);
+        return sendDelete(Routes.DELETE_PRODUCT, param, loginAs);
     }
 
-    public Response createProduct() {
+    public Response createProduct(LoginAs loginAs) {
         ProductRequest requestPayloads = new RequestPayloads().createProductBody();
-        return sendPost(Routes.PRODUCT, requestPayloads, null, ADMIN);
+        return sendPost(Routes.PRODUCT, requestPayloads, null, loginAs);
     }
 
-    public String getProductSlug() {
-        Response response = getProducts((Routes.PRODUCT), null);
-        return response.path("data[0].slug");
-    }
-
-    public List<String> getProductIds(Response response) {
+    public Map<String, Object> getProductParams(LoginAs loginAs) {
+        Response response = createProduct(loginAs);
         String productId = response.jsonPath().getString("data.id");
         String variantId = response.jsonPath().getString("data.variants[0].id");
+        String slug = response.jsonPath().getString("data.slug");
 
-        List<String> ids = new ArrayList<>();
-        ids.add(productId);
-        ids.add(variantId);
+        Map<String, Object> params = new HashMap<>();
+        params.put("productId", productId);
+        params.put("variantId", variantId);
+        params.put("slug", slug);
 
-        return ids;
+        return params;
     }
 
     public Response uploadProductImage(String id) {
@@ -91,8 +95,10 @@ public class ProductService extends BaseService {
         return sendGet(Routes.FLESH_SALES, null, null, loginAs);
     }
 
-    public Response getRelatedProducts(LoginAs loginAs) {
-        return sendGet(Routes.RELATED_PRODUCT, null, null, loginAs);
+    public Response getRelatedProducts(String id, LoginAs loginAs) {
+        Map<String, Object> path = new HashMap<>();
+        path.put("id", id);
+        return sendGet(Routes.RELATED_PRODUCT, path, null, loginAs);
     }
 
     public Response getWishList(LoginAs loginAs) {
@@ -108,7 +114,7 @@ public class ProductService extends BaseService {
         Response response = getWishList(loginAs);
         List<Object> wishlist = response.jsonPath().getList("data");
         if (wishlist.isEmpty()) {
-            String id = new ProductService().getProductIds(createProduct()).getFirst();
+            String id = new ProductService().getProductParams(loginAs).get("productid").toString();
             Response addResponse = addProductToWishlist(id, loginAs);
             return addResponse.jsonPath().getString("data.productId");
         }
@@ -129,5 +135,11 @@ public class ProductService extends BaseService {
     Map<String, Object> path = requestPayloads.reviewParams(productId, page, sort).getFirst();
     Map<String, Object> query = requestPayloads.reviewParams(productId, page, sort).getLast();
     return sendGet(Routes.REVIEWS, path, query, loginAs);
+    }
+
+    public Response submitReview(int rating, String title, String body, String id, LoginAs loginAs){
+        Map<String, Object> reqBody = requestPayloads.submitREviewBody(rating, title, body);
+        Map<String, Object> path = Map.of("productId", id);
+        return sendPost(Routes.REVIEWS, reqBody, path, loginAs);
     }
 }

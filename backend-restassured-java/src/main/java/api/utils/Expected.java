@@ -30,6 +30,7 @@ public class Expected {
     public static final String PERMISSION_ISSUE = "You do not have permission for this action";
     public static final String PRODUCT_REMOVED = "Removed from wishlist";
     public static final String MOVED_TO_CART = "Moved to cart";
+    public static final String SUBMITTED = "Review submitted";
 
 
 }

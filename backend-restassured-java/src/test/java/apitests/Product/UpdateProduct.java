@@ -10,10 +10,10 @@ import org.testng.annotations.Test;
 import static api.services.ProductService.newProductName;
 
 public class UpdateProduct {
-
 @Test
 public void loginAsAdminAndUpdateProduct(){
-    Response response = new ProductService().updateProduct(LoginAs.ADMIN);
+    String id = new ProductService().getProductParams(LoginAs.ADMIN).get("productId").toString();
+    Response response = new ProductService().updateProduct(id, LoginAs.ADMIN);
     Assert.assertEquals(response.statusCode(), Status.OK);
     Assert.assertTrue(response.jsonPath().getBoolean("success"));
     Assert.assertEquals(response.jsonPath().getString("message"), Expected.PRODUCT_UPDATED);
@@ -21,13 +21,15 @@ public void loginAsAdminAndUpdateProduct(){
 }
 @Test
 public void updateProductWithoutLogin() {
-    Response response = new ProductService().updateProduct(LoginAs.NONE);
+    String id = new ProductService().getProductParams(LoginAs.ADMIN).get("productId").toString();
+    Response response = new ProductService().updateProduct(id, LoginAs.NONE);
     Assert.assertEquals(response.statusCode(), Status.UNAUTHORIZED);
     Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
 }
 @Test
     public void updateProductWithEmptyName(){
-    Response response = new ProductService().updateProduct(LoginAs.ADMIN);
+    String id = new ProductService().getProductParams(LoginAs.ADMIN).get("productId").toString();
+    Response response = new ProductService().updateProduct(id, LoginAs.ADMIN);
     Assert.assertEquals(response.statusCode(), Status.BAD_REQUEST);
 }
 }

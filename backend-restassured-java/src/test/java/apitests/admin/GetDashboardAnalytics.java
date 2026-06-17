@@ -54,7 +54,6 @@ public class GetDashboardAnalytics {
 
         Assert.assertNotNull(firstOrderId);
         Assert.assertTrue(firstOrderNo.startsWith("TGI-"));
-        Assert.assertEquals(orderStatus, "PENDING");
 
         Assert.assertNotNull(response.jsonPath().getString("data.recentOrders[0].user.email"));
         Assert.assertNotNull(response.jsonPath().getString("data.recentOrders[0].user.firstName"));

@@ -4,6 +4,7 @@ import api.constants.Status;
 import api.payloads.RequestPayloads;
 import api.services.ProductService;
 import api.utils.Expected;
+import api.utils.LoginAs;
 import api.utils.TokenManager;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -13,7 +14,7 @@ import org.testng.annotations.Test;
 public class CreateProduct {
     @Test
     public void createProductTest() {
-        Response response = new ProductService().createProduct();
+        Response response = new ProductService().createProduct(LoginAs.ADMIN);
         Assert.assertEquals(response.getStatusCode(), Status.CREATED);
         Assert.assertEquals(response.jsonPath().getString("data.name"), new RequestPayloads().getName());
         Assert.assertTrue(response.jsonPath().getBoolean("success"));

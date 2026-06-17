@@ -6,8 +6,6 @@ import api.routes.Routes;
 import api.utils.LoginAs;
 import io.restassured.response.Response;
 
-import static api.utils.LoginAs.ADMIN;
-
 public class AdminService extends BaseService {
     public Response createCoupon(String couponCode, LoginAs loginAs){
         RequestPayloads requestPayloads = new RequestPayloads();

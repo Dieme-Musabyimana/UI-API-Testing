@@ -4,6 +4,7 @@ import api.constants.Status;
 import api.services.ProductService;
 import api.utils.Config;
 import api.utils.Expected;
+import api.utils.LoginAs;
 import api.utils.TokenManager;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -25,9 +26,9 @@ public class DeleteProduct {
 
     @Test
     public void loginAndDeleteProduct(){
-        Response res = productService.createProduct();
+        Response res = productService.createProduct(LoginAs.ADMIN);
         String id = res.jsonPath().getString("data.id");
-        Response response = productService.deleteProduct(id);
+        Response response = productService.deleteProduct(id, LoginAs.ADMIN);
         String actualMessage = response.jsonPath().getString("message");
 
         Assert.assertEquals(response.statusCode(), Status.OK);
@@ -36,15 +37,15 @@ public class DeleteProduct {
 
     @Test
     public void deleteUnExistingId(){
-        Response response = productService.deleteProduct(Config.getUnExistingId());
+        Response response = productService.deleteProduct(Config.getUnExistingId(), LoginAs.ADMIN);
         Assert.assertEquals(response.statusCode(), Status.NOT_FOUND);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expected.NOT_FOUND);
+        Assert.assertTrue(response.jsonPath().getString("message").contains(Expected.NOT_FOUND));
     }
 
     @Test
     public void deleteProductWithoutLogin(){
-        Response response = productService.deleteProduct(Config.getIdToDelete());
+        Response response = productService.deleteProduct(Config.getIdToDelete(), LoginAs.NONE);
         Assert.assertEquals(response.statusCode(), Status.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);

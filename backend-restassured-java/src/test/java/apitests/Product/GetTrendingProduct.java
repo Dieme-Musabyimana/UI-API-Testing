@@ -20,10 +20,5 @@ public class GetTrendingProduct {
         Assert.assertNotNull(response.jsonPath().getString("data[0].name"));
         Assert.assertNotNull(response.jsonPath().getString("data[0].slug"));
         Assert.assertNotNull(response.jsonPath().getString("data[0].description"));
-
-
-
-
-
     }
 }

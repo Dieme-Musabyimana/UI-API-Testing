@@ -19,7 +19,7 @@ public class GetAllUsers {
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), "Success");
-        Assert.assertNull(response.jsonPath().get("data"));
+        Assert.assertNotNull((response.jsonPath().get("data")));
     }
 
     @Test

@@ -4,6 +4,7 @@ import api.constants.Status;
 import api.routes.Routes;
 import api.services.ProductService;
 import api.utils.Config;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -19,11 +20,10 @@ public class GetSingleProduct {
     @Test
     public void getSingleProduct(){
 
-        String productSlug = new ProductService().getProductSlug();
-        String slug = Config.getProductSlug();
-        Response response = productService.getProducts(Routes.SINGLE_PRODUCT, slug);
+        String slug = productService.getProductParams(LoginAs.ADMIN).get("slug").toString();
+        Response response = productService.getSingleProduct(slug, LoginAs.ADMIN);
         Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("data.slug"), productSlug);
+        Assert.assertEquals(response.jsonPath().getString("data.slug"), slug);
     }
 }

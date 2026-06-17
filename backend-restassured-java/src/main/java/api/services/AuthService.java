@@ -42,8 +42,7 @@ public class AuthService extends BaseService {
         return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getCustomerLoginEmail()), null,null);
     }
 public List<String> tokenList(){
-        List<String> allTokens = new TokenManager().getAllTokens();
-        return allTokens;
+        return new TokenManager().getAllTokens();
 }
     public Response getCurrentUser(LoginAs loginAs){
         return sendGet(Routes.GET_ME, null, null, loginAs);

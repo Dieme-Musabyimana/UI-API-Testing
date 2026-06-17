@@ -22,10 +22,8 @@ public class CartService extends BaseService {
     }
 
     public Response addToCart(LoginAs loginAs){
-        Response response = new ProductService().createProduct();
-        String productId = new ProductService().getProductIds(response).get(0);
-        String variantId = new ProductService().getProductIds(response).get(1);
-
+        String productId = new ProductService().getProductParams(loginAs).get("productId").toString();
+        String variantId = new ProductService().getProductParams(loginAs).get("variantId").toString();
         return sendPost(Routes.ADD_TO_CART, new RequestPayloads().addToCartPayload(productId, variantId), null, loginAs);
     }
 

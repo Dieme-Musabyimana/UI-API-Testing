@@ -19,7 +19,7 @@ public class AddProductToCart {
     }
 
     @Test public void addProductToCartWithoutLogIn(){
-        Response response = new CartService().addToCart(null);
+        Response response = new CartService().addToCart(LoginAs.NONE);
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.ADDED, Message.GUEST_CART_ADDITION_BLOCKED);
     }

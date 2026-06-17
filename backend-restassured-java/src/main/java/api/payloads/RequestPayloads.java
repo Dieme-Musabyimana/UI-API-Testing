@@ -207,6 +207,18 @@ public class RequestPayloads {
 
         return params;
     }
+    {
+//        "rating": 5,
+//            "title": "string",
+//            "body": "string"
+    }
+    public Map<String, Object> submitREviewBody(int rating, String title, String body){
+        Map<String, Object> reviewBody = new HashMap<>();
+        reviewBody.put("rating", rating);
+        reviewBody.put("title", title);
+        reviewBody.put("body", body);
+        return reviewBody;
+    }
 }
 
 

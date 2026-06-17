@@ -23,9 +23,9 @@ public class RemoveItemFromCart {
     public void removeUnexistingItem(){
             String itemId = Faker.getRandomId();
             Response response = new CartService().removeItemFromCart(itemId);
-            Assert.assertEquals(response.statusCode(), Status.BAD_REQUEST);
+            Assert.assertEquals(response.statusCode(), Status.BAD_REQUEST, Message.FAKE_ITEM_CANT_BE_REMOVED);
             Assert.assertFalse(response.jsonPath().getBoolean("success"));
-            Assert.assertFalse(response.jsonPath().getString("message").contains(Expected.REMOVED), Message.FAILED_TO_REJECT_NON_EXISTENT_ID);
+            Assert.assertFalse(response.jsonPath().getString("message").contains(Expected.REMOVED), Message.FAKE_ITEM_CANT_BE_REMOVED);
     }
 
     @Test
