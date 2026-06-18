@@ -51,5 +51,6 @@ public class Routes {
     public static final String FULL_TEXT = "/search";
     public static final String SUGGESTION = "/search/suggestions";
     public static final String TRENDING_SEARCH = "/search/trending";
+    public static final String BANNERS = "/banners";
 }
 

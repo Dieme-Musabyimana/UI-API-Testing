@@ -143,4 +143,11 @@ public class ProductService extends BaseService {
         query.put("q", q);
         return sendGet(Routes.SUGGESTION, null, query, loginAs);
     }
+
+    public Response getTrendingSearches(LoginAs loginAs){
+        return sendGet(Routes.TRENDING_SEARCH, null, null, loginAs);
+    }
+    public Response getActiveBanners(LoginAs loginAs){
+        return sendGet(Routes.BANNERS, null, null, loginAs);
+    }
 }

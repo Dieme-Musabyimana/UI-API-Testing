@@ -83,4 +83,19 @@ public class SearchSuggestionsTest extends BaseAPI {
         Assert.assertTrue(response.getStatusCode() == Status.OK ||
                 response.getStatusCode() == Status.BAD_REQUEST);
     }
+
+    @Test
+    public void getSuggestionWithoutLogin(){
+        Response response = productService.getSearchSuggestions("jea", LoginAs.NONE);
+        Assert.assertEquals(response.getStatusCode(), Status.OK);
+        Assert.assertTrue(response.jsonPath().getBoolean("success"));
+
+        List<String> productNames = response.jsonPath().getList("data.name");
+        Assert.assertNotNull(productNames);
+        Assert.assertFalse(productNames.isEmpty());
+
+        for (String name : productNames) {
+            Assert.assertTrue(name.toLowerCase().contains("jea"));
+        }
+    }
 }

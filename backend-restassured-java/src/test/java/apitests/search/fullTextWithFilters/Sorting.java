@@ -96,9 +96,7 @@ public class Sorting {
         for (int i = 0; i < creationDates.size() - 1; i++) {
             java.time.Instant currentItemTime = java.time.Instant.parse(creationDates.get(i));
             java.time.Instant nextItemTime = java.time.Instant.parse(creationDates.get(i + 1));
-            Assert.assertTrue(!currentItemTime.isBefore(nextItemTime),
-                    String.format("Sorting mismatch at index %d: Expected '%s' to be newer than or equal to '%s'",
-                            i, creationDates.get(i), creationDates.get(i + 1)));
+            Assert.assertTrue(!currentItemTime.isBefore(nextItemTime));
         }
     }
 
