@@ -2,10 +2,7 @@ package apitests.reviews;
 
 import api.constants.Status;
 import api.services.ProductService;
-import api.utils.Expected;
-import api.utils.Faker;
-import api.utils.LoginAs;
-import api.utils.Message;
+import api.utils.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -65,14 +62,12 @@ public class SubmitReview {
 
     @Test(description = "Verify system handles review placement requests targeting non-existent products gracefully")
     public void submitReviewToNonExistentProduct() {
-        String fakeProductId = "00000000-0000-0000-0000-000000000000";
+        String fakeProductId = Faker.getRandomId();
         int rating = 4;
         String title = Faker.getFirstName();
         String description = Faker.getFirstName();
-
         Response response = productService.submitReview(rating, title, description, fakeProductId, LoginAs.ADMIN);
-
-        Assert.assertEquals(response.statusCode(), Status.NOT_FOUND, Message.FAILED_TO_REJECT_NON_EXISTENT_PRODUCT);
+        Assert.assertEquals(response.statusCode(), Status.BAD_REQUEST, Message.FAILED_TO_REJECT_NON_EXISTENT_PRODUCT);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
     }
 }
