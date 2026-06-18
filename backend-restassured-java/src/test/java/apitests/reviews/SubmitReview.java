@@ -17,7 +17,6 @@ public class SubmitReview {
         this.productService = new ProductService();
         this.validProductId = productService.getProductParams(LoginAs.ADMIN).get("productId").toString();
     }
-
     @Test(description = "Verify an authenticated user can successfully submit a review with valid data")
     public void submitValidReview() {
         int rating = 5;
@@ -28,7 +27,6 @@ public class SubmitReview {
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.SUBMITTED);
     }
-
 
     @Test(description = "Verify system rejects review ratings that exceed the maximum boundary (e.g., > 5)")
     public void submitReviewWithOutOfBoundsRating() {
