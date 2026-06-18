@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ai.zencoder.plugin.chat.index">
+    <option name="activeChatId" value="1d6c6102-55bd-406c-9a46-b0e6b89cf0e8" />
+    <option name="chatMetadata" value="{&quot;1d6c6102-55bd-406c-9a46-b0e6b89cf0e8&quot;:{&quot;id&quot;:&quot;1d6c6102-55bd-406c-9a46-b0e6b89cf0e8&quot;,&quot;title&quot;:&quot;Fix this: Map.of(\&quot;id\&quot;, id) Cannot resolve metho...&quot;,&quot;createdAt&quot;:1781285296836,&quot;updatedAt&quot;:1781285304508,&quot;messageCount&quot;:2,&quot;lastMessagePreview&quot;:&quot;No models available: offline mode without cached models, and settings.json contains no models. Eithe...&quot;,&quot;lastUserMessageAt&quot;:1781285297093},&quot;db2a511c-48f5-4c66-8038-e03abc981b86&quot;:{&quot;id&quot;:&quot;db2a511c-48f5-4c66-8038-e03abc981b86&quot;,&quot;title&quot;:&quot;Fix this: body.isEmpty() Cannot resolve method ...&quot;,&quot;createdAt&quot;:1781191080265,&quot;updatedAt&quot;:1781191090249,&quot;messageCount&quot;:2,&quot;lastMessagePreview&quot;:&quot;No models available: offline mode without cached models, and settings.json contains no models. Eithe...&quot;,&quot;lastUserMessageAt&quot;:1781191080585}}" />
+  </component>
+</project>

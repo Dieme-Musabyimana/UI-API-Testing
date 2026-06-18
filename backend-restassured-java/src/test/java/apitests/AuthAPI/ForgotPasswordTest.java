@@ -1,15 +1,14 @@
 package apitests.AuthAPI;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.AuthService;
-import api.utils.Expectations;
+import api.utils.Expected;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ForgotPasswordTest extends BaseAPI {
-
 
     @Test
     public void forgotPasswordTest (){
@@ -18,8 +17,8 @@ public class ForgotPasswordTest extends BaseAPI {
         boolean successValue =response.jsonPath().getBoolean("success");
         String messageValue =response.jsonPath().getString("message");
 
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+        Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertTrue(successValue);
-        Assert.assertEquals(messageValue, Expectations.successMessage);
+        Assert.assertEquals(messageValue, Expected.successMessage);
     }
 }

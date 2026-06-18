@@ -1,9 +1,10 @@
 package apitests.UserAPI;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.UserService;
-import api.utils.Expectations;
+import api.utils.Expected;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -11,33 +12,25 @@ import org.testng.annotations.Test;
 
 public class ChangePasswordTest extends BaseAPI {
     UserService userService;
-    String token;
-    Response response;
-
     @BeforeMethod
-    public void setUp(){
+    public void setUserService(){
         this.userService = new UserService();
-        this.token = userService.login2();
-
     }
 
     @Test
     public void changePasswordTest(){
-        Response response = userService.changePassword(token);
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.OK);
+        Response response = userService.changePassword(LoginAs.ADMIN);
+        Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.PASSWORD_CHANGED);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.PASSWORD_CHANGED);
     }
 
     @Test
     public void changePasswordWithoutLogin(){
-        Response response = userService.changePassword("");
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.UNAUTHORIZED);
+        Response response = userService.changePassword(LoginAs.ADMIN);
+        Assert.assertEquals(response.getStatusCode(), Status.UNAUTHORIZED);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.AUTHENTICATION_ERROR);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.AUTHENTICATION_ERROR);
     }
-    @Test
-    public void changePasswordWithWrongPassword(){
 
-    }
 }

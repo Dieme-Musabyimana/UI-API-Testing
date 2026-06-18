@@ -1,9 +1,10 @@
 package apitests.UserAPI;
 
 import api.base.BaseAPI;
-import api.constants.StatusCodes;
+import api.constants.Status;
 import api.services.UserService;
-import api.utils.Expectations;
+import api.utils.Expected;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -20,16 +21,16 @@ public class AddUserAddress extends BaseAPI {
     @Test
 
     public void addAddressTest(){
-        Response response = userService.addAddress();
-        Assert.assertEquals(response.getStatusCode(), StatusCodes.CREATED);
+
+        Response response = userService.addAddress(UserService.firsName,UserService.lastName, LoginAs.ADMIN);
+        Assert.assertEquals(response.getStatusCode(), Status.CREATED);
         Assert.assertEquals(response.jsonPath().getString("data.firstName"), UserService.firsName);
         Assert.assertEquals(response.jsonPath().getString("data.lastName"), UserService.lastName);
         Assert.assertTrue(response.jsonPath().get("success"));
-        Assert.assertEquals(response.jsonPath().getString("message"), Expectations.ADDRESS_ADDED);
+        Assert.assertEquals(response.jsonPath().getString("message"), Expected.ADDRESS_ADDED);
     }
     @Test
-    public void AddAddressWithSomEmptyFied(){
-        userService.addAddressWithEmptyFields();
-
+    public void addAddressWithSomEmptyFields(){
+        userService.addAddress(" ", "", LoginAs.ADMIN);
     }
 }
