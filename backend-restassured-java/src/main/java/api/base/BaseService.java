@@ -144,6 +144,6 @@ public class BaseService {
             requestSpec.multiPart(controlName, file);
         }
 
-        return requestSpec.when().post(endpoint).then().extract().response();
+        return requestSpec.when().post(endpoint).then().log().all().extract().response();
     }
 }

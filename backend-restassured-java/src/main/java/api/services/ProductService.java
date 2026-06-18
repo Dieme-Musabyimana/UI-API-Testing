@@ -67,17 +67,7 @@ public class ProductService extends BaseService {
     }
 
     public Map<String, Object> getProductParams(LoginAs loginAs) {
-        Response response = createProduct(loginAs);
-        String productId = response.jsonPath().getString("data.id");
-        String variantId = response.jsonPath().getString("data.variants[0].id");
-        String slug = response.jsonPath().getString("data.slug");
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("productId", productId);
-        params.put("variantId", variantId);
-        params.put("slug", slug);
-
-        return params;
+        return requestPayloads.createdProductParam(loginAs);
     }
 
     public Response uploadProductImage(String id) {
@@ -141,5 +131,23 @@ public class ProductService extends BaseService {
         Map<String, Object> reqBody = requestPayloads.submitREviewBody(rating, title, body);
         Map<String, Object> path = Map.of("productId", id);
         return sendPost(Routes.REVIEWS, reqBody, path, loginAs);
+    }
+
+    public Response fullTextSearch(String q, Integer page, Integer limit, String category, Integer minPrice, Integer maxPrice, String sort, LoginAs loginAs){
+       Map<String, Object> searchQuery = requestPayloads.searchParam(q, page, limit, category, minPrice, maxPrice, sort);
+       return sendGet(Routes.FULL_TEXT, null, searchQuery, loginAs);
+    }
+
+    public Response getSearchSuggestions(String q, LoginAs loginAs){
+        Map<String, Object> query = new HashMap<>();
+        query.put("q", q);
+        return sendGet(Routes.SUGGESTION, null, query, loginAs);
+    }
+
+    public Response getTrendingSearches(LoginAs loginAs){
+        return sendGet(Routes.TRENDING_SEARCH, null, null, loginAs);
+    }
+    public Response getActiveBanners(LoginAs loginAs){
+        return sendGet(Routes.BANNERS, null, null, loginAs);
     }
 }
