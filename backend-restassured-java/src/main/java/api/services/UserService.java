@@ -4,26 +4,45 @@ import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
-import api.utils.FakerUtils;
+import api.utils.Config;
+import api.utils.Faker;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 
-public class UserService extends BaseService {
+import java.io.File;
+import java.util.Map;
 
-    public Response fillUpdateInf(){
-        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
-        registerReqPOJO.setFirstName(FakerUtils.getFirstName());
-        registerReqPOJO.setLastName(FakerUtils.getLastName());
-        registerReqPOJO.setPhone(FakerUtils.getPhone());
-        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, "");
+public class UserService extends BaseService {
+    public static final String firsName = Faker.getFirstName();
+    public static final String lastName = Faker.getFirstName();
+
+    AuthService authService;
+
+    public UserService(){
+       this.authService = new AuthService();
     }
 
-    public Response loginAndUpdateProfile(){
-        AuthService authService = new AuthService();
-        String token = authService.login().jsonPath().getString("data.token");
-        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
-        registerReqPOJO.setFirstName(FakerUtils.getFirstName());
-        registerReqPOJO.setLastName(FakerUtils.getLastName());
-        registerReqPOJO.setPhone(FakerUtils.getPhone());
-        return sendPutWithAuth(Routes.UPDATE_PROFILE, registerReqPOJO, token);
+    public Response updateProfile(String firsName, String lastName, LoginAs loginAs){
+        RegisterReqPOJO body = new RequestPayloads().updateProfilePayload(firsName, lastName);
+        return sendPut(Routes.UPDATE_PROFILE, body, null, loginAs);
+    }
+
+    public Response uploadAvatar(){
+        File file = new RequestPayloads().createFile(Config.getFilePath());
+        return sendPostMultipartWithAuth(Routes.UPLOAD_AVATAR, file, "avatar", null, LoginAs.ADMIN);
+    }
+
+    public Response changePassword(LoginAs loginAs){
+        RequestPayloads payloads = new RequestPayloads();
+        return sendPut(Routes.CHANGE_PASSWORD, payloads.changePasswordBody(), null,loginAs);
+    }
+
+    public Response getUserAddress(LoginAs loginAs){
+        return sendGet(Routes.ADDRESS, null, null, loginAs);
+    }
+
+    public Response addAddress(String firsName, String lastName, LoginAs signIn){
+        Map<String, Object> body = new RequestPayloads().getAddressPayload(firsName, lastName);
+        return sendPost(Routes.ADDRESS,body, null, signIn);
     }
 }

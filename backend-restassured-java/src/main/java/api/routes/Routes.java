@@ -1,5 +1,10 @@
 package api.routes;
 
+import api.payloads.RequestPayloads;
+import api.services.CartService;
+import api.services.ProductService;
+import api.utils.Config;
+
 public class Routes {
     public static final String LOGIN = "/auth/login";
     public static final String REGISTER = "/auth/register";
@@ -7,11 +12,43 @@ public class Routes {
     public static final String REFRESH_TOKEN = "/auth/refresh";
 
     public static final String FORGOT_PASSWORD = "/auth/forgot-password";
-    public static final String VERIFY_EMAIL = "/auth/verify-email/";
-    public static final String RESET_PASSWORD = "/auth/reset-password/";
+    public static final String VERIFY_EMAIL = "/auth/verify-email/{token}";
+    public static final String RESET_PASSWORD = "/auth/reset-password/{token}";
 
     public static final String UPDATE_PROFILE = "/users/profile";
     public static final String UPLOAD_AVATAR = "/users/avatar";
+    public static final String CHANGE_PASSWORD = "/users/change-password";
+    public static final String ADDRESS = "/users/addresses";
+    public static final String CATEGORIES = "/categories";
+    public static final String SINGLE_CATEGORY = "/categories/{slug}";
+    public static final String PRODUCT = "/products/";
+    public static final String SINGLE_PRODUCT = "/products/{slug}";
+    public static final String UPDATE_PRODUCT = "/products/{id}";
+    public static final String DELETE_PRODUCT = "/products/{id}";
+    public static final String UPLOAD_IMAGE = "/products/{id}/images";
+    public static final String TRENDING = "/products/trending";
+    public static final String FLESH_SALES = PRODUCT + "/flash-sales";
+    public static final String RELATED_PRODUCT = "/products/{id}/related";
+    public static final String CART = "/cart";
+    public static final String ADD_TO_CART = CART + "/items";
+    public static final String UPDATE_QUANTITY = "/cart/items/{itemId}";
+    public static final String COUPON = "/admin/coupons";
+    public static final String APPLY_COUPON = "/cart/coupon";
+    public static final String ORDERS = "/orders";
+    public static final String SINGLE_ODER = "/orders/{id}";
+    public static final String CANCEL_ORDER = "/orders/{id}/cancel";
+    public static final String ALL_ORDES = "/orders/admin/all";
+    public static final String UPDATE_ORDER_STATUS = "/orders/admin/{id}/status";
+    public static final String ORDER_RETURN = "/orders/{id}/return";
+    public static final String PAYMENT_PROOF = "/orders/{id}/payment-proof";
+    public static final String SAVE_FOR_LATER =     "/cart/items/{itemId}/save-for-later";
+    public static final String DASHBOARD = "/admin/dashboard";
+    public static final String ALL_USERS = "/admin/users";
+    public static final String WISHLIST = "/wishlist";
+    public static final String ADD_REMOVE_TO_WISHLIST = "/wishlist/{productId}";
+    public static final String MOVE_TO_CART = "/wishlist/{productId}/move-to-cart";
+    public static final String REVIEWS = "/reviews/{productId}";
+
 
 }
 
