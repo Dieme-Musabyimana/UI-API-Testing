@@ -1,4 +1,4 @@
-package apitests.UserAPI;
+package apitests.upload;
 
 import api.base.BaseAPI;
 import api.constants.Status;
@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
 
-public class FileUploadTest extends BaseAPI {
+public class AvatarUploadTest extends BaseAPI {
 
     @Test
     public void uploadWithValidCredentials(){
