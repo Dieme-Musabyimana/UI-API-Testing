@@ -5,64 +5,149 @@ import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
-import api.utils.FakerUtils;
+import api.utils.Faker;
+import api.utils.LoginAs;
 import io.restassured.response.Response;
 
 import java.io.File;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static api.utils.LoginAs.ADMIN;
+
 public class ProductService extends BaseService {
-    AuthService authService;
+    RequestPayloads requestPayloads;
 
     public ProductService(){
-        this.authService = new AuthService();
-    }
-    public final static String newProductName = FakerUtils.getFirstName();
-
-    public Response getProductCategories(){
-        return sendGet(Routes.CATEGORIES);
-    }
-    public Response getSingleCategory(){
-        return sendGet(Routes.SINGLE_CATEGORY);
+        this.requestPayloads = new RequestPayloads();
     }
 
-    public Response createCategory(){
-        return sendPost(Routes.CATEGORIES, createCategory());
+
+    public final static String newProductName = Faker.getFirstName();
+
+    public Response getProductCategories() {
+        return sendGet(Routes.CATEGORIES, null, null, ADMIN);
     }
 
-    public Response getProducts(String path){
-        return sendGet(path);
+    public Response getSingleCategory(String slug, LoginAs loginAs) {
+        Map<String, Object> path = Map.of("slug", slug);
+        return sendGet(Routes.SINGLE_CATEGORY, path, null, loginAs);
     }
 
-    public Response updateProduct(String path, Object object, String token){
-        return sendPutWithAuth(path, object, token);
+    public Response createCategory(String parentId) {
+        return sendPost(Routes.CATEGORIES, new RequestPayloads().createCategoryPayload(parentId), null, ADMIN);
     }
 
-    public Response deleteProduct(String token, String id){
-        return sendDeleteWithAuth(Routes.DELETE_PRODUCT, token);
+    public Response getProducts(LoginAs loginAs) {
+        return sendGet(Routes.PRODUCT, null, null, loginAs);
     }
 
-    public Response createProduct(String token){
+    public Response getSingleProduct(String slug, LoginAs loginAs){
+        Map<String, Object> param = new HashMap<>();
+        param.put("slug", slug);
+        return sendGet(Routes.SINGLE_PRODUCT, param, null, loginAs);
+    }
+
+    public Response updateProduct(String id, LoginAs loginAs) {
+        Map<String, Object> path = new HashMap<>();
+        path.put("id", id);
+        Map<String, Object> body = Map.of("name", newProductName);
+        return sendPut(Routes.UPDATE_PRODUCT, body, path, loginAs);
+    }
+
+    public Response deleteProduct(String id, LoginAs loginAs) {
+        Map<String, Object> param = Map.of("id", id);
+        return sendDelete(Routes.DELETE_PRODUCT, param, loginAs);
+    }
+
+    public Response createProduct(LoginAs loginAs) {
         ProductRequest requestPayloads = new RequestPayloads().createProductBody();
-        return sendPostWithAuth(Routes.PRODUCT, requestPayloads, token);
+        return sendPost(Routes.PRODUCT, requestPayloads, null, loginAs);
     }
 
-    public Response uploadProductImage(){
-        String path = "C:\\DOM\\api-ui-test\\backend-restassured-java\\src\\main\\resources\\avatar.png";
-        System.out.println(",,,,,,,,,,,,,,,,," + path);
-        File testImage = new File(path);
-//        List<File> imageList = Collections.singletonList(testImage);
-        return sendPostMultipartWithAuth(Routes.UPLOAD_IMAGE, testImage, "images", authService.getLoginToken());
-
+    public Map<String, Object> getProductParams(LoginAs loginAs) {
+        return requestPayloads.createdProductParam(loginAs);
     }
 
-    public Response getTrendingProduct(){
-        return sendGet(Routes.TRENDING);
+    public Response uploadProductImage(String id) {
+        File image = new RequestPayloads().createFile(Config.getFilePath());
+        Map<String, Object> path = Map.of("id", id);
+
+        return sendPostMultipartWithAuth(Routes.UPLOAD_IMAGE, image, "images", path, ADMIN);
     }
 
-    public Response getProductFlashSales(){
-        return sendGet(Routes.FLESH_SALES);
+    public Response getTrendingProduct(LoginAs loginAs) {
+        return sendGet(Routes.TRENDING, null, null, loginAs);
+    }
+
+    public Response getProductFlashSales(LoginAs loginAs) {
+        return sendGet(Routes.FLESH_SALES, null, null, loginAs);
+    }
+
+    public Response getRelatedProducts(String id, LoginAs loginAs) {
+        Map<String, Object> path = new HashMap<>();
+        path.put("id", id);
+        return sendGet(Routes.RELATED_PRODUCT, path, null, loginAs);
+    }
+
+    public Response getWishList(LoginAs loginAs) {
+        return sendGet(Routes.WISHLIST, null, null, loginAs);
+    }
+
+    public Response addProductToWishlist(String productId, LoginAs loginAs) {
+        Map<String, Object> path = Map.of("productId", productId);
+        return sendPost(Routes.ADD_REMOVE_TO_WISHLIST, null, path, loginAs);
+    }
+
+    public String getProductIdToRemove(LoginAs loginAs) {
+        Response response = getWishList(loginAs);
+        List<Object> wishlist = response.jsonPath().getList("data");
+        if (wishlist.isEmpty()) {
+            String id = new ProductService().getProductParams(loginAs).get("productid").toString();
+            Response addResponse = addProductToWishlist(id, loginAs);
+            return addResponse.jsonPath().getString("data.productId");
+        }
+        return response.jsonPath().getString("data[0].productId");
+    }
+
+    public Response removeFromWishlist(String productId, LoginAs loginAs) {
+        Map<String, Object> path = Map.of("productId", productId);
+        return sendDelete(Routes.ADD_REMOVE_TO_WISHLIST, path, loginAs);
+    }
+
+    public Response moveWishlistToCart(String productId, LoginAs loginAs) {
+        Map<String, Object> path = Map.of("productId", productId);
+        return sendPost(Routes.MOVE_TO_CART, null, path, loginAs);
+    }
+
+    public Response getProductReviews(String productId, int page, String sort, LoginAs loginAs){
+    Map<String, Object> path = requestPayloads.reviewParams(productId, page, sort).getFirst();
+    Map<String, Object> query = requestPayloads.reviewParams(productId, page, sort).getLast();
+    return sendGet(Routes.REVIEWS, path, query, loginAs);
+    }
+
+    public Response submitReview(int rating, String title, String body, String id, LoginAs loginAs){
+        Map<String, Object> reqBody = requestPayloads.submitREviewBody(rating, title, body);
+        Map<String, Object> path = Map.of("productId", id);
+        return sendPost(Routes.REVIEWS, reqBody, path, loginAs);
+    }
+
+    public Response fullTextSearch(String q, Integer page, Integer limit, String category, Integer minPrice, Integer maxPrice, String sort, LoginAs loginAs){
+       Map<String, Object> searchQuery = requestPayloads.searchParam(q, page, limit, category, minPrice, maxPrice, sort);
+       return sendGet(Routes.FULL_TEXT, null, searchQuery, loginAs);
+    }
+
+    public Response getSearchSuggestions(String q, LoginAs loginAs){
+        Map<String, Object> query = new HashMap<>();
+        query.put("q", q);
+        return sendGet(Routes.SUGGESTION, null, query, loginAs);
+    }
+
+    public Response getTrendingSearches(LoginAs loginAs){
+        return sendGet(Routes.TRENDING_SEARCH, null, null, loginAs);
+    }
+    public Response getActiveBanners(LoginAs loginAs){
+        return sendGet(Routes.BANNERS, null, null, loginAs);
     }
 }

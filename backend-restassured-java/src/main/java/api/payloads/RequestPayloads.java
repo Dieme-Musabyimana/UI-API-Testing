@@ -4,56 +4,84 @@ import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.ProductRequest;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.POJOs.requestPOJO.Variant;
+import api.services.ProductService;
 import api.utils.Config;
-import api.utils.FakerUtils;
+import api.utils.Faker;
+import api.utils.LoginAs;
+import io.restassured.response.Response;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static java.lang.Double.parseDouble;
 
 public class RequestPayloads {
-    public static final String sku = FakerUtils.getVariantSku();
-    public static final String name = FakerUtils.getFirstName();
 
-    public static RegisterReqPOJO createReqBody(){
+    public String getSku() {
+        return Faker.getVariantSku();
+    }
+
+    public String getName() {
+        return Faker.getFirstName();
+    }
+    public Map<String, Object> login2Body() {
+        Map<String, Object> loginBody = new HashMap<>();
+        loginBody.put("email", Config.getCustomerLoginEmail());
+        loginBody.put("password", Config.getCustomerLoginPassword());
+        return loginBody;
+    }
+
+    public static RegisterReqPOJO createReqBody() {
         RegisterReqPOJO registerData = new RegisterReqPOJO();
-        registerData.setFirstName(FakerUtils.getFirstName());
-        registerData.setLastName(FakerUtils.getLastName());
-        registerData.setEmail(FakerUtils.getEmail());
-        registerData.setPassword(FakerUtils.getPassword());
-        registerData.setPhone(FakerUtils.getPhone());
-
+        registerData.setFirstName(Faker.getFirstName());
+        registerData.setLastName(Faker.getLastName());
+        registerData.setEmail(Faker.getEmail());
+        registerData.setPassword(Faker.getPassword());
+        registerData.setPhone(Faker.getPhone());
         return registerData;
     }
 
-    public static LoginPOJO createLoginBody(){
+    public static LoginPOJO createLoginBody() {
         LoginPOJO loginData = new LoginPOJO();
-        loginData.setEmail(Config.getLoginEmail());
-        loginData.setPassword(Config.getLoginpsswd());
-
+        loginData.setEmail(Config.getAdminLoginEmail());
+        loginData.setPassword(Config.getAdminLoginPassword());
         return loginData;
     }
 
-
-    public Map<String, Object> updateProductBody(){
-        updateProductBody().put("name", "Sport");
-        updateProductBody().put("description", "For doing sports");
-        updateProductBody().put("parentId", "Spots_clothes");
-        return updateProductBody();
+    public Map<String, Object> changePasswordBody() {
+        Map<String, Object> body = new HashMap<>();
+        body.put("currentPassword", Config.getCustomerLoginPassword());
+        body.put("newPassword", Faker.getPassword());
+        return body;
     }
 
-    public ProductRequest createProductBody(){
+    public RegisterReqPOJO updateProfilePayload(String firstName, String lastName){
+        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
+        registerReqPOJO.setFirstName(firstName);
+        registerReqPOJO.setLastName(lastName);
+        registerReqPOJO.setPhone(Faker.getPhone());
+        return registerReqPOJO;
+    }
+
+    public Map<String, Object> updateProductBody(Map<String, Object> existingMap) {
+        existingMap.put("name", "Sport");
+        existingMap.put("description", "For doing sports");
+        existingMap.put("parentId", "Spots_clothes");
+        return existingMap;
+    }
+
+    public ProductRequest createProductBody() {
         ProductRequest productRequest = new ProductRequest();
         Variant singleVariant = new Variant();
 
-        productRequest.setName(name);
+        productRequest.setName(getName());
         productRequest.setDescription(Config.getProductDescription());
         productRequest.setPrice(parseDouble(Config.getProductPrice()));
         productRequest.setComparePrice(parseDouble(Config.getProductComparePrice()));
         productRequest.setCategoryId(Config.getProductCategoryId());
-
 
         List<String> tags = new ArrayList<>();
         tags.add("tag1");
@@ -67,7 +95,7 @@ public class RequestPayloads {
         singleVariant.setSize(Config.getVariantSize());
         singleVariant.setColor(Config.getVariantColor());
         singleVariant.setColorHex(Config.getVariantColorHex());
-        singleVariant.setSku(sku);
+        singleVariant.setSku(getSku());
         singleVariant.setStock(Integer.parseInt(Config.getVariantStock()));
         singleVariant.setPrice(parseDouble(Config.getVariantPrice()));
 
@@ -75,6 +103,148 @@ public class RequestPayloads {
         variantList.add(singleVariant);
 
         productRequest.setVariants(variantList);
-     return productRequest;
+        return productRequest;
+    }
+
+    public Map<String, Object> createdProductParam(LoginAs loginAs){
+        Response response = new ProductService().createProduct(loginAs);
+        String productId = response.jsonPath().getString("data.id");
+        String variantId = response.jsonPath().getString("data.variants[0].id");
+        String slug = response.jsonPath().getString("data.slug");
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("productId", productId);
+        params.put("variantId", variantId);
+        params.put("slug", slug);
+
+        return params;
+    }
+
+    public ProductRequest addToCartPayload(String productId, String variantId) {
+        ProductRequest addToCartPayload = new ProductRequest();
+        addToCartPayload.setProductId(productId);
+        addToCartPayload.setVariantId(variantId);
+        addToCartPayload.setQuantity(3);
+        return addToCartPayload;
+    }
+
+    public  Map<String, Object> getAddressPayload(String firsName, String lastName) {
+        Map<String, Object> addressBody = new HashMap<>();
+        addressBody.put("label", Config.getLabel());
+        addressBody.put("firstName", firsName);
+        addressBody.put("lastName", lastName);
+        addressBody.put("phone", Faker.getPhone());
+        addressBody.put("street", Config.getStreet());
+        addressBody.put("city", Config.getCity());
+        addressBody.put("state", Config.getState());
+        addressBody.put("country", Config.getCountry());
+        addressBody.put("postalCode",Config.getPostalCode());
+        addressBody.put("isDefault", true);
+
+        return addressBody;
+    }
+
+    public Map<String, Object> createCouponPayload(String couponCode) {
+        Map<String, Object> payload = new HashMap<>();
+
+        payload.put("code", couponCode);
+        payload.put("description", "15% off on all items with minimum checkout order fulfillment.");
+        payload.put("discountType", "PERCENTAGE");
+        payload.put("discountValue", 15);
+        payload.put("minOrderAmount", 50);
+        payload.put("maxUses", 200);
+        payload.put("expiresAt", "2026-12-31T23:59:59.000Z");
+
+        return payload;
+    }
+
+    public Map<String, Object> orderPayload(String paymentMethod) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("addressId", "57c06e75-0b9d-4891-ad38-ad1d430bacb9");
+        body.put("paymentMethod", paymentMethod);
+        body.put("notes", "This is my first order");
+        body.put("shippingFee", 2);
+
+        return body;
+    }
+
+    public Object createCategoryPayload(String parentId) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("name", Faker.getFirstName());
+        body.put("description", Config.getProductDescription());
+        body.put("parentId", parentId);
+        return body;
+    }
+
+    public Map<String, Object> updateOrderStatusPayload(String status) {
+        Map<String, Object> body = new HashMap<>();
+        String trackingNumber = Faker.getTrackingNumber();
+        body.put("status", status);
+        body.put("message", Config.getMessage());
+        body.put("trackingNumber", trackingNumber);
+
+        return body;
+    }
+
+    public Map<String, Object> returnReason() {
+        Map<String, Object> reason = new HashMap<>();
+        reason.put("reason", Config.getReturnReason());
+        return reason;
+    }
+
+    public File createFile(String path) {
+        File file = new File(path);
+        return file;
+    }
+
+
+    public static LoginPOJO getCredentials(LoginAs context) {
+        return switch (context) {
+            case ADMIN -> new LoginPOJO(Config.getAdminLoginEmail(), Config.getAdminLoginPassword());
+            case CUSTOMER -> new LoginPOJO(Config.getCustomerLoginEmail(), Config.getCustomerLoginPassword());
+            case SELLER -> new LoginPOJO("seller@example.com", "Seller@123456");
+            case NONE -> throw new IllegalArgumentException("Cannot fetch credentials for LoginAs.NONE because no authentication is required!");
+
+            default -> throw new IllegalArgumentException("Unexpected login option value: " + context);
+        };
+    }
+
+    public List<Map<String, Object>> reviewParams(String productId, int page, String sort){
+        List<Map<String, Object>> params = new ArrayList<>();
+        Map<String, Object> path = new HashMap<>();
+        path.put("productId", productId);
+        Map<String, Object> query = new HashMap<>();
+        query.put("page", page);
+        query.put("sort", sort);
+        params.add(path);
+        params.add(query);
+
+        return params;
+    }
+
+    public Map<String, Object> submitREviewBody(int rating, String title, String body){
+        Map<String, Object> reviewBody = new HashMap<>();
+        reviewBody.put("rating", rating);
+        reviewBody.put("title", title);
+        reviewBody.put("body", body);
+        return reviewBody;
+    }
+
+    public Map<String, Object> searchParam(String q, Integer page, Integer limit, String category, Integer minPrice, Integer maxPrice, String sort){
+        Map<String, Object> searchParam = new HashMap<>();
+
+        if (q != null) searchParam.put("q", q);
+        if (page != null) searchParam.put("page", page);
+        if (limit != null) searchParam.put("limit", limit);
+        if (category != null) searchParam.put("category", category);
+        if (minPrice != null) searchParam.put("minPrice", minPrice);
+        if (maxPrice != null) searchParam.put("maxPrice", maxPrice);
+        if (sort != null) searchParam.put("sort", sort);
+
+        return searchParam;
     }
 }
+
+
+
+

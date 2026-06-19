@@ -1,0 +1,88 @@
+{
+    "checksum": "9015b8c4c0fd373b58b3a94ca78dd92a43a63ee729e11131d2d7aa0157c1a47d",
+    "data": {
+    "id": "1d6c6102-55bd-406c-9a46-b0e6b89cf0e8",
+    "createdAt": 1781285296836,
+    "updatedAt": 1781285304508,
+    "title": "Fix this: Map.of(\"id\", id) Cannot resolve metho...",
+    "messages": [
+        {
+            "id": "7840dbb4-f134-4533-9f41-7b1329c15767",
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Fix this:"
+                },
+                {
+                    "type": "codeSnippet",
+                    "text": "Map.of(\"id\", id)",
+                    "language": "java"
+                },
+                {
+                    "type": "text",
+                    "text": "Cannot resolve method 'of' in 'String'"
+                }
+            ],
+            "context": {
+                "currentFile": {
+                    "fsPath": "C:/DOM/api-ui-test/backend-restassured-java/src/main/java/api/services/OrderService.java"
+                }
+            },
+            "createdAt": 1781285297089,
+            "isInternal": false,
+            "rawContent": {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Fix this:"
+                            },
+                            {
+                                "type": "codeBlock",
+                                "attrs": {
+                                    "language": "java"
+                                },
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "Map.of(\"id\", id)"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "text",
+                                "text": "Cannot resolve method 'of' in 'String'"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "f24ee237-486f-4f4d-9182-2c9b7445bce6",
+            "role": "system",
+            "content": [
+                {
+                    "type": "errorText",
+                    "text": "No models available: offline mode without cached models, and settings.json contains no models. Either configure models in settings.json or ensure gateway is accessible with ZENCODER_ACCESS_TOKEN.",
+                    "actions": [
+                        {
+                            "type": "externalAction",
+                            "title": "Regenerate",
+                            "action": "regenerateLastAnswer"
+                        }
+                    ]
+                }
+            ],
+            "createdAt": 1781285304508,
+            "isInternal": false
+        }
+    ],
+    "model": "auto",
+    "lastUserMessageAt": 1781285297093
+}
+}

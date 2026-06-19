@@ -19,4 +19,7 @@ public class ProductRequest {
     private Boolean isFlashSale;
     private Double flashSalePrice;
     private List<Variant> variants;
+    private String productId;
+    private String variantId;
+    private int quantity;
 }

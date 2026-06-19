@@ -8,10 +8,8 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class LoginPOJO {
-
     @JsonProperty("email")
     private String email;
-
     @JsonProperty("password")
     private String password;
 

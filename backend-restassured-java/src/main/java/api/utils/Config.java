@@ -23,20 +23,21 @@ public class Config {private static Properties properties;
         return value.trim();
     }
 
+    public static String getRunTimeException(){ return getProperty("run_time_exception"); }
 
     public static String getBaseUri() {
         return getProperty("baseUri");
     }
     public static String getTestEmail(){ return getProperty("email"); }
-    public static String getLoginEmail(){return getProperty("loginEmail");}
-    public static String getLoginpsswd(){ return getProperty("loginPssd");}
+    public static String getAdminLoginEmail(){return getProperty("loginEmail");}
+    public static String getAdminLoginPassword(){ return getProperty("loginPssd");}
     public static String getFilePath(){ return getProperty("filePath"); }
     public static String getTempFilePath(){ return getProperty("tempFilePath"); }
     public static String getTempFileName(){ return getProperty("tempFileName"); }
     public static String getFormat(){ return getProperty("format"); }
     public static String getTokenPath(){ return getProperty("tokenPath"); }
-    public static String getLoginEmail2(){ return getProperty("loginEmail2"); }
-    public static String getLoginPassd2(){ return getProperty("loginPassd2"); }
+    public static String getCustomerLoginEmail(){ return getProperty("loginEmail2"); }
+    public static String getCustomerLoginPassword(){ return getProperty("loginPassd2"); }
     public static String getLabel(){ return getProperty("label"); }
     public static String getStreet(){ return getProperty("street"); }
     public static String getCity(){ return getProperty("city"); }
@@ -59,13 +60,13 @@ public class Config {private static Properties properties;
 //    public static String getProductIsFlashSale() { return getProperty("product.create.isFlashSale"); }
     public static String getProductFlashSalePrice() { return getProperty("product.create.flashSalePrice"); }
 
-    // --- Variant Nested Array Getters ---
     public static String getVariantSize() { return getProperty("product.variant.size"); }
     public static String getVariantColor() { return getProperty("product.variant.color"); }
     public static String getVariantColorHex() { return getProperty("product.variant.colorHex"); }
-    public static String getVariantSku() { return getProperty("product.variant.sku"); }
     public static String getVariantStock() { return getProperty("product.variant.stock"); }
     public static String getVariantPrice() { return getProperty("product.variant.price"); }
+    public static String getMessage(){ return  getProperty("updateStatusMessage"); }
+    public static String getReturnReason(){ return  getProperty("returnReason"); }
 
 
 
