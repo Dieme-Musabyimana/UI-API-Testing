@@ -67,7 +67,7 @@ public class Config {private static Properties properties;
     public static String getVariantPrice() { return getProperty("product.variant.price"); }
     public static String getMessage(){ return  getProperty("updateStatusMessage"); }
     public static String getReturnReason(){ return  getProperty("returnReason"); }
-    public static String getErrorSchema(){ return getProperty("errorSchema"); }
+    public static String getSchemaPath(){ return getProperty("schemaPath"); }
 
 
 

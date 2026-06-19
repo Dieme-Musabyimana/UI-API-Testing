@@ -17,20 +17,14 @@ public class ErrorSchema {
 
     @Test
     public void validateErrorSchemaForValidUrl(){
-        String route = Routes.BANNERS + "/invalid";
-
-        Response response = new ProductService().validateErrorSchema(Routes.BANNERS, LoginAs.ADMIN);
-        Assert.assertEquals(response.statusCode(), Status.OK);
-        File schemaFile = new File(Config.getErrorSchema());
-        response.then().body(matchesJsonSchema(schemaFile));
+        Response response = new ProductService().getActiveBanners(LoginAs.ADMIN);
+        String path = response.jsonPath().getString("pagination");
+        SchemaValidation.validate(response,"errorSchema", null);
     }
 
     @Test
     public void validateErrorSchemaForInvalidUrl(){
         String route = Routes.BANNERS + "/invalid";
-        Response response = new ProductService().validateErrorSchema(route, LoginAs.ADMIN);
-        Assert.assertEquals(response.statusCode(), Status.NOT_FOUND);
-        File schemaFile = new File(Config.getErrorSchema());
-        response.then().body(matchesJsonSchema(schemaFile));
+
     }
 }

@@ -151,7 +151,4 @@ public class ProductService extends BaseService {
         return sendGet(Routes.BANNERS, null, null, loginAs);
     }
 
-    public Response validateErrorSchema(String path, LoginAs loginAs){
-        return sendGet(path, null, null, loginAs);
-    }
 }
