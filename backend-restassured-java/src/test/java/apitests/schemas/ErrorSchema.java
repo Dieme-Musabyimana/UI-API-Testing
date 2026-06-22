@@ -1,30 +1,28 @@
 package apitests.schemas;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-import api.constants.Status;
-import api.routes.Routes;
-import api.services.ProductService;
-import api.utils.Config;
+import api.services.OrderService;
 import api.utils.LoginAs;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.File;
-
 public class ErrorSchema {
 
     @Test
-    public void validateErrorSchemaForValidUrl(){
-        Response response = new ProductService().getActiveBanners(LoginAs.ADMIN);
-        String path = response.jsonPath().getString("pagination");
-        SchemaValidation.validate(response,"errorSchema", null);
-    }
+    public void validateActiveOrdersErrorSchemaForCustomer() {
 
-    @Test
-    public void validateErrorSchemaForInvalidUrl(){
-        String route = Routes.BANNERS + "/invalid";
+        Response response =
+                new OrderService().getAllOrders(LoginAs.CUSTOMER);
 
+        Assert.assertTrue(response.getStatusCode() == 401 ||
+                response.getStatusCode() == 403);
+
+        SchemaValidation.validate(
+                response,
+                "ErrorSchema",
+                null
+        );
+
+        Assert.assertFalse(response.jsonPath().getBoolean("success"));
     }
 }

@@ -1,14 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Error",
+  "title": "ErrorResponse",
   "type": "object",
+  "required": ["success", "message", "errors"],
   "properties": {
     "success": {
       "type": "boolean",
-      "example": false
+      "enum": [false]
     },
     "message": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "errors": {
       "type": "array",
@@ -16,6 +18,5 @@
         "type": "object"
       }
     }
-  },
-  "required": ["success", "message"]
+  }
 }
