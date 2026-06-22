@@ -24,6 +24,6 @@ public class PaginationSchema {
         SchemaValidation.validate(
                 response,
                 "paginationSchema",
-                "pagination");
+                "pagination", null);
     }
 }

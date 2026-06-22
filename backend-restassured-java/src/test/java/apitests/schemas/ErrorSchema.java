@@ -2,6 +2,7 @@ package apitests.schemas;
 
 import api.services.OrderService;
 import api.utils.LoginAs;
+import api.utils.Message;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -21,7 +22,8 @@ public class ErrorSchema {
         SchemaValidation.validate(
                 response,
                 "ErrorSchema",
-                null
+                null,
+                Message.MISSING_ERROR_FIELD
         );
     }
 }

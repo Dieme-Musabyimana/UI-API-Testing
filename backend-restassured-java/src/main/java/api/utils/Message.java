@@ -46,4 +46,7 @@ public class Message {
             "API should return a 400 Bad Request status code when all search queries are missing.";
     public static final String FAILED_TO_REJECT_WHEN_MANDATORY_QUERY_IS_MISSING =
             "API should reject the the request which is missing the mandatory query parameter";
+
+    public static final String MISSING_ERROR_FIELD =
+            "When sending the negative request, the API response is missing required errors field";
 }

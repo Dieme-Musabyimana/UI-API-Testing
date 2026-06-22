@@ -10,6 +10,6 @@ public class AuthResponseSchema {
     @Test
     public void authResSchemaValidation(){
         Response response = new AuthService().login(null, null, LoginAs.ADMIN);
-        SchemaValidation.validate(response, "authResSchema", "data");
+        SchemaValidation.validate(response, "authResSchema", "data", null);
     }
 }
