@@ -18,7 +18,7 @@ public class LoginAPITest extends BaseAPI {
    AuthService authService = new AuthService();
    String email = Config.getAdminLoginEmail();
    String password = Config.getAdminLoginPassword();
-   Response response = authService.login(email, password,LoginAs.ADMIN);
+   Response response = authService.login(email, password, LoginAs.NONE);
    LoginResPOJO loginResBody = response.getBody().as(LoginResPOJO.class);
 
         Assert.assertEquals(response.getStatusCode(), Status.OK);

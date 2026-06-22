@@ -16,13 +16,12 @@ public class ErrorSchema {
 
         Assert.assertTrue(response.getStatusCode() == 401 ||
                 response.getStatusCode() == 403);
+        Assert.assertFalse(response.jsonPath().getBoolean("success"));
 
         SchemaValidation.validate(
                 response,
                 "ErrorSchema",
                 null
         );
-
-        Assert.assertFalse(response.jsonPath().getBoolean("success"));
     }
 }
