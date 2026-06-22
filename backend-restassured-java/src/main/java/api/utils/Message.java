@@ -49,4 +49,12 @@ public class Message {
 
     public static final String MISSING_ERROR_FIELD =
             "When sending the negative request, the API response is missing required errors field";
+    public static final String FAILS_TO_REJECT_UNREGISTERED_EMAIL =
+            "API should reject forgot password request for unregistered emails";
+    public static final String FAILS_TO_REJECT_MALFORMED_EMAIL =
+            "APi should reject forgot password request for malformed emails";
+    public static final String FAILS_TO_REJECT_EMPTY_FIELD_EMAIL =
+            "API should reject forgot password request for empy email field";
+    public static final String FAILS_TO_REJECT_EXPIRED_REFRESH_TOKEN =
+            "API should reject the request with expired refresh token";
 }

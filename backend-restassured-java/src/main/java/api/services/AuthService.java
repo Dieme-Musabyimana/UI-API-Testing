@@ -10,6 +10,7 @@ import api.utils.LoginAs;
 import api.utils.TokenManager;
 import io.restassured.response.Response;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,18 +39,22 @@ public class AuthService extends BaseService {
 
     }
 
-    public Response requestForgotPasswordEmail(){
-        return sendPost(Routes.FORGOT_PASSWORD, Map.of("email", Config.getCustomerLoginEmail()), null,null);
+    public Response requestForgotPasswordEmail(String email){
+        Map<String, Object> query = new HashMap<>();
+        if(email != null)query.put("email", email);
+        return sendPost(Routes.FORGOT_PASSWORD, query, null,null);
     }
-public List<String> tokenList(){
-        return new TokenManager().getAllTokens();
-}
+//public List<String> tokenList(){
+//        return new TokenManager().getAllTokens();
+//}
     public Response getCurrentUser(LoginAs loginAs){
         return sendGet(Routes.GET_ME, null, null, loginAs);
     }
 
-    public Response getRefreshToken(){
-        return  sendPost(Routes.REFRESH_TOKEN, Map.of("refreshToken", tokenList().getLast()), null, ADMIN);
+    public Response getRefreshToken(String refreshToken){
+        Map<String, Object> body = new HashMap<>();
+        body.put("refreshToken",refreshToken);
+        return  sendPost(Routes.REFRESH_TOKEN, body, null, ADMIN);
     }
 
     public Response resetPassword(String token){

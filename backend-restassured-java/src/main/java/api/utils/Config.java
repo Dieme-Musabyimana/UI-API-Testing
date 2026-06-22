@@ -28,14 +28,12 @@ public class Config {private static Properties properties;
     public static String getBaseUri() {
         return getProperty("baseUri");
     }
-    public static String getTestEmail(){ return getProperty("email"); }
     public static String getAdminLoginEmail(){return getProperty("loginEmail");}
     public static String getAdminLoginPassword(){ return getProperty("loginPssd");}
     public static String getFilePath(){ return getProperty("filePath"); }
     public static String getTempFilePath(){ return getProperty("tempFilePath"); }
     public static String getTempFileName(){ return getProperty("tempFileName"); }
     public static String getFormat(){ return getProperty("format"); }
-    public static String getTokenPath(){ return getProperty("tokenPath"); }
     public static String getCustomerLoginEmail(){ return getProperty("loginEmail2"); }
     public static String getCustomerLoginPassword(){ return getProperty("loginPassd2"); }
     public static String getLabel(){ return getProperty("label"); }
@@ -44,20 +42,14 @@ public class Config {private static Properties properties;
     public static String getCountry(){ return getProperty("country"); }
     public static String getState(){ return getProperty("state"); }
     public static String getPostalCode(){ return getProperty("postalCode"); }
-    public static String getCategorySlug(){ return getProperty("category_slug"); }
-    public static String getProductSlug(){ return getProperty("product_slug"); }
     public static String getProductId(){ return getProperty("product_id"); }
     public static String getIdToDelete(){ return getProperty("product2Id"); }
     public static String getUnExistingId(){ return  getProperty("unExistingId"); }
 
-    public static String getProductName() { return getProperty("product.create.name"); }
     public static String getProductDescription() { return getProperty("product.create.description"); }
     public static String getProductPrice() { return getProperty("product.create.price"); }
     public static String getProductComparePrice() { return getProperty("product.create.comparePrice"); }
     public static String getProductCategoryId() { return getProperty("product.create.categoryId"); }
-//    public static String getProductTags() { return getProperty("product.create.tags"); }
-//    public static String getProductIsFeatured() { return getProperty("product.create.isFeatured"); }
-//    public static String getProductIsFlashSale() { return getProperty("product.create.isFlashSale"); }
     public static String getProductFlashSalePrice() { return getProperty("product.create.flashSalePrice"); }
 
     public static String getVariantSize() { return getProperty("product.variant.size"); }
@@ -68,6 +60,7 @@ public class Config {private static Properties properties;
     public static String getMessage(){ return  getProperty("updateStatusMessage"); }
     public static String getReturnReason(){ return  getProperty("returnReason"); }
     public static String getSchemaPath(){ return getProperty("schemaPath"); }
+    public static String getExpiredRefreshToken(){ return getProperty("expiredRefreshToken"); }
 
 
 
