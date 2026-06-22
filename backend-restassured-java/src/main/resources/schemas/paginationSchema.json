@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "page": {
-      "type": "string"
+      "type": "integer"
     },
     "limit": {
       "type": "integer"

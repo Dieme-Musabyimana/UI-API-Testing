@@ -27,7 +27,7 @@ public class AuthService extends BaseService {
         LoginPOJO loginData = RequestPayloads.getCredentials(loginAs);
         loginData.setEmail(email);
         loginData.setPassword(password);
-        return sendPost(Routes.LOGIN, loginData, null,null);
+        return sendPost(Routes.LOGIN, loginData, null,loginAs);
     }
 
 
