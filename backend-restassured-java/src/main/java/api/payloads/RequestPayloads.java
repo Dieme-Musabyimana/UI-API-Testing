@@ -34,12 +34,12 @@ public class RequestPayloads {
         return loginBody;
     }
 
-    public static RegisterReqPOJO createReqBody() {
+    public static RegisterReqPOJO createReqBody(String lastName, String email, String password) {
         RegisterReqPOJO registerData = new RegisterReqPOJO();
         registerData.setFirstName(Faker.getFirstName());
-        registerData.setLastName(Faker.getLastName());
-        registerData.setEmail(Faker.getEmail());
-        registerData.setPassword(Faker.getPassword());
+        if(lastName != null)registerData.setLastName(lastName);
+        if(email != null)registerData.setEmail(email);
+        if(password != null)registerData.setPassword(password);
         registerData.setPhone(Faker.getPhone());
         return registerData;
     }
@@ -58,8 +58,8 @@ public class RequestPayloads {
         return body;
     }
 
-    public RegisterReqPOJO updateProfilePayload(String firstName, String lastName){
-        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
+    public RegisterReqPOJO updateProfilePayload(String firstName, String lastName, String password){
+        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody(firstName, lastName, password);
         registerReqPOJO.setFirstName(firstName);
         registerReqPOJO.setLastName(lastName);
         registerReqPOJO.setPhone(Faker.getPhone());

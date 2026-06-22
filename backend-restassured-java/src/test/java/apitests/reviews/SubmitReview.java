@@ -65,7 +65,7 @@ public class SubmitReview {
 
     @Test(description = "Verify system handles review placement requests targeting non-existent products gracefully")
     public void submitReviewToNonExistentProduct() {
-        String fakeProductId = "00000000-0000-0000-0000-000000000000";
+        String fakeProductId = Faker.getRandomId();
         int rating = 4;
         String title = Faker.getFirstName();
         String description = Faker.getFirstName();

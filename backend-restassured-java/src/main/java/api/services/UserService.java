@@ -23,7 +23,7 @@ public class UserService extends BaseService {
     }
 
     public Response updateProfile(String firsName, String lastName, LoginAs loginAs){
-        RegisterReqPOJO body = new RequestPayloads().updateProfilePayload(firsName, lastName);
+        RegisterReqPOJO body = new RequestPayloads().updateProfilePayload(firsName, lastName, null);
         return sendPut(Routes.UPDATE_PROFILE, body, null, loginAs);
     }
 

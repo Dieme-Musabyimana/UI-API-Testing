@@ -6,22 +6,22 @@ import api.base.BaseService;
 import api.payloads.RequestPayloads;
 import api.routes.Routes;
 import api.utils.Config;
+import api.utils.Faker;
 import api.utils.LoginAs;
-import api.utils.TokenManager;
 import io.restassured.response.Response;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static api.utils.LoginAs.ADMIN;
+import static api.utils.LoginAs.NONE;
 
 public class AuthService extends BaseService {
 
 
-    public Response registerUser() {
-        RegisterReqPOJO reqBody = RequestPayloads.createReqBody();
-        return sendPost(Routes.REGISTER, reqBody, null, null);
+    public Response registerUser(String lastName, String email, String password) {
+        RegisterReqPOJO reqBody = RequestPayloads.createReqBody(lastName, email, password);
+        return sendPost(Routes.REGISTER, reqBody, null, NONE);
     }
 
     public Response login(String email,String password, LoginAs loginAs){
@@ -33,7 +33,10 @@ public class AuthService extends BaseService {
 
 
     public Response registerAndVerifyEmail() {
-        String token = registerUser().jsonPath().getString("data.token");
+        String lastName = Faker.getLastName();
+        String email = Faker.getEmail();
+        String password = Faker.getPassword();
+        String token = registerUser(lastName, email, password).jsonPath().getString("data.token");
         Map<String, Object> param = Map.of("token", token);
         return sendGet(Routes.VERIFY_EMAIL, param, param, ADMIN);
 
@@ -44,9 +47,7 @@ public class AuthService extends BaseService {
         if(email != null)query.put("email", email);
         return sendPost(Routes.FORGOT_PASSWORD, query, null,null);
     }
-//public List<String> tokenList(){
-//        return new TokenManager().getAllTokens();
-//}
+
     public Response getCurrentUser(LoginAs loginAs){
         return sendGet(Routes.GET_ME, null, null, loginAs);
     }
@@ -59,6 +60,6 @@ public class AuthService extends BaseService {
 
     public Response resetPassword(String token){
         Map<String, Object> path = Map.of("token", token);
-        return sendPost(Routes.RESET_PASSWORD, Map.of("password", Config.getCustomerLoginPassword()), path, null);
+        return sendPost(Routes.RESET_PASSWORD, Map.of("password", Config.getCustomerLoginPassword()), path, NONE);
     }
 }

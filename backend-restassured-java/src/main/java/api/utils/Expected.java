@@ -31,6 +31,8 @@ public class Expected {
     public static final String PRODUCT_REMOVED = "Removed from wishlist";
     public static final String MOVED_TO_CART = "Moved to cart";
     public static final String SUBMITTED = "Review submitted";
+    public static final String REGISTRATION_SUCCESS = "Registration successful";
+    public static final String EMAIL_EXISTS = "Email already registered";
 
 
 }

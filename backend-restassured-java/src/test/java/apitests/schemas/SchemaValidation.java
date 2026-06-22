@@ -13,12 +13,6 @@ public class SchemaValidation {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    public static void validate(Response response,
-                                String schemaName,
-                                String jsonPath) {
-
-        validate(response, schemaName, jsonPath, null);
-    }
 
     public static void validate(Response response,
                                 String schemaName,

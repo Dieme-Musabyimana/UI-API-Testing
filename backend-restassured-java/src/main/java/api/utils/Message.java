@@ -9,7 +9,7 @@ public class Message {
             "The system must reject cart removal requests containing blank or white-space item IDs.";
 
     public static final String FAILED_TO_REJECT_COD_PROOF =
-            "Payment proof upload must be rejected for CASH_ON_DELIVERY orders, as payment is handled in cash upon delivery.";
+            "Payment proof upload should be rejected for CASH_ON_DELIVERY orders, as payment is handled in cash upon delivery.";
 
     public static final String DATA_TYPE_MISMATCH =
             "Product image upload failed. The request body was passed as a binary file stream (List<File>), " +
@@ -57,4 +57,8 @@ public class Message {
             "API should reject forgot password request for empy email field";
     public static final String FAILS_TO_REJECT_EXPIRED_REFRESH_TOKEN =
             "API should reject the request with expired refresh token";
+    public static final String FAILS_TO_REJECT_MALFORMED_EMAIL_REGISTRATION=
+            "API should reject the registration with malformed email";
+    public static final String FAILS_TO_REJECT_REGISTRATION_WITH_EMPTY_FIELDS =
+            "Registration request with empty password fields should be rejected";
 }

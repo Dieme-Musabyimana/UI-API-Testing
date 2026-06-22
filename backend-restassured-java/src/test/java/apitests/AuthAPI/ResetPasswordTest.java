@@ -2,6 +2,7 @@ package apitests.AuthAPI;
 
 import api.base.BaseAPI;
 import api.services.AuthService;
+import api.utils.LoginAs;
 import api.utils.TokenManager;
 import org.testng.annotations.Test;
 
