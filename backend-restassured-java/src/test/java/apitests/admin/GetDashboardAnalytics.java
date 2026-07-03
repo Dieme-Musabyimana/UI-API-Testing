@@ -76,7 +76,7 @@ public class GetDashboardAnalytics {
     }
 
     @Test
-    public void getAnalyticsNotAsAdmin(){
+    public void getAnalyticsAsGuest(){
         Response response = new AdminService().getDashboardAnalytics(CUSTOMER);
         Assert.assertEquals(response.statusCode(), Status.FORBIDDEN);
         Assert.assertFalse(response.jsonPath().getBoolean("success"));

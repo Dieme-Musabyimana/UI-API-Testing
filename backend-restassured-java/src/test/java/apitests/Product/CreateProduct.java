@@ -1,11 +1,9 @@
 package apitests.Product;
 
 import api.constants.Status;
-import api.payloads.RequestPayloads;
 import api.services.ProductService;
 import api.utils.Expected;
 import api.utils.LoginAs;
-import api.utils.TokenManager;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;

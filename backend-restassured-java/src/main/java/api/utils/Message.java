@@ -61,4 +61,6 @@ public class Message {
             "API should reject the registration with malformed email";
     public static final String FAILS_TO_REJECT_REGISTRATION_WITH_EMPTY_FIELDS =
             "Registration request with empty password fields should be rejected";
+    public static final String FAILS_TO_VERIFY_EMAIL_WITH_VALID_TOKEN =
+            "Email should be verified for valid token";
 }

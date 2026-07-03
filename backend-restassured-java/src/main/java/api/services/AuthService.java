@@ -32,11 +32,8 @@ public class AuthService extends BaseService {
     }
 
 
-    public Response registerAndVerifyEmail() {
-        String lastName = Faker.getLastName();
-        String email = Faker.getEmail();
-        String password = Faker.getPassword();
-        String token = registerUser(lastName, email, password).jsonPath().getString("data.token");
+    public Response verifyEmail(String token) {
+
         Map<String, Object> param = Map.of("token", token);
         return sendGet(Routes.VERIFY_EMAIL, param, param, ADMIN);
 
