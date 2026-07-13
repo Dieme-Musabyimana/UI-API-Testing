@@ -9,7 +9,7 @@ public class Message {
             "The system must reject cart removal requests containing blank or white-space item IDs.";
 
     public static final String FAILED_TO_REJECT_COD_PROOF =
-            "Payment proof upload must be rejected for CASH_ON_DELIVERY orders, as payment is handled in cash upon delivery.";
+            "Payment proof upload should be rejected for CASH_ON_DELIVERY orders, as payment is handled in cash upon delivery.";
 
     public static final String DATA_TYPE_MISMATCH =
             "Product image upload failed. The request body was passed as a binary file stream (List<File>), " +
@@ -40,4 +40,27 @@ public class Message {
 
     public static final String FAILED_TO_REJECT_NON_EXISTENT_PRODUCT =
             "The system must return a 404 Not Found error when attempting to post a review for a non-existent product ID.";
+    public static final String PRICE_SORT_ASCENDING_MISMATCH =
+            "The product search list is not properly ordered in ascending sequence by price. Products with higher prices are appearing before lower-priced items.";
+    public static final String FAILED_TO_REJECT_ALL_MISSING_QUERIES =
+            "API should return a 400 Bad Request status code when all search queries are missing.";
+    public static final String FAILED_TO_REJECT_WHEN_MANDATORY_QUERY_IS_MISSING =
+            "API should reject the the request which is missing the mandatory query parameter";
+
+    public static final String MISSING_ERROR_FIELD =
+            "When sending the negative request, the API response is missing required errors field";
+    public static final String FAILS_TO_REJECT_UNREGISTERED_EMAIL =
+            "API should reject forgot password request for unregistered emails";
+    public static final String FAILS_TO_REJECT_MALFORMED_EMAIL =
+            "APi should reject forgot password request for malformed emails";
+    public static final String FAILS_TO_REJECT_EMPTY_FIELD_EMAIL =
+            "API should reject forgot password request for empy email field";
+    public static final String FAILS_TO_REJECT_EXPIRED_REFRESH_TOKEN =
+            "API should reject the request with expired refresh token";
+    public static final String FAILS_TO_REJECT_MALFORMED_EMAIL_REGISTRATION=
+            "API should reject the registration with malformed email";
+    public static final String FAILS_TO_REJECT_REGISTRATION_WITH_EMPTY_FIELDS =
+            "Registration request with empty password fields should be rejected";
+    public static final String FAILS_TO_VERIFY_EMAIL_WITH_VALID_TOKEN =
+            "Email should be verified for valid token";
 }

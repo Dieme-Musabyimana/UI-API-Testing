@@ -29,5 +29,16 @@ public class GetCurrentUser extends BaseAPI {
         Response response = authService.getCurrentUser(LoginAs.ADMIN);
         Assert.assertEquals(response.getStatusCode(), Status.OK);
         Assert.assertEquals(response.jsonPath().get("data.user.email"), Config.getAdminLoginEmail());
+        Assert.assertEquals(response.jsonPath().getString("data.user.role"), "ADMIN");
+
+    }
+    @Test(description = "Verify currently logged-in Customer can fetch their profile successfully")
+    public void getCurrentLoggedInCustomer_ReturnsCustomerProfile() {
+        Response response = authService.getCurrentUser(LoginAs.CUSTOMER);
+
+        Assert.assertEquals(response.getStatusCode(), Status.OK);
+        Assert.assertTrue(response.jsonPath().getBoolean("success"));
+        Assert.assertEquals(response.jsonPath().getString("data.user.email"), Config.getCustomerLoginEmail());
+        Assert.assertEquals(response.jsonPath().getString("data.user.role"), "CUSTOMER");
     }
 }

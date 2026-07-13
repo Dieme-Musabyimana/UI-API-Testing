@@ -4,9 +4,11 @@ import api.POJOs.requestPOJO.LoginPOJO;
 import api.POJOs.requestPOJO.ProductRequest;
 import api.POJOs.requestPOJO.RegisterReqPOJO;
 import api.POJOs.requestPOJO.Variant;
+import api.services.ProductService;
 import api.utils.Config;
 import api.utils.Faker;
 import api.utils.LoginAs;
+import io.restassured.response.Response;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,12 +34,12 @@ public class RequestPayloads {
         return loginBody;
     }
 
-    public static RegisterReqPOJO createReqBody() {
+    public static RegisterReqPOJO createReqBody(String lastName, String email, String password) {
         RegisterReqPOJO registerData = new RegisterReqPOJO();
         registerData.setFirstName(Faker.getFirstName());
-        registerData.setLastName(Faker.getLastName());
-        registerData.setEmail(Faker.getEmail());
-        registerData.setPassword(Faker.getPassword());
+        if(lastName != null)registerData.setLastName(lastName);
+        if(email != null)registerData.setEmail(email);
+        if(password != null)registerData.setPassword(password);
         registerData.setPhone(Faker.getPhone());
         return registerData;
     }
@@ -56,8 +58,8 @@ public class RequestPayloads {
         return body;
     }
 
-    public RegisterReqPOJO updateProfilePayload(String firstName, String lastName){
-        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody();
+    public RegisterReqPOJO updateProfilePayload(String firstName, String lastName, String password){
+        RegisterReqPOJO registerReqPOJO = RequestPayloads.createReqBody(firstName, lastName, password);
         registerReqPOJO.setFirstName(firstName);
         registerReqPOJO.setLastName(lastName);
         registerReqPOJO.setPhone(Faker.getPhone());
@@ -104,6 +106,20 @@ public class RequestPayloads {
         return productRequest;
     }
 
+    public Map<String, Object> createdProductParam(LoginAs loginAs){
+        Response response = new ProductService().createProduct(loginAs);
+        String productId = response.jsonPath().getString("data.id");
+        String variantId = response.jsonPath().getString("data.variants[0].id");
+        String slug = response.jsonPath().getString("data.slug");
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("productId", productId);
+        params.put("variantId", variantId);
+        params.put("slug", slug);
+
+        return params;
+    }
+
     public ProductRequest addToCartPayload(String productId, String variantId) {
         ProductRequest addToCartPayload = new ProductRequest();
         addToCartPayload.setProductId(productId);
@@ -141,8 +157,6 @@ public class RequestPayloads {
 
         return payload;
     }
-
-
 
     public Map<String, Object> orderPayload(String paymentMethod) {
         Map<String, Object> body = new HashMap<>();
@@ -207,17 +221,27 @@ public class RequestPayloads {
 
         return params;
     }
-    {
-//        "rating": 5,
-//            "title": "string",
-//            "body": "string"
-    }
+
     public Map<String, Object> submitREviewBody(int rating, String title, String body){
         Map<String, Object> reviewBody = new HashMap<>();
         reviewBody.put("rating", rating);
         reviewBody.put("title", title);
         reviewBody.put("body", body);
         return reviewBody;
+    }
+
+    public Map<String, Object> searchParam(String q, Integer page, Integer limit, String category, Integer minPrice, Integer maxPrice, String sort){
+        Map<String, Object> searchParam = new HashMap<>();
+
+        if (q != null) searchParam.put("q", q);
+        if (page != null) searchParam.put("page", page);
+        if (limit != null) searchParam.put("limit", limit);
+        if (category != null) searchParam.put("category", category);
+        if (minPrice != null) searchParam.put("minPrice", minPrice);
+        if (maxPrice != null) searchParam.put("maxPrice", maxPrice);
+        if (sort != null) searchParam.put("sort", sort);
+
+        return searchParam;
     }
 }
 

@@ -13,7 +13,7 @@ public class Expected {
     public static final String PRODUCT_UPDATED = "Product updated";
     public static final String DELETED = "Product deleted";
     public static final String DEACTIVATED = "Product deactivated";
-    public static final String CREATED  = "Product deleted";
+    public static final String CREATED  = "Product created";
     public static final String CART_CLEARED = "Cart cleared";
     public static final String ADDED = "Item added to cart";
     public static final String REMOVED = "Item removed";
@@ -31,6 +31,8 @@ public class Expected {
     public static final String PRODUCT_REMOVED = "Removed from wishlist";
     public static final String MOVED_TO_CART = "Moved to cart";
     public static final String SUBMITTED = "Review submitted";
+    public static final String REGISTRATION_SUCCESS = "Registration successful";
+    public static final String EMAIL_EXISTS = "Email already registered";
 
 
 }

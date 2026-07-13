@@ -47,10 +47,6 @@ public class TokenManager {
         return tokenCache.get(context);
     }
 
-    public static synchronized String getRefreshToken() {
-        return getRefreshToken(ADMIN);
-    }
-
     public static synchronized String getRefreshToken(LoginAs context) {
         if (!refreshTokenCache.containsKey(context)) {
             getToken(context);

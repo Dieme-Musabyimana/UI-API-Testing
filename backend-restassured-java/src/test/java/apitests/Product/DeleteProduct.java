@@ -28,12 +28,19 @@ public class DeleteProduct {
     public void loginAndDeleteProduct(){
         Response res = productService.createProduct(LoginAs.ADMIN);
         String id = res.jsonPath().getString("data.id");
+        String slug = res.jsonPath().getString("data.slug");
         Response response = productService.deleteProduct(id, LoginAs.ADMIN);
         String actualMessage = response.jsonPath().getString("message");
 
+
         Assert.assertEquals(response.statusCode(), Status.OK);
         Assert.assertTrue(response.jsonPath().getBoolean("success"));
-        assertThat(actualMessage, either(is(Expected.DELETED)).or(is(Expected.DEACTIVATED)));    }
+        assertThat(actualMessage, either(is(Expected.DELETED)).or(is(Expected.DEACTIVATED)));
+        Response res2= productService.getSingleProduct(slug, LoginAs.ADMIN);
+        Assert.assertTrue(res2.jsonPath().getString("message").contains(Expected.NOT_FOUND));
+
+
+    }
 
     @Test
     public void deleteUnExistingId(){

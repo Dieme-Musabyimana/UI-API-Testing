@@ -20,10 +20,10 @@ public class MoveWishlistToCart {
 
     @Test(description = "BUG-1042: Move to cart throws 500 error on variantId")
        public void moveToCartAsCustomer(){
-        String productId = productService.getProductParams(LoginAs.CUSTOMER).get("productId").toString();
-        productService.addProductToWishlist(productId, LoginAs.CUSTOMER);
+        String productId = productService.getProductParams(LoginAs.ADMIN).get("productId").toString();
+        productService.addProductToWishlist(productId, LoginAs.ADMIN);
 
-        Response response = productService.moveWishlistToCart(productId, LoginAs.CUSTOMER);
+        Response response = productService.moveWishlistToCart(productId, LoginAs.ADMIN);
         Assert.assertEquals(response.jsonPath().getString("message"), Expected.MOVED_TO_CART, Message.WISHLIST_MOVE_TO_CART_FAILED);
         Assert.assertEquals(response.statusCode(), Status.OK, Message.WISHLIST_MOVE_TO_CART_FAILED);
     }

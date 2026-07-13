@@ -16,9 +16,7 @@ public class LoginAPITest extends BaseAPI {
     @Test
     public void loginTestAsAdmin (){
    AuthService authService = new AuthService();
-   String email = Config.getAdminLoginEmail();
-   String password = Config.getAdminLoginPassword();
-   Response response = authService.login(email, password,LoginAs.ADMIN);
+   Response response = authService.login(null, null, LoginAs.ADMIN);
    LoginResPOJO loginResBody = response.getBody().as(LoginResPOJO.class);
 
         Assert.assertEquals(response.getStatusCode(), Status.OK);
@@ -38,10 +36,8 @@ public class LoginAPITest extends BaseAPI {
 
     @Test
     public void loginTestAsCustomer (){
-        String email = Config.getCustomerLoginEmail();
-        String password = Config.getCustomerLoginPassword();
         AuthService authService = new AuthService();
-        Response response = authService.login(email, password, LoginAs.CUSTOMER);
+        Response response = authService.login(null, null, LoginAs.CUSTOMER);
         LoginResPOJO loginResBody = response.getBody().as(LoginResPOJO.class);
 
         Assert.assertEquals(response.getStatusCode(), Status.OK);
